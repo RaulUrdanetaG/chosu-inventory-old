@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class LoginComponent {
   form: FormGroup;
   isValid: boolean = true;
 
-  constructor(private usersService: UsersService) {
+  constructor(private usersService: UsersService, private router: Router) {
     this.form = new FormGroup({
       username: new FormControl(),
       password: new FormControl(),
@@ -28,6 +29,8 @@ export class LoginComponent {
 
     if (res.succes) {
       this.isValid = true;
+      localStorage.setItem('token', res.token);
+      this.router.navigate(['/home']);
     }
   }
 }
