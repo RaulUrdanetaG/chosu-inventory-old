@@ -4,6 +4,11 @@ import { loginGuard } from 'src/guards/login.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: '/items/all',
+    pathMatch: 'full',
+  },
+  {
     path: 'users/login',
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginModule),
@@ -23,6 +28,20 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/new-item/new-item.module').then((m) => m.NewItemModule),
     canActivate: [loginGuard],
+  },
+  {
+    path: 'items/all',
+    loadChildren: () =>
+      import('./pages/all-items/all-items.module').then(
+        (m) => m.AllItemsModule
+      ),
+  },
+  {
+    path: '**',
+    loadChildren: () =>
+      import('./pages/not-found/not-found.module').then(
+        (m) => m.NotFoundModule
+      ),
   },
 ];
 
