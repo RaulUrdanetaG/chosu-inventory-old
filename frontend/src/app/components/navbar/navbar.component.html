@@ -1,0 +1,28 @@
+<nav class="flex justify-between items-center m-2 mx-4">
+  <img src="" alt="gameon Logo" />
+
+  <h1
+    class="flex items-center gap-3 text-3xl hover:cursor-pointer"
+    routerLink="/home"
+  >
+    Game on
+  </h1>
+  <div class="nav-list right-8 nav-list flex gap-6">
+    <ul class="flex items-center text-xl gap-4 text-center">
+      <li class="text-center">
+        <a routerLink="/items/newItem" class="flex items-center"
+          ><i class="fa-regular fa-square-plus text-2xl"></i
+        ></a>
+      </li>
+      <li>|</li>
+      <li *ngIf="usersService.isLogged()">
+        <button class="px-2 rounded-lg bg-blue-300" (click)="onClickLogOut()">
+          Salir
+        </button>
+      </li>
+      <li *ngIf="!usersService.isLogged()" routerLink="/users/login">
+        <button class="px-2 rounded-lg bg-blue-300">Ingresar</button>
+      </li>
+    </ul>
+  </div>
+</nav>

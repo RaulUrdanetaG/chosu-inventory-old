@@ -14,4 +14,8 @@ export class UsersService {
       this.http.post<any>(this.base_URL + '/login', formValue)
     );
   }
+
+  isLogged(): boolean {
+    return localStorage.getItem('token') ? true : false;
+  }
 }
