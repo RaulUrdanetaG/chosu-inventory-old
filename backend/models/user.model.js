@@ -3,7 +3,7 @@ const { model, Schema } = require("mongoose");
 const userSchema = new Schema({
   username: String,
   password: String,
-  rile: {
+  role: {
     type: String,
     default: "regular",
   },

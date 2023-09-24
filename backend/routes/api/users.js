@@ -32,7 +32,10 @@ router.post("/login", async (req, res) => {
     return res.json({ error: "Wrong username/password" });
   }
 
-  res.json({ succes: "Succesfull Login", token: createToken(user) });
+  res.json({
+    succes: "Succesfull Login",
+    token: createToken(user),
+  });
 });
 
 function createToken(user) {

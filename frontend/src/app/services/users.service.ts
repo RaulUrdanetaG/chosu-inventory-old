@@ -6,7 +6,7 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class UsersService {
-  base_URL = 'http://localhost:8080/users';
+  base_URL = 'http://localhost:8080/api/users';
   constructor(private http: HttpClient) {}
 
   login(formValue: any) {

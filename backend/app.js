@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // GETs and POSTs
-app.use("/", require("./routes/api"));
+app.use("/api", require("./routes/api"));
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
