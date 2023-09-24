@@ -5,7 +5,7 @@ const Item = require("../../models/item.model");
 const { checkToken } = require("../../middlewares/middleware");
 require("dotenv").config();
 
-router.get("/", async (req, res) => {
+router.get("/", checkToken, async (req, res) => {
   try {
     const tags = await Tag.find();
     const items = await Item.find();
@@ -29,5 +29,7 @@ router.get("/:itemId", async (req, res) => {
 });
 
 // router.get('/tags')
+
+router.post("/addItem", checkToken, (req, res) => {});
 
 module.exports = router;
