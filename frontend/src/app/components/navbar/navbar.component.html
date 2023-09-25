@@ -1,4 +1,4 @@
-<nav class="flex justify-between items-center m-2 mx-4">
+<nav class="bg-slate-100 flex justify-between items-center p-2 px-4">
   <img src="" alt="gameon Logo" />
 
   <h1
@@ -16,12 +16,15 @@
       </li>
       <li>|</li>
       <li *ngIf="usersService.isLogged()">
-        <button class="px-2 rounded-lg bg-blue-300" (click)="onClickLogOut()">
+        <button
+          class="px-2 rounded-lg bg-blue-300 text-white"
+          (click)="onClickLogOut()"
+        >
           Salir
         </button>
       </li>
       <li *ngIf="!usersService.isLogged()" routerLink="/users/login">
-        <button class="px-2 rounded-lg bg-blue-300">Ingresar</button>
+        <button class="px-2 rounded-lg bg-blue-300 text-white">Ingresar</button>
       </li>
     </ul>
   </div>
