@@ -18,16 +18,23 @@
         required
       />
     </div>
-    <div>
+    <div class="flex gap-2 items-center">
       <label for="tags">Etiquetas</label>
-      <div *ngFor="let tag of currentTags">{{ tag }}</div>
+      <div *ngFor="let tag of currentTags">
+        <div class="flex gap-1 items-center p-1 rounded-lg bg-slate-200 hover:cursor-default">
+          {{ tag }}
+          <a (click)="onTagDelete(tag)"
+            ><i class="fa-solid fa-circle-xmark text-slate-400 hover:cursor-pointer"></i
+          ></a>
+        </div>
+      </div>
       <select
         (change)="onTagSelect($event.target)"
         id="tags"
         formControlName="tags"
       >
-        <option *ngFor="let tag of tags" value="{{ tag.tagname }}">
-          {{ tag.tagname }}
+        <option *ngFor="let tag of tags" value="{{ tag }}">
+          {{ tag }}
         </option>
       </select>
     </div>
@@ -45,6 +52,7 @@
         <option value="medio-izquierda-frente">medio-izquierda-frente</option>
       </select>
     </div>
+    <p *ngIf="!isValid">Por favor rellene todos los campos</p>
     <button (click)="onSubmit()">Añadir producto</button>
   </form>
 </section>

@@ -11,7 +11,8 @@ import { ItemsService } from 'src/app/services/items.service';
 export class NewItemComponent implements OnInit {
   itemForm: FormGroup;
   currentTags: string[] = [];
-  tags: Tag[] | undefined;
+  tags: String[] = [];
+  isValid: boolean = true;
 
   constructor(private itemsService: ItemsService) {
     this.itemForm = new FormGroup({
@@ -24,23 +25,33 @@ export class NewItemComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.tags = await this.itemsService.getTags();
+    const resTags = await this.itemsService.getTags();
+
+    resTags.forEach((tag: Tag) => {
+      this.tags.push(tag.tagname);
+    });
     console.log(this.tags);
   }
 
   onSubmit() {
     if (this.itemForm.valid) {
+      this.isValid = true;
       this.itemForm.get('tags')?.setValue(this.currentTags);
       this.itemForm.get('imagelink')?.setValue('');
 
       this.itemsService.addItem(this.itemForm.value);
     } else {
+      this.isValid = false;
     }
   }
 
   onTagSelect(tagname: any) {
     this.currentTags.push(tagname.value);
-    this.tags = this.tags?.filter((tag) => tag.tagname !== tagname.value);
-    console.log(this.currentTags);
+    this.tags = this.tags?.filter((tag) => tag !== tagname.value);
+  }
+
+  onTagDelete(tagname: string) {
+    this.currentTags = this.currentTags.filter((tag) => tag !== tagname);
+    this.tags.push(tagname);
   }
 }
