@@ -17,6 +17,16 @@ router.get("/", checkToken, async (req, res) => {
   }
 });
 
+router.get("/tags", checkToken, async (req, res) => {
+  try {
+    const tags = await Tag.find();
+
+    res.json(tags);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
+
 router.get("/:itemId", async (req, res) => {
   const { itemId } = req.params;
   try {
@@ -30,6 +40,13 @@ router.get("/:itemId", async (req, res) => {
 
 // router.get('/tags')
 
-router.post("/addItem", checkToken, (req, res) => {});
+router.post("/addItem", checkToken, async (req, res) => {
+  try {
+    const newItem = await Item.create(req.body);
+    res.json(newItem);
+  } catch (error) {
+    res.json({ error: error });
+  }
+});
 
 module.exports = router;

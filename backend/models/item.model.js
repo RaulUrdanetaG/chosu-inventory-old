@@ -1,10 +1,11 @@
 const { model, Schema } = require("mongoose");
 
 const userSchema = new Schema({
-  itemname: String,
+  name: String,
   imagelink: String,
   tags: [String],
   location: String,
+  price: Number,
 });
 
 module.exports = model("item", userSchema);

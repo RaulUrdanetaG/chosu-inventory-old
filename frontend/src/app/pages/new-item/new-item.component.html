@@ -1,1 +1,50 @@
-<p>new-item works!</p>
+<section>
+  <form action="">
+    <input type="file" accept="image/*" />
+  </form>
+  <form [formGroup]="itemForm">
+    <input type="hidden" formControlName="imagelink" />
+    <div>
+      <label for="name">Nombre</label>
+      <input type="text" formControlName="name" id="name" required />
+    </div>
+    <div>
+      <label for="price">Precio</label>
+      <input
+        type="number"
+        formControlName="price"
+        id="price"
+        min="0"
+        required
+      />
+    </div>
+    <div>
+      <label for="tags">Etiquetas</label>
+      <div *ngFor="let tag of currentTags">{{ tag }}</div>
+      <select
+        (change)="onTagSelect($event.target)"
+        id="tags"
+        formControlName="tags"
+      >
+        <option *ngFor="let tag of tags" value="{{ tag.tagname }}">
+          {{ tag.tagname }}
+        </option>
+      </select>
+    </div>
+    <div>
+      <label for="location">Ubicación del articulo</label>
+      <select id="location" formControlName="location" required>
+        <option value="chosu">Chosu</option>
+        <option value="derecha-atras">Derecha-atras</option>
+        <option value="derecha-frente">Derecha-frente</option>
+        <option value="medio-derecha-atras">Medio-derecha-atras</option>
+        <option value="medio-derecha-frente">Medio-derecha-frente</option>
+        <option value="izquierda-atras">Izquierda-superior</option>
+        <option value="izquierda-frente">Izquierda-frente</option>
+        <option value="medio-izquierda-atras">medio-izquierda-atras</option>
+        <option value="medio-izquierda-frente">medio-izquierda-frente</option>
+      </select>
+    </div>
+    <button (click)="onSubmit()">Añadir producto</button>
+  </form>
+</section>
