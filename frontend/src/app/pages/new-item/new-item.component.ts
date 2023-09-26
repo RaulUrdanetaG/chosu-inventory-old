@@ -48,6 +48,7 @@ export class NewItemComponent implements OnInit {
 
       this.itemsService.addItem(this.itemForm.value);
       this.itemForm.reset();
+      this.currentTags = [];
     } else {
       this.isValid = false;
     }

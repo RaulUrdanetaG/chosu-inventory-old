@@ -65,7 +65,7 @@
         </button>
       </div>
 
-      <div class="flex gap-1 mb-3">
+      <div *ngIf="currentTags.length > 0" class="flex gap-1 mb-3">
         <div *ngFor="let tag of currentTags">
           <div
             class="flex gap-1 items-center p-1 rounded-lg bg-slate-200 hover:cursor-default"
@@ -80,7 +80,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="flex justify-between">
         <label for="location">Ubicación del articulo: </label>
         <select
           id="location"
