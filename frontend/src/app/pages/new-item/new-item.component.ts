@@ -23,6 +23,7 @@ export class NewItemComponent implements OnInit {
       name: new FormControl(),
       imagelink: new FormControl(),
       price: new FormControl(),
+      boughtAt: new FormControl(),
       location: new FormControl(),
       tags: new FormControl(),
     });

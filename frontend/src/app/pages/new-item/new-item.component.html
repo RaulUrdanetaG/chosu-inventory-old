@@ -7,24 +7,49 @@
     </form>
     <form [formGroup]="itemForm" class="flex flex-col gap-2">
       <input type="hidden" formControlName="imagelink" />
-      <div>
+      <div class="flex justify-between">
         <label for="name">Nombre: </label>
-        <input type="text" formControlName="name" id="name" required />
-      </div>
-      <div>
-        <label for="price">Precio: </label>
         <input
-          type="number"
-          formControlName="price"
-          id="price"
-          min="0"
+          type="text"
+          class="bg-gray-100 rounded-md px-2"
+          formControlName="name"
+          id="name"
           required
         />
+      </div>
+      <div class="flex justify-between">
+        <label for="price">Precio: </label>
+        <div class="flex">
+          <p>$</p>
+          <input
+            type="number"
+            class="bg-gray-100 rounded-md px-2"
+            formControlName="price"
+            id="price"
+            min="0"
+            required
+          />
+        </div>
+      </div>
+      <div class="flex justify-between gap-1">
+        <label for="boughtAt">Comprado en: </label>
+        <div class="flex">
+          <p>$</p>
+          <input
+            type="number"
+            class="bg-gray-100 rounded-md px-2"
+            formControlName="boughtAt"
+            id="boughtAt"
+            min="0"
+            required
+          />
+        </div>
       </div>
       <div class="flex gap-2 items-center justify-between">
         <label for="tags">Etiquetas: </label>
         <select
           (change)="onTagSelect($event.target)"
+          class="bg-gray-100 rounded-md"
           id="tags"
           formControlName="tags"
         >
@@ -57,7 +82,12 @@
 
       <div>
         <label for="location">Ubicación del articulo: </label>
-        <select id="location" formControlName="location" required>
+        <select
+          id="location"
+          class="bg-gray-100 rounded-md"
+          formControlName="location"
+          required
+        >
           <option value="chosu">Chosu</option>
           <option value="derecha-atras">Derecha-atras</option>
           <option value="derecha-frente">Derecha-frente</option>

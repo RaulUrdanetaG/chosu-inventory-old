@@ -6,6 +6,7 @@ const userSchema = new Schema({
   tags: [String],
   location: String,
   price: Number,
+  boughtAt: Number,
 });
 
 module.exports = model("item", userSchema);

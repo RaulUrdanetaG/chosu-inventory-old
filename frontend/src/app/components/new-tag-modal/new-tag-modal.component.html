@@ -2,21 +2,22 @@
   <form class="flex flex-col gap-4" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="flex justify-end">
       <i
-        class="fa-solid fa-circle-xmark text-slate-400 hover:cursor-pointer"
+        class="fa-solid fa-circle-xmark text-slate-200 hover:cursor-pointer"
         (click)="tagsService.isNewTagModal = false"
       ></i>
     </div>
 
     <div class="flex flex-col">
-      <label for="newTag">Agregar nueva tiqueta:</label>
+      <label for="newTag">Agregar nueva etiqueta:</label>
       <input
         type="text"
+        class="p-2 bg-slate-100 rounded-md mt-1"
         formControlName="tagname"
         placeholder="Nueva etiqueta"
         required
       />
       <div *ngIf="!isValid" class="text-red-600">
-        Por favor ingrese un nombre valido
+        Por favor ingrese una etiqueta valida
       </div>
     </div>
     <button
