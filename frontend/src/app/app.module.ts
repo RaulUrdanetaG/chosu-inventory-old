@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { NewTagModalComponent } from './components/new-tag-modal/new-tag-modal.component';
 
 @NgModule({
   declarations: [AppComponent, FooterComponent, NavbarComponent],
@@ -16,6 +17,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NewTagModalComponent,
   ],
   providers: [
     {

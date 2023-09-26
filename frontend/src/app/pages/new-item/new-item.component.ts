@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Tag } from 'src/app/interfaces/items';
 import { ItemsService } from 'src/app/services/items.service';
+import { TagsService } from 'src/app/services/tags.service';
 
 @Component({
   selector: 'app-new-item',
@@ -14,7 +15,10 @@ export class NewItemComponent implements OnInit {
   tags: String[] = [];
   isValid: boolean = true;
 
-  constructor(private itemsService: ItemsService) {
+  constructor(
+    private itemsService: ItemsService,
+    private tagsService: TagsService
+  ) {
     this.itemForm = new FormGroup({
       name: new FormControl(),
       imagelink: new FormControl(),
@@ -25,7 +29,7 @@ export class NewItemComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const resTags = await this.itemsService.getTags();
+    const resTags = await this.tagsService.getTags();
 
     resTags.forEach((tag: Tag) => {
       this.tags.push(tag.tagname);

@@ -10,12 +10,8 @@ import { Item } from '../interfaces/items';
 export class ItemsService {
   constructor(private http: HttpClient) {}
 
-  getAll() {
-    return firstValueFrom(this.http.get<any>(AppConfig.baseUrl));
-  }
-
-  getTags() {
-    return firstValueFrom(this.http.get<any>(AppConfig.baseUrl + '/tags'));
+  getItems() {
+    return firstValueFrom(this.http.get<any>(AppConfig.baseUrl + '/items'));
   }
 
   addItem(item: Item) {

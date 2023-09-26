@@ -17,14 +17,16 @@
       <li>|</li>
       <li *ngIf="usersService.isLogged()">
         <button
-          class="px-2 rounded-lg bg-blue-300 text-white"
+          class="px-2 rounded-lg bg-blue-300 hover:bg-opacity-80"
           (click)="onClickLogOut()"
         >
           Salir
         </button>
       </li>
       <li *ngIf="!usersService.isLogged()" routerLink="/users/login">
-        <button class="px-2 rounded-lg bg-blue-300 text-white">Ingresar</button>
+        <button class="px-2 rounded-lg bg-blue-300 hover:bg-opacity-80">
+          Ingresar
+        </button>
       </li>
     </ul>
   </div>

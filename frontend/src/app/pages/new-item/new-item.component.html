@@ -1,58 +1,83 @@
-<section>
-  <form action="">
-    <input type="file" accept="image/*" />
-  </form>
-  <form [formGroup]="itemForm">
-    <input type="hidden" formControlName="imagelink" />
-    <div>
-      <label for="name">Nombre</label>
-      <input type="text" formControlName="name" id="name" required />
-    </div>
-    <div>
-      <label for="price">Precio</label>
-      <input
-        type="number"
-        formControlName="price"
-        id="price"
-        min="0"
-        required
-      />
-    </div>
-    <div class="flex gap-2 items-center">
-      <label for="tags">Etiquetas</label>
-      <div *ngFor="let tag of currentTags">
-        <div class="flex gap-1 items-center p-1 rounded-lg bg-slate-200 hover:cursor-default">
-          {{ tag }}
-          <a (click)="onTagDelete(tag)"
-            ><i class="fa-solid fa-circle-xmark text-slate-400 hover:cursor-pointer"></i
-          ></a>
+<section
+  class="flex flex-col items-center justify-center min-h-full bg-slate-50"
+>
+  <app-new-tag-modal></app-new-tag-modal>
+  <div class="p-3 bg-white rounded-lg shadow-2xl flex flex-col gap-2">
+    <form>
+      <input type="file" accept="image/*" />
+    </form>
+    <form [formGroup]="itemForm" class="flex flex-col gap-2">
+      <input type="hidden" formControlName="imagelink" />
+      <div>
+        <label for="name">Nombre: </label>
+        <input type="text" formControlName="name" id="name" required />
+      </div>
+      <div>
+        <label for="price">Precio: </label>
+        <input
+          type="number"
+          formControlName="price"
+          id="price"
+          min="0"
+          required
+        />
+      </div>
+      <div class="flex gap-2 items-center justify-between">
+        <label for="tags">Etiquetas: </label>
+        <select
+          (change)="onTagSelect($event.target)"
+          id="tags"
+          formControlName="tags"
+        >
+          <option *ngFor="let tag of tags" value="{{ tag }}">
+            {{ tag }}
+          </option>
+        </select>
+        <button
+          class="flex px-2 bg-green-300 rounded-lg items-center justify-center hover:bg-opacity-80"
+        >
+          Nueva etiqueta
+        </button>
+      </div>
+
+      <div class="flex gap-1 mb-3">
+        <div *ngFor="let tag of currentTags">
+          <div
+            class="flex gap-1 items-center p-1 rounded-lg bg-slate-200 hover:cursor-default"
+          >
+            {{ tag }}
+            <a (click)="onTagDelete(tag)"
+              ><i
+                class="fa-solid fa-circle-xmark text-slate-400 hover:cursor-pointer"
+              ></i
+            ></a>
+          </div>
         </div>
       </div>
-      <select
-        (change)="onTagSelect($event.target)"
-        id="tags"
-        formControlName="tags"
+
+      <div>
+        <label for="location">Ubicación del articulo: </label>
+        <select id="location" formControlName="location" required>
+          <option value="chosu">Chosu</option>
+          <option value="derecha-atras">Derecha-atras</option>
+          <option value="derecha-frente">Derecha-frente</option>
+          <option value="medio-derecha-atras">Medio-derecha-atras</option>
+          <option value="medio-derecha-frente">Medio-derecha-frente</option>
+          <option value="izquierda-atras">Izquierda-superior</option>
+          <option value="izquierda-frente">Izquierda-frente</option>
+          <option value="medio-izquierda-atras">medio-izquierda-atras</option>
+          <option value="medio-izquierda-frente">medio-izquierda-frente</option>
+        </select>
+      </div>
+      <p *ngIf="!isValid" class="text-red-600">
+        Por favor rellene todos los campos
+      </p>
+      <button
+        (click)="onSubmit()"
+        class="flex px-2 bg-blue-300 rounded-lg items-center justify-center hover:bg-opacity-80"
       >
-        <option *ngFor="let tag of tags" value="{{ tag }}">
-          {{ tag }}
-        </option>
-      </select>
-    </div>
-    <div>
-      <label for="location">Ubicación del articulo</label>
-      <select id="location" formControlName="location" required>
-        <option value="chosu">Chosu</option>
-        <option value="derecha-atras">Derecha-atras</option>
-        <option value="derecha-frente">Derecha-frente</option>
-        <option value="medio-derecha-atras">Medio-derecha-atras</option>
-        <option value="medio-derecha-frente">Medio-derecha-frente</option>
-        <option value="izquierda-atras">Izquierda-superior</option>
-        <option value="izquierda-frente">Izquierda-frente</option>
-        <option value="medio-izquierda-atras">medio-izquierda-atras</option>
-        <option value="medio-izquierda-frente">medio-izquierda-frente</option>
-      </select>
-    </div>
-    <p *ngIf="!isValid">Por favor rellene todos los campos</p>
-    <button (click)="onSubmit()">Añadir producto</button>
-  </form>
+        Añadir producto
+      </button>
+    </form>
+  </div>
 </section>

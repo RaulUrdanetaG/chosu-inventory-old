@@ -5,13 +5,11 @@ const Item = require("../../models/item.model");
 const { checkToken } = require("../../middlewares/middleware");
 require("dotenv").config();
 
-router.get("/", checkToken, async (req, res) => {
+router.get("/items", checkToken, async (req, res) => {
   try {
-    const tags = await Tag.find();
     const items = await Item.find();
 
-    responses = { items: items, tags: tags };
-    res.json(responses);
+    res.json(items);
   } catch (error) {
     res.json({ error: error.message });
   }
