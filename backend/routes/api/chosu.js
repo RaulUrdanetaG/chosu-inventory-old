@@ -36,12 +36,19 @@ router.get("/:itemId", async (req, res) => {
   }
 });
 
-// router.get('/tags')
-
 router.post("/addItem", checkToken, async (req, res) => {
   try {
     const newItem = await Item.create(req.body);
     res.json(newItem);
+  } catch (error) {
+    res.json({ error: error });
+  }
+});
+
+router.post("/addTag", checkToken, async (req, res) => {
+  try {
+    const newTag = await Tag.create(req.body);
+    res.json(newTag);
   } catch (error) {
     res.json({ error: error });
   }

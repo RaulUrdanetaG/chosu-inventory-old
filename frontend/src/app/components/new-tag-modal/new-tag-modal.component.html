@@ -1,6 +1,29 @@
-<div>
-  <form>
-    <label for="newTag">Nombre de nueva etiqueta:</label>
-    <input type="text" placeholder="Nueva etiqueta" required>
+<div class="abs-center absolute top-1/2 left-1/2 p-4 rounded-lg bg-white z-50">
+  <form class="flex flex-col gap-4" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="flex justify-end">
+      <i
+        class="fa-solid fa-circle-xmark text-slate-400 hover:cursor-pointer"
+        (click)="tagsService.isNewTagModal = false"
+      ></i>
+    </div>
+
+    <div class="flex flex-col">
+      <label for="newTag">Agregar nueva tiqueta:</label>
+      <input
+        type="text"
+        formControlName="tagname"
+        placeholder="Nueva etiqueta"
+        required
+      />
+      <div *ngIf="!isValid" class="text-red-600">
+        Por favor ingrese un nombre valido
+      </div>
+    </div>
+    <button
+      type="submit"
+      class="flex px-2 bg-green-300 rounded-lg items-center justify-center hover:bg-opacity-80"
+    >
+      Crear etiqueta
+    </button>
   </form>
 </div>

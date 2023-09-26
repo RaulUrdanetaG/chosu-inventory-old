@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Tag } from 'src/app/interfaces/items';
 import { ItemsService } from 'src/app/services/items.service';
 import { TagsService } from 'src/app/services/tags.service';
 
@@ -12,12 +11,13 @@ import { TagsService } from 'src/app/services/tags.service';
 export class NewItemComponent implements OnInit {
   itemForm: FormGroup;
   currentTags: string[] = [];
-  tags: String[] = [];
+  tags: string[] = [];
+  provTags: string[] = [];
   isValid: boolean = true;
 
   constructor(
     private itemsService: ItemsService,
-    private tagsService: TagsService
+    public tagsService: TagsService
   ) {
     this.itemForm = new FormGroup({
       name: new FormControl(),
@@ -28,13 +28,15 @@ export class NewItemComponent implements OnInit {
     });
   }
 
-  async ngOnInit() {
-    const resTags = await this.tagsService.getTags();
-
-    resTags.forEach((tag: Tag) => {
-      this.tags.push(tag.tagname);
+  ngOnInit() {
+    this.tagsService.setTags();
+    // subscribes to any changes on the tags var in tags service
+    this.tagsService.tags$.subscribe((tags) => {
+      // sets initial list, and saves all retrieved tags in a provitional array
+      this.tags = this.provTags = tags.filter(
+        (tag) => !this.currentTags.includes(tag)
+      );
     });
-    console.log(this.tags);
   }
 
   onSubmit() {
@@ -44,6 +46,7 @@ export class NewItemComponent implements OnInit {
       this.itemForm.get('imagelink')?.setValue('');
 
       this.itemsService.addItem(this.itemForm.value);
+      this.itemForm.reset();
     } else {
       this.isValid = false;
     }
@@ -51,11 +54,11 @@ export class NewItemComponent implements OnInit {
 
   onTagSelect(tagname: any) {
     this.currentTags.push(tagname.value);
-    this.tags = this.tags?.filter((tag) => tag !== tagname.value);
+    this.tags = this.provTags.filter((tag) => !this.currentTags.includes(tag));
   }
 
   onTagDelete(tagname: string) {
     this.currentTags = this.currentTags.filter((tag) => tag !== tagname);
-    this.tags.push(tagname);
+    this.tags = this.provTags.filter((tag) => !this.currentTags.includes(tag));
   }
 }

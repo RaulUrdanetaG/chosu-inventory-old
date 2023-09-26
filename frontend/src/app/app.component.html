@@ -1,4 +1,11 @@
-<div class="app min-h-screen">
+<div *ngIf="tagsService.isNewTagModal">
+  <app-new-tag-modal></app-new-tag-modal>
+</div>
+
+<div
+  class="app min-h-screen"
+  [ngClass]="{ 'router-opacity': tagsService.isNewTagModal }"
+>
   <app-navbar></app-navbar>
   <router-outlet></router-outlet>
   <app-footer></app-footer>

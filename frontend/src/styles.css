@@ -1,5 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
+.router-opacity {
+  filter: brightness(0.4);
+  pointer-events: none; /* Evita que los elementos detrás de la ruta sean clickeables */
+  overflow: hidden;
+}
+
+.abs-center {
+  transform: translate(-50%, -50%);
+}
 
 @tailwind base;
 @tailwind components;
