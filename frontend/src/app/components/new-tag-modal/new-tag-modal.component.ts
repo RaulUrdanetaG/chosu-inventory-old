@@ -14,6 +14,7 @@ import { TagsService } from 'src/app/services/tags.service';
 export class NewTagModalComponent {
   form: FormGroup;
   isValid: boolean = true;
+  tagExists: boolean = false;
 
   constructor(public tagsService: TagsService) {
     this.form = new FormGroup({
@@ -25,7 +26,14 @@ export class NewTagModalComponent {
     if (this.form.valid) {
       this.isValid = true;
       // adds the new tag to the db
-      await this.tagsService.createTag(this.form.value);
+      const createRes = await this.tagsService.createTag(this.form.value);
+      
+      // checks if the retrieved error is from existing tag
+      if (createRes.errorTag) {
+        this.tagExists = true;
+        return;
+      }
+      this.tagExists = false;
       // updates the observable
       this.tagsService.setTags();
       this.tagsService.isNewTagModal = false;

@@ -46,11 +46,17 @@ router.post("/addItem", checkToken, async (req, res) => {
 });
 
 router.post("/addTag", checkToken, async (req, res) => {
-  try {
-    const newTag = await Tag.create(req.body);
-    res.json(newTag);
-  } catch (error) {
-    res.json({ error: error });
+  const existingTag = await Tag.findOne({ tagname: req.body.tagname });
+
+  if (existingTag) {
+    res.json({ errorTag: "Tag already exists" });
+  } else {
+    try {
+      const newTag = await Tag.create(req.body);
+      res.json(newTag);
+    } catch (error) {
+      res.json({ error: error });
+    }
   }
 });
 

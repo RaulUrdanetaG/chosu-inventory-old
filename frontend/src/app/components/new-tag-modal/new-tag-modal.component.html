@@ -19,6 +19,7 @@
       <div *ngIf="!isValid" class="text-red-600">
         Por favor ingrese una etiqueta valida
       </div>
+      <div *ngIf="tagExists" class="text-red-600">La etiqueta ya existe</div>
     </div>
     <button
       type="submit"
