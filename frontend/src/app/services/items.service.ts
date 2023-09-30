@@ -19,4 +19,10 @@ export class ItemsService {
       this.http.post<any>(AppConfig.baseUrl + '/addItem', item)
     );
   }
+
+  addItemImage(image: any) {
+    return firstValueFrom(
+      this.http.post<any>(AppConfig.baseUrl + '/images/upload', image)
+    );
+  }
 }

@@ -10,9 +10,14 @@ import { TagsService } from 'src/app/services/tags.service';
 })
 export class NewItemComponent implements OnInit {
   itemForm: FormGroup;
+  selectedFile: File | null = null;
+
   currentTags: string[] = [];
   tags: string[] = [];
   provTags: string[] = [];
+
+  imageSrc: string | ArrayBuffer | null = null;
+
   isValid: boolean = true;
 
   constructor(
@@ -40,14 +45,20 @@ export class NewItemComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.itemForm.valid) {
       this.isValid = true;
       this.itemForm.get('tags')?.setValue(this.currentTags);
-      this.itemForm.get('imagelink')?.setValue('');
 
-      this.itemsService.addItem(this.itemForm.value);
+      const imgData = new FormData();
+      imgData.append('image', this.selectedFile!);
+      const imageRes = await this.itemsService.addItemImage(imgData);
+      this.itemForm.get('imagelink')?.setValue(imageRes.url);
+
+      const response = await this.itemsService.addItem(this.itemForm.value);
+      console.log(response);
       this.itemForm.reset();
+      this.imageSrc = null;
       this.currentTags = [];
     } else {
       this.isValid = false;
@@ -62,5 +73,20 @@ export class NewItemComponent implements OnInit {
   onTagDelete(tagname: string) {
     this.currentTags = this.currentTags.filter((tag) => tag !== tagname);
     this.tags = this.provTags.filter((tag) => !this.currentTags.includes(tag));
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    this.selectedFile = file;
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        this.imageSrc = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
   }
 }

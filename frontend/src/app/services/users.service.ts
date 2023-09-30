@@ -11,7 +11,7 @@ export class UsersService {
 
   login(formValue: any) {
     return firstValueFrom(
-      this.http.post<any>(AppConfig.baseUrl + 'users/login', formValue)
+      this.http.post<any>(AppConfig.baseUrl + '/users/login', formValue)
     );
   }
 
