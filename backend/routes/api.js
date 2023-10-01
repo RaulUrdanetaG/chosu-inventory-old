@@ -4,6 +4,7 @@ const router = require("express").Router();
 
 router.use("/users", require("./api/users"));
 router.use("/images", require("./api/google-cloud"));
-router.use("/", require("./api/chosu"));
+router.use("/items", require("./api/items"));
+router.use("/tags", require("./api/tags"));
 
 module.exports = router;

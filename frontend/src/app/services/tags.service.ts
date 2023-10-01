@@ -36,7 +36,7 @@ export class TagsService {
 
   createTag(tagname: string) {
     return firstValueFrom(
-      this.http.post<any>(AppConfig.baseUrl + '/addTag', tagname)
+      this.http.post<any>(AppConfig.baseUrl + '/tags/addTag', tagname)
     );
   }
 
