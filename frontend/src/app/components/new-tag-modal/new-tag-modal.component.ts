@@ -25,9 +25,17 @@ export class NewTagModalComponent {
   async onSubmit() {
     if (this.form.valid) {
       this.isValid = true;
+
+      // process input tag to maintain a word structure
+      const porcessedTag = {
+        tagname:
+          this.form.value.tagname.charAt(0).toUpperCase() +
+          this.form.value.tagname.slice(1).toLowerCase(),
+      };
+
       // adds the new tag to the db
-      const createRes = await this.tagsService.createTag(this.form.value);
-      
+      const createRes = await this.tagsService.createTag(porcessedTag);
+
       // checks if the retrieved error is from existing tag
       if (createRes.errorTag) {
         this.tagExists = true;

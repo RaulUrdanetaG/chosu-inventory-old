@@ -6,7 +6,7 @@ require("dotenv").config();
 
 router.get("/", async (req, res) => {
   try {
-    const tags = await Tag.find();
+    const tags = await Tag.find().sort({ tagname: 1 });
 
     res.json(tags);
   } catch (error) {

@@ -42,7 +42,7 @@ export class TagsService {
     this._selectedTag.next(tagname);
   }
 
-  createTag(tagname: string) {
+  createTag(tagname: any) {
     return firstValueFrom(
       this.http.post<any>(AppConfig.baseUrl + '/tags/addTag', tagname)
     );
