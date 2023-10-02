@@ -10,6 +10,9 @@
   transform: translate(-50%, -50%);
 }
 
+.bg-burnt-siena{
+  background-color: #ee6c4d;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

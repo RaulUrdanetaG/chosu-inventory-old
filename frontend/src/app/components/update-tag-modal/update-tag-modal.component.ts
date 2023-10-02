@@ -1,16 +1,13 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { TagsService } from 'src/app/services/tags.service';
 
 @Component({
-  selector: 'app-new-tag-modal',
-  templateUrl: './new-tag-modal.component.html',
-  styleUrls: ['./new-tag-modal.component.css'],
-  imports: [CommonModule, ReactiveFormsModule],
-  standalone: true,
+  selector: 'app-update-tag-modal',
+  templateUrl: './update-tag-modal.component.html',
+  styleUrls: ['./update-tag-modal.component.css'],
 })
-export class NewTagModalComponent {
+export class UpdateTagModalComponent {
   form: FormGroup;
   isValid: boolean = true;
   tagExists: boolean = false;

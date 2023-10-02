@@ -14,14 +14,14 @@
       <label
         *ngIf="!imageSrc"
         for="img-input"
-        class="img-label rounded-lg px-2 self-center hover:cursor-pointer hover:bg-opacity-80"
+        class="bg-burnt-siena rounded-lg px-2 self-center hover:cursor-pointer hover:bg-opacity-80"
       >
         Subir imagen <i class="fa-regular fa-image"></i>
       </label>
       <label
         *ngIf="imageSrc"
         for="img-input"
-        class="img-label rounded-lg px-2 self-center hover:cursor-pointer hover:bg-opacity-80"
+        class="bg-burnt-siena rounded-lg px-2 self-center hover:cursor-pointer hover:bg-opacity-80"
       >
         Cambiar imagen <i class="fa-regular fa-image"></i>
       </label>
@@ -83,8 +83,8 @@
           id="tags"
           formControlName="tags"
         >
-          <option *ngFor="let tag of tags" value="{{ tag }}">
-            {{ tag }}
+          <option *ngFor="let tag of tags" value="{{ tag.tagname }}">
+            {{ tag.tagname }}
           </option>
         </select>
         <button

@@ -10,27 +10,33 @@
     </div>
     <button
       *ngFor="let tag of tags"
-      [class.activeBtn]="activeButton === tag"
+      [class.activeBtn]="activeButton === tag.tagname"
       class="px-2 rounded-lg text-start hover:bg-blue-300"
-      (click)="selectTag(tag)"
+      (click)="selectTag(tag.tagname)"
     >
-      {{ tag }}
+      <div class="flex justify-between gap-1">
+        <p>{{ tag.tagname }}</p>
+        <p class="flex gap-1 hidden-link">
+          <a ><i class="fa-solid fa-pencil"></i></a>
+          <a class="text-red-600"><i class="fa-solid fa-trash-can"></i></a>
+        </p>
+      </div>
     </button>
   </div>
   <ng-template #loadedBlock class="text-center">
     <div class="flex justify-center">
       <svg
-      xmlns="http://www.w3.org/2000/svg"
-      height="48"
-      viewBox="0 -960 960 960"
-      width="48"
-      class="animate-spin"
-    >
-      <path
-        class="fill-black"
-        d="M480-80q-84 0-157-31t-127-85q-54-54-85-127T80-480q0-84 31-157t85-127q54-54 127-85t157-31q12 0 21 9t9 21q0 12-9 21t-21 9q-141 0-240.5 99.5T140-480q0 141 99.5 240.5T480-140q141 0 240.5-99.5T820-480q0-12 9-21t21-9q12 0 21 9t9 21q0 84-31 157t-85 127q-54 54-127 85T480-80Z"
-      />
-    </svg>
+        xmlns="http://www.w3.org/2000/svg"
+        height="48"
+        viewBox="0 -960 960 960"
+        width="48"
+        class="animate-spin"
+      >
+        <path
+          class="fill-black"
+          d="M480-80q-84 0-157-31t-127-85q-54-54-85-127T80-480q0-84 31-157t85-127q54-54 127-85t157-31q12 0 21 9t9 21q0 12-9 21t-21 9q-141 0-240.5 99.5T140-480q0 141 99.5 240.5T480-140q141 0 240.5-99.5T820-480q0-12 9-21t21-9q12 0 21 9t9 21q0 84-31 157t-85 127q-54 54-127 85T480-80Z"
+        />
+      </svg>
     </div>
   </ng-template>
   <div *ngIf="usersService.isLogged()">

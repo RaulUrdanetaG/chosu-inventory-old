@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Tag } from 'src/app/interfaces/tags';
 import { ItemsService } from 'src/app/services/items.service';
 import { TagsService } from 'src/app/services/tags.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -12,7 +13,7 @@ import { UsersService } from 'src/app/services/users.service';
   standalone: true,
 })
 export class SideBarComponent implements OnInit {
-  tags: string[] = [];
+  tags: Tag[] = [];
   activeButton: string | undefined;
 
   constructor(
@@ -27,6 +28,7 @@ export class SideBarComponent implements OnInit {
     // subscribes to any changes on the tags var in tags service
     this.tagsService.tags$.subscribe((tags) => {
       // sets initial list, and saves all retrieved tags in a provitional array
+
       this.tags = tags;
     });
   }
@@ -36,7 +38,10 @@ export class SideBarComponent implements OnInit {
     this.tagsService.setSelectedTag(tag);
   }
 
+  editTag(tagname: string) {}
+
   isLoading() {
-    return this.tags[0] == '' ? false : true;
+    // return this.tags[0] == '' ? false : true;
+    return true;
   }
 }

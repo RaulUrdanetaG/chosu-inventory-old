@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Tag } from 'src/app/interfaces/tags';
 import { ItemsService } from 'src/app/services/items.service';
 import { TagsService } from 'src/app/services/tags.service';
 
@@ -13,8 +14,8 @@ export class NewItemComponent implements OnInit {
   selectedFile: File | null = null;
 
   currentTags: string[] = [];
-  tags: string[] = [];
-  provTags: string[] = [];
+  tags: Tag[] = [];
+  provTags: Tag[] = [];
 
   imageSrc: string | ArrayBuffer | null = null;
 
@@ -40,7 +41,7 @@ export class NewItemComponent implements OnInit {
     this.tagsService.tags$.subscribe((tags) => {
       // sets initial list, and saves all retrieved tags in a provitional array
       this.tags = this.provTags = tags.filter(
-        (tag) => !this.currentTags.includes(tag)
+        (tag) => !this.currentTags.includes(tag.tagname)
       );
     });
   }
@@ -67,12 +68,14 @@ export class NewItemComponent implements OnInit {
 
   onTagSelect(tagname: any) {
     this.currentTags.push(tagname.value);
-    this.tags = this.provTags.filter((tag) => !this.currentTags.includes(tag));
+    this.tags = this.provTags.filter((tag) => !this.currentTags.includes(tag.tagname));
   }
 
   onTagDelete(tagname: string) {
-    this.currentTags = this.currentTags.filter((tag) => tag !== tagname);
-    this.tags = this.provTags.filter((tag) => !this.currentTags.includes(tag));
+    this.currentTags = this.currentTags.filter(
+      (tag) => tag !== tagname
+    );
+    this.tags = this.provTags.filter((tag) => !this.currentTags.includes(tag.tagname));
   }
 
   onFileSelected(event: any) {

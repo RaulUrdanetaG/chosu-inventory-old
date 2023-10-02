@@ -1,11 +1,10 @@
+import { Tag } from "./tags";
+
 export interface Item {
   name: String;
   imagelink: String;
   price: number;
   location: String;
-  tags: string[];
+  tags: Tag[];
 }
 
-export interface Tag {
-  tagname: string;
-}
