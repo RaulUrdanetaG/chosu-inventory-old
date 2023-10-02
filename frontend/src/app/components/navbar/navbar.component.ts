@@ -12,6 +12,6 @@ export class NavbarComponent {
 
   onClickLogOut() {
     localStorage.removeItem('token');
-    this.router.navigate(['/home']);
+    this.router.navigate(['/items/all']);
   }
 }

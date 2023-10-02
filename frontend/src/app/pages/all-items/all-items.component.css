@@ -1,0 +1,4 @@
+.page-grid{
+  display: grid;
+  grid-template-columns: auto 5fr;
+}

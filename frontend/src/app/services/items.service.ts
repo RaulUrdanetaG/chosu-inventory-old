@@ -14,6 +14,12 @@ export class ItemsService {
     return firstValueFrom(this.http.get<any>(AppConfig.baseUrl + '/items'));
   }
 
+  getItemsWithFilter(tagname: string) {
+    return firstValueFrom(
+      this.http.get<any>(AppConfig.baseUrl + `/items?tag=${tagname}`)
+    );
+  }
+
   addItem(item: Item) {
     return firstValueFrom(
       this.http.post<any>(AppConfig.baseUrl + '/addItem', item)

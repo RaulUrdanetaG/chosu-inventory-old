@@ -12,6 +12,9 @@ export class TagsService {
 
   tags: string[] = [];
 
+  private _selectedTag = new BehaviorSubject<string>('');
+  SelectedTag$ = this._selectedTag.asObservable();
+
   //  creates observable for tags variable
   private _tags = new BehaviorSubject<string[]>(['']);
   tags$ = this._tags.asObservable();
@@ -32,6 +35,11 @@ export class TagsService {
     });
     // updates the observable
     this._tags.next(this.tags);
+  }
+
+  setSelectedTag(tagname: string) {
+    // updates observable
+    this._selectedTag.next(tagname);
   }
 
   createTag(tagname: string) {

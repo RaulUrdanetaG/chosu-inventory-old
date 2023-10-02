@@ -1,10 +1,23 @@
-<aside class="flex flex-col justify-between mx-1 min-h-full bg-slate-100 p-2 rounded-lg shadow-xl">
-  <div>
-    <div *ngFor="let tag of tags">
-      <button class="text-start">{{ tag }}</button>
+<aside
+  class="side-bar flex flex-col justify-between mx-1 min-h-full bg-slate-100 p-2 rounded-lg shadow-xl"
+>
+  <div class="flex flex-col gap-1">
+    <div
+      [class.activeBtn]="activeButton === ''"
+      class="px-2 rounded-lg text-start hover:bg-blue-300"
+    >
+      <button (click)="selectTag('')">Todos los items</button>
     </div>
+    <button
+      *ngFor="let tag of tags"
+      [class.activeBtn]="activeButton === tag"
+      class="px-2 rounded-lg text-start hover:bg-blue-300"
+      (click)="selectTag(tag)"
+    >
+        {{ tag }}
+    </button>
   </div>
-  <div>
+  <div *ngIf="usersService.isLogged()">
     <button
       class="px-2 rounded-lg bg-green-300"
       (click)="tagsService.isNewTagModal = true"
