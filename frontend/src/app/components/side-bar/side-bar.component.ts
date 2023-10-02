@@ -35,4 +35,8 @@ export class SideBarComponent implements OnInit {
     this.activeButton = tag;
     this.tagsService.setSelectedTag(tag);
   }
+
+  isLoading() {
+    return this.tags[0] == '' ? false : true;
+  }
 }
