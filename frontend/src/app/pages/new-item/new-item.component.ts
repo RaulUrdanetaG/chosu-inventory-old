@@ -51,16 +51,21 @@ export class NewItemComponent implements OnInit {
       this.isValid = true;
       this.itemForm.get('tags')?.setValue(this.currentTags);
 
-      const imgData = new FormData();
-      imgData.append('image', this.selectedFile!);
-      const imageRes = await this.itemsService.addItemImage(imgData);
-      this.itemForm.get('imagelink')?.setValue(imageRes.url);
+      if (this.selectedFile !== null) {
+        const imgData = new FormData();
+        imgData.append('image', this.selectedFile!);
+        const imageRes = await this.itemsService.addItemImage(imgData);
+        this.itemForm.get('imagelink')?.setValue(imageRes.url);
+      } else {
+        this.itemForm.get('imagelink')?.setValue('');
+      }
 
       const response = await this.itemsService.addItem(this.itemForm.value);
       console.log(response);
       this.itemForm.reset();
       this.imageSrc = null;
       this.currentTags = [];
+      this.tags = this.provTags;
     } else {
       this.isValid = false;
     }
