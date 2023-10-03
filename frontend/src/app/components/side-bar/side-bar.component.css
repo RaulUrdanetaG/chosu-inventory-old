@@ -4,6 +4,7 @@
 
 .activeBtn {
   background-color: #93c5fd;
+  transition: opacity 0.3s ease-in-out; 
 }
 
 .activeBtn .hidden-link {
@@ -12,8 +13,7 @@
 
 .hidden-link {
   opacity: 0;
-  transition: opacity 0.1s ease-in-out; /* Agrega una transición suave */
-  pointer-events: none; /* Evita que los enlaces sean clicables cuando están ocultos */
+  transition: opacity 0.1s ease-in-out; 
 }
 
 button:hover .hidden-link {

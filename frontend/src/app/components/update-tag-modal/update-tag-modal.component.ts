@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Tag } from 'src/app/interfaces/tags';
 import { TagsService } from 'src/app/services/tags.service';
 
 @Component({
@@ -7,10 +8,11 @@ import { TagsService } from 'src/app/services/tags.service';
   templateUrl: './update-tag-modal.component.html',
   styleUrls: ['./update-tag-modal.component.css'],
 })
-export class UpdateTagModalComponent {
+export class UpdateTagModalComponent implements OnInit {
   form: FormGroup;
   isValid: boolean = true;
   tagExists: boolean = false;
+  currentTag: Tag = { _id: '', tagname: '' };
 
   constructor(public tagsService: TagsService) {
     this.form = new FormGroup({
@@ -18,29 +20,31 @@ export class UpdateTagModalComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.tagsService.SelectedTag$.subscribe((tag) => {
+      this.currentTag = tag;
+      this.form.get('tagname')?.setValue(tag.tagname);
+    });
+  }
+
   async onSubmit() {
     if (this.form.valid) {
       this.isValid = true;
 
-      // process input tag to maintain a word structure
+      // process input tag to maintain a structure for the update
       const porcessedTag = {
+        _id: this.currentTag?._id,
         tagname:
           this.form.value.tagname.charAt(0).toUpperCase() +
           this.form.value.tagname.slice(1).toLowerCase(),
+        prevTag: this.currentTag.tagname,
       };
 
-      // adds the new tag to the db
-      const createRes = await this.tagsService.createTag(porcessedTag);
+      // updates the tag in the tags and items db
+      await this.tagsService.updateTag(porcessedTag);
 
-      // checks if the retrieved error is from existing tag
-      if (createRes.errorTag) {
-        this.tagExists = true;
-        return;
-      }
-      this.tagExists = false;
-      // updates the observable
       this.tagsService.setTags();
-      this.tagsService.isNewTagModal = false;
+      this.tagsService.isUpdateTagModal = false;
     } else {
       this.isValid = false;
     }

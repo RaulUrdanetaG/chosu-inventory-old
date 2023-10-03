@@ -7,17 +7,4 @@ import { TagsService } from 'src/app/services/tags.service';
   templateUrl: './all-items.component.html',
   styleUrls: ['./all-items.component.css'],
 })
-export class AllItemsComponent implements OnInit {
-  items: any = [];
-  tags: any = [];
-
-  constructor(
-    private itemsService: ItemsService,
-    private tagsService: TagsService
-  ) {}
-
-  async ngOnInit() {
-    this.items = await this.itemsService.getItems();
-    this.tags = await this.tagsService.getTags();
-  }
-}
+export class AllItemsComponent {}

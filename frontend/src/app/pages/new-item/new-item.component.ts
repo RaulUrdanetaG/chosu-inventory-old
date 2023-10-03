@@ -68,14 +68,16 @@ export class NewItemComponent implements OnInit {
 
   onTagSelect(tagname: any) {
     this.currentTags.push(tagname.value);
-    this.tags = this.provTags.filter((tag) => !this.currentTags.includes(tag.tagname));
+    this.tags = this.provTags.filter(
+      (tag) => !this.currentTags.includes(tag.tagname)
+    );
   }
 
   onTagDelete(tagname: string) {
-    this.currentTags = this.currentTags.filter(
-      (tag) => tag !== tagname
+    this.currentTags = this.currentTags.filter((tag) => tag !== tagname);
+    this.tags = this.provTags.filter(
+      (tag) => !this.currentTags.includes(tag.tagname)
     );
-    this.tags = this.provTags.filter((tag) => !this.currentTags.includes(tag.tagname));
   }
 
   onFileSelected(event: any) {

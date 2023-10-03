@@ -22,7 +22,7 @@ export class ItemsService {
 
   addItem(item: Item) {
     return firstValueFrom(
-      this.http.post<any>(AppConfig.baseUrl + '/addItem', item)
+      this.http.post<any>(AppConfig.baseUrl + '/items/addItem', item)
     );
   }
 

@@ -4,7 +4,6 @@ import { AppConfig } from '../config';
 import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { Tag } from '../interfaces/tags';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +13,7 @@ export class TagsService {
 
   tags: Tag[] = [];
 
-  private _selectedTag = new BehaviorSubject<string>('');
+  private _selectedTag = new BehaviorSubject<Tag>({ _id: '', tagname: '' });
   SelectedTag$ = this._selectedTag.asObservable();
 
   //  creates observable for tags variable
@@ -39,9 +38,9 @@ export class TagsService {
     this._tags.next(this.tags);
   }
 
-  setSelectedTag(tagname: string) {
+  setSelectedTag(tag: Tag) {
     // updates observable
-    this._selectedTag.next(tagname);
+    this._selectedTag.next(tag);
   }
 
   createTag(tagname: any) {
@@ -50,11 +49,12 @@ export class TagsService {
     );
   }
 
-  openNewTagModal(command: string) {
-    if (command === 'open') {
-      this.isNewTagModal = true;
-    } else if (command === 'close') {
-      this.isNewTagModal = false;
-    }
+  updateTag(tag: any) {
+    return firstValueFrom(
+      this.http.put<any>(
+        AppConfig.baseUrl + `/tags/update/${tag._id}`,
+        tag
+      )
+    );
   }
 }

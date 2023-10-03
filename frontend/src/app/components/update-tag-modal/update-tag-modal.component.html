@@ -13,7 +13,6 @@
         type="text"
         class="p-2 bg-slate-100 rounded-md mt-1"
         formControlName="tagname"
-        placeholder="Nueva etiqueta"
         required
       />
       <div *ngIf="!isValid" class="text-red-600">
@@ -23,7 +22,7 @@
     </div>
     <button
       type="submit"
-      class="flex px-2 bg-burnt-siena rounded-lg items-center justify-center hover:bg-opacity-80"
+      class="flex px-2 rounded-lg items-center justify-center hover:bg-opacity-80"
     >
       Actualizar etiqueta
     </button>

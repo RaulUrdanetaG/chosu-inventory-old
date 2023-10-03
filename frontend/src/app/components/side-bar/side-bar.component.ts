@@ -13,7 +13,7 @@ import { UsersService } from 'src/app/services/users.service';
   standalone: true,
 })
 export class SideBarComponent implements OnInit {
-  tags: Tag[] = [];
+  tags: Tag[] | undefined;
   activeButton: string | undefined;
 
   constructor(
@@ -33,15 +33,17 @@ export class SideBarComponent implements OnInit {
     });
   }
 
-  async selectTag(tag: string) {
-    this.activeButton = tag;
+  async selectTag(tag: Tag) {
+    this.activeButton = tag.tagname;
     this.tagsService.setSelectedTag(tag);
   }
 
-  editTag(tagname: string) {}
+  editTag(tag: Tag) {
+    this.tagsService.setSelectedTag(tag);
+    this.tagsService.isUpdateTagModal = true;
+  }
 
   isLoading() {
-    // return this.tags[0] == '' ? false : true;
-    return true;
+    return this.tags?.length === 0 ? true : false;
   }
 }

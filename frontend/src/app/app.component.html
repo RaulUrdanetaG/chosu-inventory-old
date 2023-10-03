@@ -3,12 +3,14 @@
 </div>
 
 <div *ngIf="tagsService.isUpdateTagModal">
-  <app-new-tag-modal></app-new-tag-modal>
+  <app-update-tag-modal></app-update-tag-modal>
 </div>
 
 <div
   class="app min-h-screen"
-  [ngClass]="{ 'router-opacity': tagsService.isNewTagModal }"
+  [ngClass]="{
+    'router-opacity': tagsService.isNewTagModal || tagsService.isUpdateTagModal
+  }"
 >
   <app-navbar></app-navbar>
   <router-outlet></router-outlet>
