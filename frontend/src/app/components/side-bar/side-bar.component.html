@@ -19,7 +19,7 @@
       <p>{{ tag.tagname }}</p>
       <div class="flex gap-1 hidden-link">
         <a (click)="editTag(tag)"><i class="fa-solid fa-pencil"></i></a>
-        <a class="text-red-600"><i class="fa-solid fa-trash-can"></i></a>
+        <a (click)="deleteTagModal(tag)" class="text-red-600"><i class="fa-solid fa-trash-can"></i></a>
       </div>
     </button>
   </div>

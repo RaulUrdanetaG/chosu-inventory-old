@@ -10,6 +10,7 @@ import { Tag } from '../interfaces/tags';
 export class TagsService {
   isNewTagModal: boolean = false;
   isUpdateTagModal: boolean = false;
+  isDeleteTagModal: boolean = false;
 
   tags: Tag[] = [];
 
@@ -51,10 +52,13 @@ export class TagsService {
 
   updateTag(tag: any) {
     return firstValueFrom(
-      this.http.put<any>(
-        AppConfig.baseUrl + `/tags/update/${tag._id}`,
-        tag
-      )
+      this.http.put<any>(AppConfig.baseUrl + `/tags/${tag._id}`, tag)
+    );
+  }
+
+  deleteTag(tag:Tag){
+    return firstValueFrom(
+      this.http.delete<any>(AppConfig.baseUrl + `/tags/${tag._id}`)
     );
   }
 }

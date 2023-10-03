@@ -28,7 +28,6 @@ export class SideBarComponent implements OnInit {
     // subscribes to any changes on the tags var in tags service
     this.tagsService.tags$.subscribe((tags) => {
       // sets initial list, and saves all retrieved tags in a provitional array
-
       this.tags = tags;
     });
   }
@@ -41,6 +40,11 @@ export class SideBarComponent implements OnInit {
   editTag(tag: Tag) {
     this.tagsService.setSelectedTag(tag);
     this.tagsService.isUpdateTagModal = true;
+  }
+
+  deleteTagModal(tag: Tag) {
+    this.tagsService.setSelectedTag(tag);
+    this.tagsService.isDeleteTagModal = true;
   }
 
   isLoading() {

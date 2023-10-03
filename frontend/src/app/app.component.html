@@ -6,10 +6,17 @@
   <app-update-tag-modal></app-update-tag-modal>
 </div>
 
+<div *ngIf="tagsService.isDeleteTagModal">
+  <app-confirm-delete-modal></app-confirm-delete-modal>
+</div>
+
 <div
   class="app min-h-screen"
   [ngClass]="{
-    'router-opacity': tagsService.isNewTagModal || tagsService.isUpdateTagModal
+    'router-opacity':
+      tagsService.isNewTagModal ||
+      tagsService.isUpdateTagModal ||
+      tagsService.isDeleteTagModal
   }"
 >
   <app-navbar></app-navbar>

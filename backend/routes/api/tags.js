@@ -30,7 +30,7 @@ router.post("/addTag", checkToken, async (req, res) => {
   }
 });
 
-router.put("/update/:tagId", checkToken, async (req, res) => {
+router.put("/:tagId", checkToken, async (req, res) => {
   const { tagId } = req.params;
   try {
     const newTag = await Tag.findByIdAndUpdate(tagId, req.body, { new: true });
@@ -40,6 +40,22 @@ router.put("/update/:tagId", checkToken, async (req, res) => {
       { $set: { "tags.$": req.body.tagname } }
     );
     res.json(newTag);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
+
+router.delete("/:tagId", checkToken, async (req, res) => {
+  const { tagId } = req.params;
+
+  try {
+    const deletedTag = await Tag.findByIdAndDelete(tagId);
+
+    await Item.updateMany(
+      { tags: deletedTag.tagname },
+      { $pull: { tags: deletedTag.tagname } }
+    );
+    res.json(deletedTag);
   } catch (error) {
     res.json({ error: error.message });
   }
