@@ -16,16 +16,22 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/addTag", checkToken, async (req, res) => {
-  const existingTag = await Tag.findOne({ tagname: req.body.tagname });
+  // process input tag to maintain a word structure
+  const processedTag =
+    req.body.tagname.charAt(0).toUpperCase() +
+    req.body.tagname.slice(1).toLowerCase();
+
+  console.log(processedTag);
+  const existingTag = await Tag.findOne({ tagname: processedTag });
 
   if (existingTag) {
     res.json({ errorTag: "Tag already exists" });
   } else {
     try {
-      const newTag = await Tag.create(req.body);
+      const newTag = await Tag.create({ tagname: processedTag });
       res.json(newTag);
     } catch (error) {
-      res.json({ error: error });
+      res.json({ error: error.message });
     }
   }
 });

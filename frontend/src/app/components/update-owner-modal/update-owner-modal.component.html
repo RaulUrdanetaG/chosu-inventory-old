@@ -3,28 +3,28 @@
     <div class="flex justify-end">
       <i
         class="fa-solid fa-circle-xmark text-slate-200 hover:cursor-pointer"
-        (click)="tagsService.isUpdateTagModal = false"
+        (click)="ownersService.isUpdateOwnerModal = false"
       ></i>
     </div>
 
     <div class="flex flex-col">
-      <label for="updateTag">Actualiza la etiqueta:</label>
+      <label for="updateOwner">Actualiza el dueño:</label>
       <input
         type="text"
         class="p-2 bg-slate-100 rounded-md mt-1"
-        formControlName="tagname"
+        formControlName="owner"
         required
       />
       <div *ngIf="!isValid" class="text-red-600">
-        Por favor ingrese una etiqueta valida
+        Por favor ingrese un dueño valido
       </div>
-      <div *ngIf="tagExists" class="text-red-600">La etiqueta ya existe</div>
+      <div *ngIf="tagExists" class="text-red-600">El dueño ya existe</div>
     </div>
     <button
       type="submit"
       class="flex px-2 rounded-lg items-center justify-center hover:bg-opacity-80"
     >
-      Actualizar etiqueta
+      Actualizar dueño
     </button>
   </form>
 </div>

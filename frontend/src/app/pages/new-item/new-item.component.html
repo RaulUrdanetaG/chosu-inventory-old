@@ -94,7 +94,6 @@
           Nueva etiqueta
         </button>
       </div>
-
       <div *ngIf="currentTags.length > 0" class="flex gap-1 mb-3 flex-wrap">
         <div *ngFor="let tag of currentTags">
           <div
@@ -108,6 +107,25 @@
             ></a>
           </div>
         </div>
+      </div>
+
+      <div class="flex gap-2 items-center justify-between">
+        <label for="tags">Dueño: </label>
+        <select
+          class="bg-gray-100 rounded-md"
+          id="owner"
+          formControlName="owner"
+        >
+          <option *ngFor="let owner of owners" value="{{ owner.owner }}">
+            {{ owner.owner }}
+          </option>
+        </select>
+        <button
+          class="flex px-2 bg-green-300 rounded-lg items-center justify-center hover:bg-opacity-80"
+          (click)="ownersService.isNewOwnerModal = true"
+        >
+          Nuevo dueño
+        </button>
       </div>
 
       <div class="flex justify-between gap-1">

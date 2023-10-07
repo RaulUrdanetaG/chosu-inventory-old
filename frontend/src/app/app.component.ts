@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TagsService } from './services/tags.service';
+import { OwnersService } from './services/owners.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,8 @@ import { TagsService } from './services/tags.service';
 export class AppComponent {
   title = 'chosu-inventory-front';
 
-  constructor(public tagsService: TagsService) {}
+  constructor(
+    public tagsService: TagsService,
+    public ownersService: OwnersService
+  ) {}
 }

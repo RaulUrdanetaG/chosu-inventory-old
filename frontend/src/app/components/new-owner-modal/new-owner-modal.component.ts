@@ -1,23 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TagsService } from 'src/app/services/tags.service';
+import { OwnersService } from 'src/app/services/owners.service';
 
 @Component({
-  selector: 'app-new-tag-modal',
-  templateUrl: './new-tag-modal.component.html',
-  styleUrls: ['./new-tag-modal.component.css'],
+  selector: 'app-new-owner-modal',
+  templateUrl: './new-owner-modal.component.html',
+  styleUrls: ['./new-owner-modal.component.css'],
   imports: [CommonModule, ReactiveFormsModule],
   standalone: true,
 })
-export class NewTagModalComponent {
+export class NewOwnerModalComponent {
   form: FormGroup;
   isValid: boolean = true;
   tagExists: boolean = false;
 
-  constructor(public tagsService: TagsService) {
+  constructor(public ownersService: OwnersService) {
     this.form = new FormGroup({
-      tagname: new FormControl(),
+      owner: new FormControl(),
     });
   }
 
@@ -26,7 +26,7 @@ export class NewTagModalComponent {
       this.isValid = true;
 
       // adds the new tag to the db
-      const createRes = await this.tagsService.createTag(this.form.value);
+      const createRes = await this.ownersService.createOwner(this.form.value);
 
       // checks if the retrieved error is from existing tag
       if (createRes.errorTag) {
@@ -35,8 +35,8 @@ export class NewTagModalComponent {
       }
       this.tagExists = false;
       // updates the observable
-      this.tagsService.setTags();
-      this.tagsService.isNewTagModal = false;
+      this.ownersService.setOwners();
+      this.ownersService.isNewOwnerModal = false;
     } else {
       this.isValid = false;
     }

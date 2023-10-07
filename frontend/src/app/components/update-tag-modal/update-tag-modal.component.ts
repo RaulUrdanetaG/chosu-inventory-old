@@ -31,7 +31,7 @@ export class UpdateTagModalComponent implements OnInit {
     if (this.form.valid) {
       this.isValid = true;
 
-      // process input tag to maintain a structure for the update
+      // process input tag to maintain a structure for the update, and sedns previous tag to know wich tag to update
       const porcessedTag = {
         _id: this.currentTag?._id,
         tagname:

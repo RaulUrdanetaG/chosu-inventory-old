@@ -11,15 +11,18 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { NewTagModalComponent } from './components/new-tag-modal/new-tag-modal.component';
 import { UpdateTagModalComponent } from './components/update-tag-modal/update-tag-modal.component';
 import { ConfirmDeleteModalComponent } from './components/confirm-delete-modal/confirm-delete-modal.component';
+import { NewOwnerModalComponent } from './components/new-owner-modal/new-owner-modal.component';
+import { UpdateOwnerModalComponent } from './components/update-owner-modal/update-owner-modal.component';
 
 @NgModule({
-  declarations: [AppComponent, FooterComponent, NavbarComponent, UpdateTagModalComponent, ConfirmDeleteModalComponent],
+  declarations: [AppComponent, FooterComponent, NavbarComponent, UpdateTagModalComponent, ConfirmDeleteModalComponent, UpdateOwnerModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     NewTagModalComponent,
+    NewOwnerModalComponent
   ],
   providers: [
     {

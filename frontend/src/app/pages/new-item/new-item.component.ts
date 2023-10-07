@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Owner } from 'src/app/interfaces/owners';
 import { Tag } from 'src/app/interfaces/tags';
 import { ItemsService } from 'src/app/services/items.service';
+import { OwnersService } from 'src/app/services/owners.service';
 import { TagsService } from 'src/app/services/tags.service';
 
 @Component({
@@ -17,13 +19,16 @@ export class NewItemComponent implements OnInit {
   tags: Tag[] = [];
   provTags: Tag[] = [];
 
+  owners: Owner[] = [];
+
   imageSrc: string | ArrayBuffer | null = null;
 
   isValid: boolean = true;
 
   constructor(
     private itemsService: ItemsService,
-    public tagsService: TagsService
+    public tagsService: TagsService,
+    public ownersService: OwnersService
   ) {
     this.itemForm = new FormGroup({
       name: new FormControl(),
@@ -32,17 +37,25 @@ export class NewItemComponent implements OnInit {
       boughtAt: new FormControl(),
       location: new FormControl(),
       tags: new FormControl(),
+      owner: new FormControl(),
     });
   }
 
   ngOnInit() {
     this.tagsService.setTags();
+    this.ownersService.setOwners();
     // subscribes to any changes on the tags var in tags service
     this.tagsService.tags$.subscribe((tags) => {
       // sets initial list, and saves all retrieved tags in a provitional array
       this.tags = this.provTags = tags.filter(
         (tag) => !this.currentTags.includes(tag.tagname)
       );
+    });
+
+    // subscribes to any changes on the tags var in tags service
+    this.ownersService.owners$.subscribe((owners) => {
+      // sets initial list, and saves all retrieved tags in a provitional array
+      this.owners = owners;
     });
   }
 
@@ -61,7 +74,6 @@ export class NewItemComponent implements OnInit {
       }
 
       const response = await this.itemsService.addItem(this.itemForm.value);
-      console.log(response);
       this.itemForm.reset();
       this.imageSrc = null;
       this.currentTags = [];

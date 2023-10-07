@@ -10,13 +10,18 @@
   <app-confirm-delete-modal></app-confirm-delete-modal>
 </div>
 
+<div *ngIf="ownersService.isNewOwnerModal">
+  <app-new-owner-modal></app-new-owner-modal>
+</div>
+
 <div
   class="app min-h-screen"
   [ngClass]="{
     'router-opacity':
       tagsService.isNewTagModal ||
       tagsService.isUpdateTagModal ||
-      tagsService.isDeleteTagModal
+      tagsService.isDeleteTagModal ||
+      ownersService.isNewOwnerModal
   }"
 >
   <app-navbar></app-navbar>

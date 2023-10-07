@@ -7,6 +7,7 @@ const userSchema = new Schema({
   location: String,
   price: Number,
   boughtAt: Number,
+  owner: String,
 });
 
 module.exports = model("item", userSchema);
