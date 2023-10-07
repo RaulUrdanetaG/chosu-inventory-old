@@ -24,6 +24,19 @@
         ></a>
       </div>
     </button>
+    <hr />
+    <h4>Dueños</h4>
+    <button
+      *ngFor="let owner of owners"
+      [class.activeBtn]="activeButton === owner.owner"
+      class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+      (click)="selectOwner(owner)"
+    >
+      <p>{{ owner.owner }}</p>
+      <div *ngIf="usersService.isLogged()" class="flex gap-1 hidden-link">
+        <a (click)="editOwner(owner)"><i class="fa-solid fa-pencil"></i></a>
+      </div>
+    </button>
   </div>
   <ng-template #loadedBlock class="text-center">
     <div class="flex justify-center">
@@ -41,12 +54,18 @@
       </svg>
     </div>
   </ng-template>
-  <div *ngIf="usersService.isLogged()">
+  <div *ngIf="usersService.isLogged()" class="flex gap-2">
     <button
       class="px-2 rounded-lg bg-green-300"
       (click)="tagsService.isNewTagModal = true"
     >
-      Agregar nueva etiqueta
+      Agregar etiqueta
+    </button>
+    <button
+      class="px-2 rounded-lg bg-green-300"
+      (click)="ownersService.isNewOwnerModal = true"
+    >
+      Agregar dueño
     </button>
   </div>
 </aside>

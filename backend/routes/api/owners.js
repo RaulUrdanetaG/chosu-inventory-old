@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const Owner = require("../../models/owner.model");
+const Item = require("../../models/item.model");
 const { checkToken } = require("../../middlewares/middleware");
 require("dotenv").config();
 
@@ -37,11 +38,13 @@ router.post("/addOwner", checkToken, async (req, res) => {
 router.put("/:ownerId", checkToken, async (req, res) => {
   const { ownerId } = req.params;
   try {
-    const newOwner = await Owner.findByIdAndUpdate(ownerId, req.body, { new: true });
+    const newOwner = await Owner.findByIdAndUpdate(ownerId, req.body, {
+      new: true,
+    });
     // updates every item with the tag to the new tag
     await Item.updateMany(
       { owner: req.body.prevOwner },
-      { $set: { "owner": req.body.owner } }
+      { $set: { owner: req.body.owner } }
     );
     res.json(newOwner);
   } catch (error) {
@@ -50,16 +53,12 @@ router.put("/:ownerId", checkToken, async (req, res) => {
 });
 
 router.delete("/:ownerId", checkToken, async (req, res) => {
-  const { tagId } = req.params;
+  const { ownerId } = req.params;
 
   try {
-    const deletedTag = await Tag.findByIdAndDelete(tagId);
+    const deletedOwner = await Owner.findByIdAndDelete(ownerId);
 
-    await Item.updateMany(
-      { tags: deletedTag.tagname },
-      { $pull: { tags: deletedTag.tagname } }
-    );
-    res.json(deletedTag);
+    res.json(deletedOwner);
   } catch (error) {
     res.json({ error: error.message });
   }
