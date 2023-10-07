@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Owner } from 'src/app/interfaces/owners';
 import { Tag } from 'src/app/interfaces/tags';
 import { ItemsService } from 'src/app/services/items.service';
+import { LocationService } from 'src/app/services/location.service';
 import { OwnersService } from 'src/app/services/owners.service';
 import { TagsService } from 'src/app/services/tags.service';
 
@@ -21,6 +22,8 @@ export class NewItemComponent implements OnInit {
 
   owners: Owner[] = [];
 
+  locations: any[] = [];
+
   imageSrc: string | ArrayBuffer | null = null;
 
   isValid: boolean = true;
@@ -28,7 +31,8 @@ export class NewItemComponent implements OnInit {
   constructor(
     private itemsService: ItemsService,
     public tagsService: TagsService,
-    public ownersService: OwnersService
+    public ownersService: OwnersService,
+    public locationsService: LocationService
   ) {
     this.itemForm = new FormGroup({
       name: new FormControl(),
@@ -41,7 +45,7 @@ export class NewItemComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.tagsService.setTags();
     this.ownersService.setOwners();
     // subscribes to any changes on the tags var in tags service
@@ -57,6 +61,8 @@ export class NewItemComponent implements OnInit {
       // sets initial list, and saves all retrieved tags in a provitional array
       this.owners = owners;
     });
+
+    this.locations = await this.locationsService.getLocations();
   }
 
   async onSubmit() {

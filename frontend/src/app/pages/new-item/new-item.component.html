@@ -136,15 +136,12 @@
           formControlName="location"
           required
         >
-          <option value="chosu">Chosu</option>
-          <option value="derecha-atras">Derecha-atras</option>
-          <option value="derecha-frente">Derecha-frente</option>
-          <option value="medio-derecha-atras">Medio-derecha-atras</option>
-          <option value="medio-derecha-frente">Medio-derecha-frente</option>
-          <option value="izquierda-atras">Izquierda-superior</option>
-          <option value="izquierda-frente">Izquierda-frente</option>
-          <option value="medio-izquierda-atras">medio-izquierda-atras</option>
-          <option value="medio-izquierda-frente">medio-izquierda-frente</option>
+          <option
+            *ngFor="let location of locations"
+            value="{{ location.location }}"
+          >
+            {{ location.location }}
+          </option>
         </select>
       </div>
       <p *ngIf="!isValid" class="text-red-600">

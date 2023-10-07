@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener } from '@angular/core';
 import { Owner } from 'src/app/interfaces/owners';
 import { Tag } from 'src/app/interfaces/tags';
 import { ItemsService } from 'src/app/services/items.service';
+import { LocationService } from 'src/app/services/location.service';
 import { OwnersService } from 'src/app/services/owners.service';
 import { TagsService } from 'src/app/services/tags.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -17,6 +18,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class SearchBarComponent {
   tags: Tag[] | undefined;
   owners: Owner[] | undefined;
+  locations: any[] | undefined;
   currentFilter: string = '';
 
   isDroppedDown: boolean = false;
@@ -25,10 +27,12 @@ export class SearchBarComponent {
     public tagsService: TagsService,
     public usersService: UsersService,
     public itemsService: ItemsService,
-    public ownersService: OwnersService
+    public ownersService: OwnersService,
+    public locationsService: LocationService,
+    private elRef: ElementRef
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.tagsService.setTags();
     this.ownersService.setOwners();
     // subscribes to any changes on the tags var in tags service
@@ -42,6 +46,8 @@ export class SearchBarComponent {
       // sets initial list, and saves all retrieved tags in a provitional array
       this.owners = owners;
     });
+
+    this.locations = await this.locationsService.getLocations();
   }
 
   async selectTag(tag: Tag) {
@@ -62,29 +68,16 @@ export class SearchBarComponent {
     this.isDroppedDown = false;
   }
 
-  editTag(tag: Tag) {
-    this.tagsService.setSelectedTag(tag);
-    this.tagsService.isUpdateTagModal = true;
-  }
-
-  deleteTagModal(tag: Tag) {
-    this.tagsService.setSelectedTag(tag);
-    this.tagsService.isDeleteTagModal = true;
-  }
-
-  
-
-  editOwner(owner: Owner) {
-    this.ownersService.setSelectedOwner(owner);
-    this.ownersService.isUpdateOwnerModal = true;
-  }
-
-  deleteOwnerModal(owner: Owner) {
-    this.ownersService.setSelectedOwner(owner);
-    this.ownersService.isDeleteOwnerModal = true;
-  }
-
   isLoading() {
     return this.tags?.length === 0 ? true : false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    // check if clicks outside of the component
+    if (!this.elRef.nativeElement.contains(event.target)) {
+      // if click is outside of component
+      this.isDroppedDown = false;
+    }
   }
 }
