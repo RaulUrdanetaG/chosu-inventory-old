@@ -7,5 +7,6 @@ router.use("/images", require("./api/google-cloud"));
 router.use("/items", require("./api/items"));
 router.use("/tags", require("./api/tags"));
 router.use("/owners", require("./api/owners"));
+router.use("/locations", require("./api/locations"));
 
 module.exports = router;

@@ -15,14 +15,21 @@ import { NewOwnerModalComponent } from './components/new-owner-modal/new-owner-m
 import { UpdateOwnerModalComponent } from './components/update-owner-modal/update-owner-modal.component';
 
 @NgModule({
-  declarations: [AppComponent, FooterComponent, NavbarComponent, UpdateTagModalComponent, ConfirmDeleteModalComponent, UpdateOwnerModalComponent],
+  declarations: [
+    AppComponent,
+    FooterComponent,
+    NavbarComponent,
+    UpdateTagModalComponent,
+    ConfirmDeleteModalComponent,
+    UpdateOwnerModalComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     NewTagModalComponent,
-    NewOwnerModalComponent
+    NewOwnerModalComponent,
   ],
   providers: [
     {

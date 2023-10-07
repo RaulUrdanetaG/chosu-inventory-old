@@ -9,6 +9,10 @@ router.get("/", async (req, res) => {
     var items = {};
     if (req.query.tag) {
       items = await Item.find({ tags: { $in: req.query.tag } });
+    } else if (req.query.owner) {
+      items = await Item.find({ owner: { $in: req.query.owner } });
+    } else if (req.query.location) {
+      items = await Item.find({ location: { $in: req.query.location } });
     } else {
       items = await Item.find();
     }

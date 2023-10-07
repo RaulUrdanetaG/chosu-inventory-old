@@ -1,6 +1,6 @@
 <div
   *ngIf="isLoading(); else elseBlock"
-  class="flex items-center gap-3 align-middle justify-center min-h-screen"
+  class="flex items-center gap-3 align-middle justify-center mt-7"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -17,19 +17,6 @@
 </div>
 
 <ng-template #elseBlock>
-  <div class="search-bar flex items-center justify-between my-7 mr-4 ml-2">
-    <h2 class="section-title text-black text-6xl font-bold mr-2">
-      {{ currentTag.tagname }}
-    </h2>
-    <div class="flex items-center gap-20 mt-2">
-      <!-- <button class="side-bar-button">
-        <i
-          class="fa-solid fa-bars text-2xl text-black p-3 bg-slate-300 side-bar-button"
-        ></i>
-      </button> -->
-      <!-- <app-search-bar></app-search-bar> -->
-    </div>
-  </div>
   <div class="items-grid my-2 mr-4 ml-2">
     <div
       class="game-card shadow-sm shadow-black grid bg-white rounded-lg"

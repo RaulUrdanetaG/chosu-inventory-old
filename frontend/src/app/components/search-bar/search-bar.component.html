@@ -1,0 +1,42 @@
+<section class="flex justify-between px-3.5">
+  <p>{{ currentFilter }}</p>
+  <div class="flex">
+    <div class="flex gap-2">
+      <p>Filtro:</p>
+      <div class="flex justify-between gap-2 w-44 px-2 bg-slate-100 rounded-lg">
+        <p>{{ currentFilter }}</p>
+        <button (click)="isDroppedDown = true">
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="isDroppedDown"
+    class="drop-down flex gap-1 p-2 rounded-lg bg-slate-100 h-80"
+  >
+    <div class="flex flex-col gap-1 flex-wrap">
+      <button
+        *ngFor="let tag of tags"
+        class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+        (click)="selectTag(tag)"
+      >
+        <p>{{ tag.tagname }}</p>
+      </button>
+    </div>
+    <hr />
+    <div
+      *ngIf="usersService.isLogged()"
+      class="flex flex-col gap-1 flex-wrap border-l pl-2"
+    >
+      <p><b>Dueños</b></p>
+      <button
+        *ngFor="let owner of owners"
+        class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+        (click)="selectOwner(owner)"
+      >
+        <p>{{ owner.owner }}</p>
+      </button>
+    </div>
+  </div>
+</section>

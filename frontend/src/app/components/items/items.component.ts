@@ -14,24 +14,17 @@ import { TagsService } from 'src/app/services/tags.service';
 })
 export class ItemsComponent implements OnInit {
   itemsResponse: Item[] | undefined;
-  currentTag!: Tag;
 
   constructor(
     private itemsService: ItemsService,
     public tagsService: TagsService
   ) {}
 
-  ngOnInit() {
-    console.log(this.itemsResponse);
-    this.tagsService.setSelectedTag({ _id: '', tagname: '' });
-    this.tagsService.SelectedTag$.subscribe(async (tag) => {
-      this.currentTag = tag;
-      this.itemsResponse = undefined;
-      this.itemsResponse = await this.itemsService.getItemsWithFilter(
-        tag.tagname
-      );
-      console.log(this.itemsResponse);
+  async ngOnInit() {
+    this.itemsService.curretnItems$.subscribe((items) => {
+      this.itemsResponse = items;
     });
+    await this.itemsService.getItems();
   }
 
   isLoading() {

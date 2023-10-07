@@ -1,7 +1,8 @@
 <aside
-  class="side-bar flex flex-col justify-between mx-1 min-h-full bg-slate-100 p-2 rounded-lg shadow-xl"
+  class="side-bar flex flex-col justify-between mx-1 bg-slate-100 p-2 rounded-lg shadow-xl"
 >
-  <div *ngIf="!isLoading(); else loadedBlock" class="flex flex-col gap-1">
+  <div *ngIf="!isLoading(); else loadedBlock" class="options-container flex flex-col gap-1">
+    <h4 class="mt-3"><b>Items</b></h4>
     <div
       [class.activeBtn]="activeButton === ''"
       class="px-2 rounded-lg text-start hover:bg-blue-300"
@@ -24,19 +25,21 @@
         ></a>
       </div>
     </button>
-    <hr />
-    <h4>Dueños</h4>
-    <button
-      *ngFor="let owner of owners"
-      [class.activeBtn]="activeButton === owner.owner"
-      class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
-      (click)="selectOwner(owner)"
-    >
-      <p>{{ owner.owner }}</p>
-      <div *ngIf="usersService.isLogged()" class="flex gap-1 hidden-link">
-        <a (click)="editOwner(owner)"><i class="fa-solid fa-pencil"></i></a>
-      </div>
-    </button>
+    <div *ngIf="usersService.isLogged()" class="flex flex-col flex-1 mt-3 gap-1">
+      <hr />
+      <h4 class="mt-3"><b>Dueños</b></h4>
+      <button
+        *ngFor="let owner of owners"
+        [class.activeBtn]="activeButton === owner.owner"
+        class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+        (click)="selectOwner(owner)"
+      >
+        <p>{{ owner.owner }}</p>
+        <div class="flex gap-1 hidden-link">
+          <a (click)="editOwner(owner)"><i class="fa-solid fa-pencil"></i></a>
+        </div>
+      </button>
+    </div>
   </div>
   <ng-template #loadedBlock class="text-center">
     <div class="flex justify-center">

@@ -1,10 +1,11 @@
 .side-bar {
   width: 204px;
+  max-height: 90vh;
 }
 
 .activeBtn {
   background-color: #93c5fd;
-  transition: opacity 0.3s ease-in-out; 
+  transition: opacity 0.3s ease-in-out;
 }
 
 .activeBtn .hidden-link {
@@ -13,9 +14,25 @@
 
 .hidden-link {
   opacity: 0;
-  transition: opacity 0.1s ease-in-out; 
+  transition: opacity 0.1s ease-in-out;
 }
 
 button:hover .hidden-link {
   opacity: 1;
+}
+
+.options-container {
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.options-container::-webkit-scrollbar {
+  background-color: #f1f5f9;
+  width: 5px;
+}
+
+.options-container::-webkit-scrollbar-thumb {
+  background-color: #93c5fd;
+  width: 5px;
+  border-radius: 5px;
 }
