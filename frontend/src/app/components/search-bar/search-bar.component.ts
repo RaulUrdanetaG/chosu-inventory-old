@@ -50,6 +50,12 @@ export class SearchBarComponent {
     this.locations = await this.locationsService.getLocations();
   }
 
+  async showAllItems() {
+    this.itemsService.getItems();
+    this.currentFilter = '';
+    this.isDroppedDown = false;
+  }
+
   async selectTag(tag: Tag) {
     this.itemsService.getItemsWithTag(tag.tagname);
     this.currentFilter = tag.tagname;
