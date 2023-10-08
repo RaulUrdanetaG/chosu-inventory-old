@@ -1,11 +1,19 @@
-.new-item-card{
-  max-width: 450px;
+.new-item-card {
+  max-width: 400px;
+  margin-top: 20px;
 }
 
 .new-img {
-  max-height: 35vh;
+  width: 200px;
+  height: 300px;
 }
 
 .img-input {
   display: none;
+}
+
+.loading-svg {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

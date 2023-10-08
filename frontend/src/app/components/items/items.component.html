@@ -17,26 +17,29 @@
 </div>
 
 <ng-template #elseBlock>
-  <div class="items-grid my-2 mr-4 ml-2">
+  <div class="flex my-2 mr-4 ml-2 gap-4 flex-wrap">
     <div
-      class="game-card shadow-sm shadow-black grid bg-white rounded-lg"
+      class="shadow-sm shadow-black grid bg-white rounded-lg"
       *ngFor="let item of itemsResponse"
     >
-      <div
-        class="cursor-pointer game-thumbnail min-w-full overflow-hidden rounded-t-lg"
-      >
+      <div class="item-img flex justify-center">
         <img
-          class="thumbnail-img"
+          class="rounded-t-lg"
           src="{{ item.imagelink }}"
           alt="{{ item.name }}-thumbnail"
         />
       </div>
-      <div class="game-info grid h-auto">
-        <div class="flex justify-between px-4 gap-4">
-          <h2 class="cursor-pointer text-2xl font-semibold">
-            {{ item.name }}
-          </h2>
-        </div>
+
+      <div class="flex flex-col justify-between px-2 pb-2 gap-1">
+        <h3 class="text-2xl font-semibold">
+          {{ item.name }}
+        </h3>
+        <h3>Precio: $ {{ item.price | number : "1.0-0" }}</h3>
+        <h3 *ngIf="usersService.isLogged()">
+          Comprado en: $ {{ item.boughtAt | number : "1.0-0" }}
+        </h3>
+        <h3 *ngIf="usersService.isLogged()">Dueño: {{ item.owner }}</h3>
+        <h3 *ngIf="usersService.isLogged()">Ubicación: {{ item.location }}</h3>
       </div>
     </div>
   </div>

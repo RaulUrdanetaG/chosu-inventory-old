@@ -1,6 +1,4 @@
-.items-grid {
-  display: grid;
-  gap: 15px;
-  max-height: 100%;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+.item-img {
+  width: 200px;
+  height: 300px;
 }

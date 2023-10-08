@@ -27,6 +27,8 @@ export class NewItemComponent implements OnInit {
   imageSrc: string | ArrayBuffer | null = null;
 
   isValid: boolean = true;
+  isUploading: boolean = false;
+  isUploaded: boolean = true;
 
   constructor(
     private itemsService: ItemsService,
@@ -68,6 +70,7 @@ export class NewItemComponent implements OnInit {
   async onSubmit() {
     if (this.itemForm.valid) {
       this.isValid = true;
+      this.isUploading = true;
       this.itemForm.get('tags')?.setValue(this.currentTags);
 
       if (this.selectedFile !== null) {
@@ -80,10 +83,15 @@ export class NewItemComponent implements OnInit {
       }
 
       const response = await this.itemsService.addItem(this.itemForm.value);
+
+      if (response.error) {
+        return;
+      }
       this.itemForm.reset();
       this.imageSrc = null;
       this.currentTags = [];
       this.tags = this.provTags;
+      this.isUploading = false;
     } else {
       this.isValid = false;
     }

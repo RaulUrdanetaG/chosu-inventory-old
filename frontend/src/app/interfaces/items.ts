@@ -5,6 +5,8 @@ export interface Item {
   name: String;
   imagelink: String;
   price: number;
+  boughtAt: number;
   location: String;
+  owner: string;
   tags: Tag[];
 }

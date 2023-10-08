@@ -4,6 +4,7 @@ import { Item } from 'src/app/interfaces/items';
 import { Tag } from 'src/app/interfaces/tags';
 import { ItemsService } from 'src/app/services/items.service';
 import { TagsService } from 'src/app/services/tags.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-items',
@@ -17,7 +18,8 @@ export class ItemsComponent implements OnInit {
 
   constructor(
     private itemsService: ItemsService,
-    public tagsService: TagsService
+    public tagsService: TagsService,
+    public usersService: UsersService
   ) {}
 
   async ngOnInit() {
