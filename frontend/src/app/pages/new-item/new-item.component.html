@@ -169,6 +169,9 @@
       <p *ngIf="!isValid" class="text-red-600">
         Por favor rellene todos los campos
       </p>
+      <p *ngIf="!isUploaded" class="text-red-600">
+        Error al subir, intente de nuevo.
+      </p>
       <button
         (click)="onSubmit()"
         class="flex px-2 bg-blue-300 rounded-lg items-center justify-center hover:bg-opacity-80"
