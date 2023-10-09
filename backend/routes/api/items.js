@@ -33,12 +33,13 @@ router.get("/:itemId", async (req, res) => {
   }
 });
 
-router.get("/:itemId", async (req, res) => {
+router.put("/:itemId", checkToken, async (req, res) => {
   const { itemId } = req.params;
   try {
-    const items = await Item.findById(itemId);
-
-    res.json(items);
+    const updatedItem = await Item.findByIdAndUpdate(itemId, req.body, {
+      new: true,
+    });
+    res.json(updatedItem);
   } catch (error) {
     res.json({ error: error.message });
   }

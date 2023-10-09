@@ -29,7 +29,8 @@ export class NewOwnerModalComponent {
       const createRes = await this.ownersService.createOwner(this.form.value);
 
       // checks if the retrieved error is from existing tag
-      if (createRes.errorTag) {
+      if (createRes.errorOwner) {
+        this.isValid = true;
         this.tagExists = true;
         return;
       }
@@ -38,6 +39,7 @@ export class NewOwnerModalComponent {
       this.ownersService.setOwners();
       this.ownersService.isNewOwnerModal = false;
     } else {
+      this.tagExists = false;
       this.isValid = false;
     }
   }

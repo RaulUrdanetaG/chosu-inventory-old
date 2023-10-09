@@ -1,0 +1,23 @@
+.new-item-card {
+  max-width: 400px;
+  margin-top: 20px;
+}
+
+.new-img {
+  width: 200px;
+  height: 300px;
+}
+
+.img-input {
+  display: none;
+}
+
+.loading-svg {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.uploading {
+  opacity: 0.1;
+}

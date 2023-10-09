@@ -37,6 +37,14 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'items/updateItem/:itemId',
+    loadChildren: () =>
+      import('./pages/update-item/update-item.module').then(
+        (m) => m.UpdateItemModule
+      ),
+    canActivate: [loginGuard],
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./pages/not-found/not-found.module').then(

@@ -9,7 +9,19 @@ import { Item } from '../interfaces/items';
 })
 export class ItemsService {
   private _items = new BehaviorSubject<Item[]>([]);
-  curretnItems$ = this._items.asObservable();
+  currentItems$ = this._items.asObservable();
+
+  private _selectedItem = new BehaviorSubject<Item>({
+    _id: '',
+    name: '',
+    imagelink: '',
+    price: 0,
+    boughtAt: 0,
+    location: '',
+    owner: '',
+    tags: [],
+  });
+  selectedItem$ = this._selectedItem.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -58,5 +70,15 @@ export class ItemsService {
     return firstValueFrom(
       this.http.post<any>(AppConfig.baseUrl + '/images/upload', image)
     );
+  }
+
+  updateItem(itemId: string, item: Item) {
+    return firstValueFrom(
+      this.http.put<any>(AppConfig.baseUrl + `/items/${itemId}`, item)
+    );
+  }
+
+  setSelectedItem(item: Item) {
+    return this._selectedItem.next(item);
   }
 }

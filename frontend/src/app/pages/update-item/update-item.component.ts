@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Owner } from 'src/app/interfaces/owners';
 import { Tag } from 'src/app/interfaces/tags';
 import { ItemsService } from 'src/app/services/items.service';
@@ -8,11 +9,11 @@ import { OwnersService } from 'src/app/services/owners.service';
 import { TagsService } from 'src/app/services/tags.service';
 
 @Component({
-  selector: 'app-new-item',
-  templateUrl: './new-item.component.html',
-  styleUrls: ['./new-item.component.css'],
+  selector: 'app-update-item',
+  templateUrl: './update-item.component.html',
+  styleUrls: ['./update-item.component.css'],
 })
-export class NewItemComponent implements OnInit {
+export class UpdateItemComponent {
   itemForm: FormGroup;
   selectedFile: File | null = null;
 
@@ -24,6 +25,9 @@ export class NewItemComponent implements OnInit {
 
   locations: any[] = [];
 
+  currentItem: any;
+  currentId: string = '';
+
   imageSrc: string | ArrayBuffer | null = null;
 
   isValid: boolean = true;
@@ -32,6 +36,7 @@ export class NewItemComponent implements OnInit {
 
   constructor(
     private itemsService: ItemsService,
+    private activatedRoute: ActivatedRoute,
     public tagsService: TagsService,
     public ownersService: OwnersService,
     public locationsService: LocationService
@@ -65,6 +70,25 @@ export class NewItemComponent implements OnInit {
     });
 
     this.locations = await this.locationsService.getLocations();
+
+    this.activatedRoute.params.subscribe((params) => {
+      this.currentId = params['itemId'];
+    });
+    // Recieves current item
+    this.itemsService.selectedItem$.subscribe((item) => {
+      // Creates a copy of the current item
+      this.currentItem = { ...item };
+      // removes _id and __v for it to fit in item Form
+      delete this.currentItem._id;
+      delete this.currentItem.__v;
+      // takes the current item values and puts it in the form
+      this.itemForm.setValue(this.currentItem);
+      this.currentTags = item.tags;
+      // filters the tags that were already added for them to not appear in the select input
+      this.tags = this.provTags.filter(
+        (tag) => !this.currentTags.includes(tag.tagname)
+      );
+    });
   }
 
   async onSubmit() {
@@ -79,15 +103,19 @@ export class NewItemComponent implements OnInit {
         imgData.append('image', this.selectedFile!);
         // uploads image to google cloud
         const imageRes = await this.itemsService.addItemImage(imgData);
+        // sets google cloud link to the form
         this.itemForm.get('imagelink')?.setValue(imageRes.url);
       } else {
-        this.itemForm.get('imagelink')?.setValue('');
+        // if theres not a new image fill the form with the current image link
+        this.itemForm.get('imagelink')?.setValue(this.currentItem.imagelink);
       }
-
-      const response = await this.itemsService.addItem(this.itemForm.value);
-
+      // updates item
+      const response = await this.itemsService.updateItem(
+        this.currentId,
+        this.itemForm.value
+      );
       if (response.error) {
-        this.isUploaded = false
+        this.isUploaded = false;
         return;
       }
       this.itemForm.reset();

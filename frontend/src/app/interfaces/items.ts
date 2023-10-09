@@ -8,5 +8,5 @@ export interface Item {
   boughtAt: number;
   location: String;
   owner: string;
-  tags: Tag[];
+  tags: string[];
 }

@@ -17,7 +17,9 @@
 </div>
 
 <ng-template #elseBlock>
-  <div class="items-container flex py-2 pr-4 pl-2 gap-4 flex-wrap justify-center">
+  <div
+    class="items-container flex py-2 pr-4 pl-2 gap-4 flex-wrap justify-center"
+  >
     <div
       class="item-card shadow-xl grid bg-white rounded-lg"
       *ngFor="let item of itemsResponse"
@@ -40,7 +42,11 @@
         </h3>
         <h3 *ngIf="usersService.isLogged()">Dueño: {{ item.owner }}</h3>
         <h3 *ngIf="usersService.isLogged()">Ubicación: {{ item.location }}</h3>
-        <button *ngIf="usersService.isLogged()" class="bg-green-300 rounded-lg">
+        <button
+          *ngIf="usersService.isLogged()"
+          class="bg-green-300 rounded-lg"
+          (click)="editItem(item)"
+        >
           Editar <i class="fa-solid fa-pencil"></i>
         </button>
       </div>

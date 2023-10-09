@@ -21,7 +21,7 @@ router.post("/addOwner", checkToken, async (req, res) => {
     req.body.owner.charAt(0).toUpperCase() +
     req.body.owner.slice(1).toLowerCase();
 
-  const existingOwner = await Owner.findOne({ tagname: processedOwner });
+  const existingOwner = await Owner.findOne({ owner: processedOwner });
 
   if (existingOwner) {
     res.json({ errorOwner: "Owner already exists" });

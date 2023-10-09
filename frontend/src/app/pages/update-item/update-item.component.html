@@ -1,0 +1,187 @@
+<section
+  class="flex flex-col items-center justify-center min-h-full bg-slate-50 relative"
+>
+  <div *ngIf="isUploading" class="absolute loading-svg">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="48"
+      viewBox="0 -960 960 960"
+      width="48"
+      class="animate-spin"
+    >
+      <path
+        class="fill-slate-500"
+        d="M480-80q-84 0-157-31t-127-85q-54-54-85-127T80-480q0-84 31-157t85-127q54-54 127-85t157-31q12 0 21 9t9 21q0 12-9 21t-21 9q-141 0-240.5 99.5T140-480q0 141 99.5 240.5T480-140q141 0 240.5-99.5T820-480q0-12 9-21t21-9q12 0 21 9t9 21q0 84-31 157t-85 127q-54 54-127 85T480-80Z"
+      />
+    </svg>
+  </div>
+  <button class="absolute left-3 top-2" routerLink="/items/all">
+    <i class="fa-solid fa-arrow-left"></i> Volver
+  </button>
+  <div
+    class="new-item-card p-3 bg-white rounded-lg shadow-2xl flex flex-col gap-2"
+    [ngClass]="{ uploading: isUploading }"
+  >
+    <button class="px-2 bg-red-600 text-white self-end rounded-lg">
+      <i class="fa-solid fa-trash-can"></i>
+    </button>
+    <form class="flex flex-col justify-center gap-1 new-img-container">
+      <div class="flex justify-center">
+        <img
+          [src]="imageSrc"
+          alt="Imagen Cargada"
+          *ngIf="imageSrc"
+          class="new-img rounded-lg"
+        />
+      </div>
+      <label
+        *ngIf="!imageSrc"
+        for="img-input"
+        class="bg-burnt-siena rounded-lg px-2 self-center hover:cursor-pointer hover:bg-opacity-80"
+      >
+        Actualizar imagen <i class="fa-regular fa-image"></i>
+      </label>
+      <label
+        *ngIf="imageSrc"
+        for="img-input"
+        class="bg-burnt-siena rounded-lg px-2 self-center hover:cursor-pointer hover:bg-opacity-80"
+      >
+        Cambiar imagen <i class="fa-regular fa-image"></i>
+      </label>
+      <input
+        type="file"
+        id="img-input"
+        class="img-input"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        required
+      />
+    </form>
+    <form [formGroup]="itemForm" class="flex flex-col gap-2">
+      <input type="hidden" formControlName="imagelink" />
+      <div class="flex justify-between gap-1">
+        <label for="name">Nombre: </label>
+        <input
+          type="text"
+          class="bg-gray-100 rounded-md px-2 flex-1"
+          formControlName="name"
+          id="name"
+          required
+        />
+      </div>
+      <div class="flex gap-2">
+        <div class="flex flex-col gap-2">
+          <label for="price">Precio: </label>
+          <label for="boughtAt">Comprado en: </label>
+        </div>
+        <div class="flex flex-col flex-1 gap-2 justify-around">
+          <div class="flex">
+            <p>$</p>
+            <input
+              type="number"
+              class="bg-gray-100 rounded-md px-2 flex-1"
+              formControlName="price"
+              id="price"
+              min="0"
+              required
+            />
+          </div>
+          <div class="flex">
+            <p>$</p>
+            <input
+              type="number"
+              class="bg-gray-100 rounded-md px-2 flex-1"
+              formControlName="boughtAt"
+              id="boughtAt"
+              min="0"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-2 items-center justify-between">
+        <label for="tags">Etiquetas: </label>
+        <select
+          (change)="onTagSelect($event.target)"
+          class="bg-gray-100 rounded-md"
+          id="tags"
+          formControlName="tags"
+          required
+        >
+          <option *ngFor="let tag of tags" value="{{ tag.tagname }}">
+            {{ tag.tagname }}
+          </option>
+        </select>
+        <button
+          class="flex px-2 bg-green-300 rounded-lg items-center justify-center hover:bg-opacity-80"
+          (click)="tagsService.isNewTagModal = true"
+        >
+          Nueva etiqueta
+        </button>
+      </div>
+      <div *ngIf="currentTags.length > 0" class="flex gap-1 mb-3 flex-wrap">
+        <div *ngFor="let tag of currentTags">
+          <div
+            class="flex gap-1 items-center p-1 rounded-lg bg-slate-200 hover:cursor-default"
+          >
+            {{ tag }}
+            <a (click)="onTagDelete(tag)"
+              ><i
+                class="fa-solid fa-circle-xmark text-slate-400 hover:cursor-pointer"
+              ></i
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 items-center justify-between">
+        <label for="tags">Dueño: </label>
+        <select
+          class="bg-gray-100 rounded-md"
+          id="owner"
+          formControlName="owner"
+          required
+        >
+          <option *ngFor="let owner of owners" value="{{ owner.owner }}">
+            {{ owner.owner }}
+          </option>
+        </select>
+        <button
+          class="flex px-2 bg-green-300 rounded-lg items-center justify-center hover:bg-opacity-80"
+          (click)="ownersService.isNewOwnerModal = true"
+        >
+          Nuevo dueño
+        </button>
+      </div>
+
+      <div class="flex justify-between gap-1">
+        <label for="location">Ubicación del articulo: </label>
+        <select
+          id="location"
+          class="bg-gray-100 rounded-md flex-1"
+          formControlName="location"
+          required
+        >
+          <option
+            *ngFor="let location of locations"
+            value="{{ location.location }}"
+          >
+            {{ location.location }}
+          </option>
+        </select>
+      </div>
+      <p *ngIf="!isValid" class="text-red-600">
+        Por favor rellene todos los campos
+      </p>
+      <p *ngIf="!isUploaded" class="text-red-600">
+        Error al subir, intente de nuevo.
+      </p>
+      <button
+        (click)="onSubmit()"
+        class="flex px-2 bg-blue-300 rounded-lg items-center justify-center hover:bg-opacity-80"
+      >
+        Editar producto
+      </button>
+    </form>
+  </div>
+</section>

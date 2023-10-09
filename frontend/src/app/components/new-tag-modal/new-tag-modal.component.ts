@@ -30,6 +30,7 @@ export class NewTagModalComponent {
 
       // checks if the retrieved error is from existing tag
       if (createRes.errorTag) {
+        this.isValid = true;
         this.tagExists = true;
         return;
       }
@@ -38,6 +39,7 @@ export class NewTagModalComponent {
       this.tagsService.setTags();
       this.tagsService.isNewTagModal = false;
     } else {
+      this.tagExists = false;
       this.isValid = false;
     }
   }
