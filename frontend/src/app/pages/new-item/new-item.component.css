@@ -17,3 +17,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.uploading{
+  opacity: 0.1;
+}
