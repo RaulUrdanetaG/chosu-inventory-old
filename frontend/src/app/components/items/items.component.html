@@ -18,6 +18,13 @@
 
 <ng-template #elseBlock>
   <div
+    *ngIf="itemsResponse!.length === 0"
+    class="flex justify-center items-center mt-10 text-3xl mx-2 text-center"
+  >
+    Ups! No hay ningun item con esas caracteristicas
+  </div>
+  <div
+    *ngIf="itemsResponse!.length > 0"
     class="items-container flex py-2 pr-4 pl-2 gap-4 flex-wrap justify-center"
   >
     <div
