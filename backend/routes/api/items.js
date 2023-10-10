@@ -8,13 +8,21 @@ router.get("/", async (req, res) => {
   try {
     var items = {};
     if (req.query.tag) {
-      items = await Item.find({ tags: { $in: req.query.tag } });
+      items = await Item.find({ tags: { $in: req.query.tag } }).sort({
+        name: 1,
+      });
     } else if (req.query.owner) {
-      items = await Item.find({ owner: { $in: req.query.owner } });
+      items = await Item.find({ owner: { $in: req.query.owner } }).sort({
+        name: 1,
+      });
     } else if (req.query.location) {
-      items = await Item.find({ location: { $in: req.query.location } });
+      items = await Item.find({ location: { $in: req.query.location } }).sort({
+        name: 1,
+      });
     } else {
-      items = await Item.find();
+      items = await Item.find().sort({
+        name: 1,
+      });
     }
     res.json(items);
   } catch (error) {
