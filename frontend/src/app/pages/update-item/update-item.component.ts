@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Owner } from 'src/app/interfaces/owners';
 import { Tag } from 'src/app/interfaces/tags';
 import { ItemsService } from 'src/app/services/items.service';
@@ -35,11 +35,12 @@ export class UpdateItemComponent {
   isUploaded: boolean = true;
 
   constructor(
-    private itemsService: ItemsService,
     private activatedRoute: ActivatedRoute,
+    public itemsService: ItemsService,
     public tagsService: TagsService,
     public ownersService: OwnersService,
-    public locationsService: LocationService
+    public locationsService: LocationService,
+    private router: Router
   ) {
     this.itemForm = new FormGroup({
       name: new FormControl(),
@@ -118,11 +119,7 @@ export class UpdateItemComponent {
         this.isUploaded = false;
         return;
       }
-      this.itemForm.reset();
-      this.imageSrc = null;
-      this.currentTags = [];
-      this.tags = this.provTags;
-      this.isUploading = false;
+      this.router.navigate(['/items/all']);
     } else {
       this.isValid = false;
     }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TagsService } from './services/tags.service';
 import { OwnersService } from './services/owners.service';
+import { ItemsService } from './services/items.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ export class AppComponent {
 
   constructor(
     public tagsService: TagsService,
-    public ownersService: OwnersService
+    public ownersService: OwnersService,
+    public itemsService: ItemsService
   ) {}
 }

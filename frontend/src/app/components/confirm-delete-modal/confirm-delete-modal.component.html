@@ -1,4 +1,7 @@
-<div *ngIf="tagsService.isDeleteTagModal" class="abs-center flex flex-col gap-3 absolute top-1/2 left-1/2 p-4 rounded-lg bg-white z-50">
+<div
+  *ngIf="tagsService.isDeleteTagModal"
+  class="abs-center flex flex-col gap-3 absolute top-1/2 left-1/2 p-4 rounded-lg bg-white z-50"
+>
   <h3>
     Esta seguro que desea borrar la etiqueta <b>{{ currentTag.tagname }}</b
     >?
@@ -10,11 +13,16 @@
     >
       Cancelar
     </button>
-    <button class="p-2 rounded-lg bg-red-600 text-white" (click)="deleteTag()">Borrar</button>
+    <button class="p-2 rounded-lg bg-red-600 text-white" (click)="deleteTag()">
+      Borrar
+    </button>
   </div>
 </div>
 
-<div *ngIf="ownersService.isDeleteOwnerModal" class="abs-center flex flex-col gap-3 absolute top-1/2 left-1/2 p-4 rounded-lg bg-white z-50">
+<div
+  *ngIf="ownersService.isDeleteOwnerModal"
+  class="abs-center flex flex-col gap-3 absolute top-1/2 left-1/2 p-4 rounded-lg bg-white z-50"
+>
   <h3>
     Esta seguro que desea borrar a <b>{{ currentOwner.owner }}</b
     >?
@@ -22,10 +30,36 @@
   <div class="flex justify-center gap-5">
     <button
       class="p-2 rounded-lg bg-slate-200"
-      (click)="ownersService.isDeleteOwnerModal= false"
+      (click)="ownersService.isDeleteOwnerModal = false"
     >
       Cancelar
     </button>
-    <button class="p-2 rounded-lg bg-red-600 text-white" (click)="deleteOwner()">Borrar</button>
+    <button
+      class="p-2 rounded-lg bg-red-600 text-white"
+      (click)="deleteOwner()"
+    >
+      Borrar
+    </button>
+  </div>
+</div>
+
+<div
+  *ngIf="itemsService.isDeleteItemModal"
+  class="abs-center flex flex-col gap-3 absolute top-1/2 left-1/2 p-4 rounded-lg bg-white z-50"
+>
+  <h3>
+    Esta seguro que desea borrar a <b>{{ currentItem.name }}</b
+    >?
+  </h3>
+  <div class="flex justify-center gap-5">
+    <button
+      class="p-2 rounded-lg bg-slate-200"
+      (click)="itemsService.isDeleteItemModal = false"
+    >
+      Cancelar
+    </button>
+    <button class="p-2 rounded-lg bg-red-600 text-white" (click)="deleteItem()">
+      Borrar
+    </button>
   </div>
 </div>

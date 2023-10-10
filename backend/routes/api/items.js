@@ -45,6 +45,18 @@ router.put("/:itemId", checkToken, async (req, res) => {
   }
 });
 
+router.delete("/:itemId", checkToken, async (req, res) => {
+  const { itemId } = req.params;
+  console.log(itemId);
+
+  try {
+    const deletedItem = await Item.findByIdAndDelete(itemId);
+    res.json(deletedItem);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
+
 router.post("/addItem", checkToken, async (req, res) => {
   try {
     const newItem = await Item.create(req.body);

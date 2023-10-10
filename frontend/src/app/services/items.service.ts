@@ -8,6 +8,8 @@ import { Item } from '../interfaces/items';
   providedIn: 'root',
 })
 export class ItemsService {
+  isDeleteItemModal: boolean = false;
+  
   private _items = new BehaviorSubject<Item[]>([]);
   currentItems$ = this._items.asObservable();
 
@@ -75,6 +77,12 @@ export class ItemsService {
   updateItem(itemId: string, item: Item) {
     return firstValueFrom(
       this.http.put<any>(AppConfig.baseUrl + `/items/${itemId}`, item)
+    );
+  }
+
+  deleteItem(itemId: string) {
+    return firstValueFrom(
+      this.http.delete<any>(AppConfig.baseUrl + `/items/${itemId}`)
     );
   }
 

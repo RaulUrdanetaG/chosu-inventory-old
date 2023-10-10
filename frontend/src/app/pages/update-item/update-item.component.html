@@ -22,7 +22,10 @@
     class="new-item-card p-3 bg-white rounded-lg shadow-2xl flex flex-col gap-2"
     [ngClass]="{ uploading: isUploading }"
   >
-    <button class="px-2 bg-red-600 text-white self-end rounded-lg">
+    <button
+      class="px-2 bg-red-600 text-white self-end rounded-lg"
+      (click)="itemsService.isDeleteItemModal = true"
+    >
       <i class="fa-solid fa-trash-can"></i>
     </button>
     <form class="flex flex-col justify-center gap-1 new-img-container">

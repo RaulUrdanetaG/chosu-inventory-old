@@ -21,6 +21,10 @@
 <div *ngIf="ownersService.isDeleteOwnerModal">
   <app-confirm-delete-modal></app-confirm-delete-modal>
 </div>
+
+<div *ngIf="itemsService.isDeleteItemModal">
+  <app-confirm-delete-modal></app-confirm-delete-modal>
+</div>
 <div
   class="app min-h-screen"
   [ngClass]="{
@@ -30,7 +34,8 @@
       tagsService.isDeleteTagModal ||
       ownersService.isNewOwnerModal ||
       ownersService.isUpdateOwnerModal ||
-      ownersService.isDeleteOwnerModal
+      ownersService.isDeleteOwnerModal ||
+      itemsService.isDeleteItemModal
   }"
 >
   <app-navbar></app-navbar>

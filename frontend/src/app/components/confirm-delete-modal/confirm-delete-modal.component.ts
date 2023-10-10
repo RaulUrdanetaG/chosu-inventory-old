@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Item } from 'src/app/interfaces/items';
 import { Owner } from 'src/app/interfaces/owners';
 import { Tag } from 'src/app/interfaces/tags';
+import { ItemsService } from 'src/app/services/items.service';
 import { OwnersService } from 'src/app/services/owners.service';
 import { TagsService } from 'src/app/services/tags.service';
 
@@ -12,9 +15,13 @@ import { TagsService } from 'src/app/services/tags.service';
 export class ConfirmDeleteModalComponent implements OnInit {
   currentTag!: Tag;
   currentOwner!: Owner;
+  currentItem!: Item;
+
   constructor(
     public tagsService: TagsService,
-    public ownersService: OwnersService
+    public ownersService: OwnersService,
+    public itemsService: ItemsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -24,6 +31,10 @@ export class ConfirmDeleteModalComponent implements OnInit {
 
     this.ownersService.SelectedOwner$.subscribe((owner) => {
       this.currentOwner = owner;
+    });
+
+    this.itemsService.selectedItem$.subscribe((item) => {
+      this.currentItem = item;
     });
   }
 
@@ -39,5 +50,15 @@ export class ConfirmDeleteModalComponent implements OnInit {
     );
     this.ownersService.setOwners();
     this.ownersService.isDeleteOwnerModal = false;
+  }
+
+  async deleteItem() {
+    console.log(this.currentItem._id);
+    const deletedItem = await this.itemsService.deleteItem(
+      this.currentItem._id
+    );
+    console.log(deletedItem);
+    this.itemsService.isDeleteItemModal = false;
+    this.router.navigate(['/items/all']);
   }
 }
