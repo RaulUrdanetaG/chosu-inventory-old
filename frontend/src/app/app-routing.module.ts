@@ -45,6 +45,12 @@ const routes: Routes = [
     canActivate: [loginGuard],
   },
   {
+    path: 'tags/all',
+    loadChildren: () =>
+      import('./pages/tags/tags.module').then((m) => m.TagsModule),
+    canActivate: [loginGuard],
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./pages/not-found/not-found.module').then(

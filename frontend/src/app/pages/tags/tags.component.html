@@ -1,0 +1,72 @@
+<section class="relative flex justify-center bg-slate-100 items-center py-2">
+  <button class="absolute left-3 top-1" routerLink="/items/all">
+    <i class="fa-solid fa-arrow-left"></i> Volver
+  </button>
+  <div
+    *ngIf="!isLoading(); else loadedBlock"
+    class="options-container flex gap-5"
+  >
+    <div class="flex flex-col gap-2">
+      <h4 class="mt-3 text-center"><b>Etiquetas</b></h4>
+      <div class="tags flex flex-col gap-2 flex-wrap">
+        <button
+          *ngFor="let tag of tags"
+          [class.activeBtn]="activeButton === tag.tagname"
+          class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300 max-w-xs"
+          (click)="selectTag(tag)"
+        >
+          <p>{{ tag.tagname }}</p>
+          <div *ngIf="usersService.isLogged()" class="flex gap-1 hidden-link">
+            <a (click)="editTag(tag)"><i class="fa-solid fa-pencil"></i></a>
+            <a (click)="deleteTagModal(tag)" class="text-red-600"
+              ><i class="fa-solid fa-trash-can"></i
+            ></a>
+          </div>
+        </button>
+      </div>
+      <button
+        class="px-2 rounded-lg bg-green-300 max-w-xs"
+        (click)="tagsService.isNewTagModal = true"
+      >
+        Agregar etiqueta
+      </button>
+    </div>
+    <div class="flex flex-col gap-2 border-l border-l-slate-200 pl-3">
+      <h4 class="mt-3 text-center"><b>Dueños</b></h4>
+      <div class="owners flex flex-col gap-2 flex-wrap">
+        <button
+          *ngFor="let owner of owners"
+          [class.activeBtn]="activeButton === owner.owner"
+          class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300 max-w-xs"
+        >
+          <p>{{ owner.owner }}</p>
+          <div class="flex gap-1 hidden-link">
+            <a (click)="editOwner(owner)"><i class="fa-solid fa-pencil"></i></a>
+          </div>
+        </button>
+      </div>
+      <button
+        class="px-2 rounded-lg bg-green-300 max-w-xs"
+        (click)="ownersService.isNewOwnerModal = true"
+      >
+        Agregar dueño
+      </button>
+    </div>
+  </div>
+  <ng-template #loadedBlock class="text-center">
+    <div class="flex justify-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="48"
+        viewBox="0 -960 960 960"
+        width="48"
+        class="animate-spin"
+      >
+        <path
+          class="fill-slate-400"
+          d="M480-80q-84 0-157-31t-127-85q-54-54-85-127T80-480q0-84 31-157t85-127q54-54 127-85t157-31q12 0 21 9t9 21q0 12-9 21t-21 9q-141 0-240.5 99.5T140-480q0 141 99.5 240.5T480-140q141 0 240.5-99.5T820-480q0-12 9-21t21-9q12 0 21 9t9 21q0 84-31 157t-85 127q-54 54-127 85T480-80Z"
+        />
+      </svg>
+    </div>
+  </ng-template>
+</section>
