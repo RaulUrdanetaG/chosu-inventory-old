@@ -3,6 +3,16 @@
   overflow: auto;
 }
 
+.items-container::-webkit-scrollbar{
+  background-color: #F7F9FB;
+  width: 10px;
+}
+
+.items-container::-webkit-scrollbar-thumb{
+  background-color: #93C5FD;
+  border-radius: 10px;
+}
+
 .item-card {
   max-width: 200px;
 }

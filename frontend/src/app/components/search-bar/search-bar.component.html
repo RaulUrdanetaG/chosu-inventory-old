@@ -9,7 +9,7 @@
         class="flex justify-between gap-2 w-56 px-2 bg-slate-100 rounded-lg hover:cursor-pointer"
         (click)="isDroppedDown = true"
       >
-      <p></p>
+        <p></p>
         <button>
           <i class="fa-solid fa-chevron-down"></i>
         </button>
@@ -18,49 +18,69 @@
   </div>
   <div
     *ngIf="isDroppedDown"
-    class="drop-down flex gap-1 p-2 rounded-lg bg-slate-100 h-80"
+    class="drop-down flex flex-col gap-1 p-2 rounded-lg bg-slate-100 h-90"
   >
-    <div class="flex flex-col gap-1 flex-wrap">
-      <button
-        class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
-        (click)="showAllItems()"
-      >
-        Todos los items
-      </button>
-      <button
-        *ngFor="let tag of tags"
-        class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
-        (click)="selectTag(tag)"
-      >
-        <p>{{ tag.tagname }}</p>
-      </button>
-    </div>
-    <hr />
-    <div
-      *ngIf="usersService.isLogged()"
-      class="flex flex-col gap-1 flex-wrap border-l pl-2"
+    <form
+      class="flex relative gap-1 self-end items-center mb-2"
     >
-      <p><b>Dueños</b></p>
-      <button
-        *ngFor="let owner of owners"
-        class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
-        (click)="selectOwner(owner)"
+      <label
+        for="fliter-search"
+        class="absolute ml-1.5"
+        ><i class="fa-solid fa-magnifying-glass text-slate-500"></i>
+      </label>
+      <input
+        type="text"
+        #input
+        id="fliter-search"
+        class="rounded-lg py-1 pl-7 bg-slate-200 border border-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-blue-300"
+        (keyup)="onType(input.value)"
+        (keydown.enter)="searchByName(searchName)"
+        required
+      />
+    </form>
+    <div class="flex h-80">
+      <div class="flex flex-col gap-1 flex-wrap px-2">
+        <button
+          class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+          (click)="showAllItems()"
+        >
+          Todos los items
+        </button>
+        <button
+          *ngFor="let tag of tags"
+          class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+          (click)="selectTag(tag)"
+        >
+          <p>{{ tag.tagname }}</p>
+        </button>
+      </div>
+      <hr />
+      <div
+        *ngIf="usersService.isLogged()"
+        class="flex flex-col gap-1 flex-wrap border-l px-2"
       >
-        <p>{{ owner.owner }}</p>
-      </button>
-    </div>
-    <div
-      *ngIf="usersService.isLogged()"
-      class="flex flex-col gap-1 flex-wrap border-l pl-2"
-    >
-      <p><b>Ubicaciones</b></p>
-      <button
-        *ngFor="let location of locations"
-        class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
-        (click)="selectLocation(location.location)"
+        <p><b>Dueños</b></p>
+        <button
+          *ngFor="let owner of owners"
+          class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+          (click)="selectOwner(owner)"
+        >
+          <p>{{ owner.owner }}</p>
+        </button>
+      </div>
+      <div
+        *ngIf="usersService.isLogged()"
+        class="flex flex-col gap-1 flex-wrap border-l pl-2"
       >
-        <p>{{ location.location }}</p>
-      </button>
+        <p><b>Ubicaciones</b></p>
+        <button
+          *ngFor="let location of locations"
+          class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+          (click)="selectLocation(location.location)"
+        >
+          <p>{{ location.location }}</p>
+        </button>
+      </div>
     </div>
   </div>
 </section>

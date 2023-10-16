@@ -9,7 +9,7 @@ import { Item } from '../interfaces/items';
 })
 export class ItemsService {
   isDeleteItemModal: boolean = false;
-  
+
   private _items = new BehaviorSubject<Item[]>([]);
   currentItems$ = this._items.asObservable();
 
@@ -59,6 +59,7 @@ export class ItemsService {
     const itemsResponse = await firstValueFrom(
       this.http.get<any>(AppConfig.baseUrl + `/items?name=${name}`)
     );
+    console.log(itemsResponse);
     return this._items.next(itemsResponse);
   }
 

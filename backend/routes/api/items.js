@@ -19,6 +19,12 @@ router.get("/", async (req, res) => {
       items = await Item.find({ location: { $in: req.query.location } }).sort({
         name: 1,
       });
+    } else if (req.query.name) {
+      items = await Item.find({
+        name: { $regex: req.query.name, $options: "i" },
+      }).sort({
+        name: 1,
+      });
     } else {
       items = await Item.find().sort({
         name: 1,

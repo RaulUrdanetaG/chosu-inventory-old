@@ -23,6 +23,8 @@ export class SearchBarComponent {
 
   isDroppedDown: boolean = false;
 
+  public searchName: string = '';
+
   constructor(
     public tagsService: TagsService,
     public usersService: UsersService,
@@ -72,6 +74,16 @@ export class SearchBarComponent {
     this.itemsService.getItemsWithLocation(location);
     this.currentFilter = location;
     this.isDroppedDown = false;
+  }
+
+  async searchByName(name: string) {
+    this.itemsService.getItemsWithName(name);
+    this.currentFilter = name;
+    this.isDroppedDown = false;
+  }
+
+  onType(search: string) {
+    this.searchName = search;
   }
 
   isLoading() {
