@@ -4,9 +4,9 @@
   </button>
   <div
     *ngIf="!isLoading(); else loadedBlock"
-    class="options-container flex gap-5"
+    class="options-container flex gap-3 pt-5"
   >
-    <div class="flex flex-col gap-2">
+    <div class="flex flex-col gap-2 p-2 pt-0 bg-white rounded-lg shadow-lg">
       <h4 class="mt-3 text-center"><b>Etiquetas</b></h4>
       <div class="tags flex flex-col gap-2 flex-wrap">
         <button
@@ -31,7 +31,7 @@
         Agregar etiqueta
       </button>
     </div>
-    <div class="flex flex-col gap-2 border-l border-l-slate-200 pl-3">
+    <div class="flex flex-col gap-2 p-2 pt-0 bg-white rounded-lg shadow-lg">
       <h4 class="mt-3 text-center"><b>Dueños</b></h4>
       <div class="owners flex flex-col gap-2 flex-wrap">
         <button
