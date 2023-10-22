@@ -1,12 +1,12 @@
 <section class="flex relative justify-between px-3.5 pb-2 items-center">
-  <p class="text-3xl">
-    <b>{{ currentFilter }}</b>
-  </p>
-  <div class="flex">
-    <div class="flex gap-2">
+  <div class="section flex justify-between w-full">
+    <p class="text-3xl">
+      <b>{{ currentFilter }}</b>
+    </p>
+    <div class="flex items-center gap-2">
       <p>Filtros:</p>
       <div
-        class="flex justify-between gap-2 w-56 px-2 bg-slate-100 rounded-lg hover:cursor-pointer"
+        class="filter-input flex justify-between gap-2 w-56 px-2 bg-slate-100 rounded-lg hover:cursor-pointer"
         (click)="isDroppedDown = true"
       >
         <p></p>
@@ -18,29 +18,25 @@
   </div>
   <div
     *ngIf="isDroppedDown"
-    class="drop-down flex flex-col gap-1 p-2 rounded-lg bg-slate-100 h-90"
+    class="drop-down flex flex-col gap-1 p-2 rounded-lg bg-slate-100 h-90 shadow-lg"
   >
-    <form
-      class="flex relative gap-1 self-end items-center mb-2"
-    >
-      <label
-        for="fliter-search"
-        class="absolute ml-1.5"
+    <form class="flex relative gap-1 self-end items-center mb-2">
+      <label for="filter-search" class="absolute ml-1.5"
         ><i class="fa-solid fa-magnifying-glass text-slate-500"></i>
       </label>
       <input
         type="text"
         #input
-        id="fliter-search"
-        class="rounded-lg py-1 pl-7 bg-slate-200 border border-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-blue-300"
+        id="filter-search"
+        class="search-bar rounded-lg py-1 pl-7 bg-slate-200 border border-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-blue-300"
         (keyup)="onType(input.value)"
         (keydown.enter)="searchByName(searchName)"
         autocomplete="off"
         required
       />
     </form>
-    <div class="flex h-80">
-      <div class="flex flex-col gap-1 flex-wrap px-2">
+    <div class="categories flex h-80">
+      <div class="tags flex flex-col gap-1 px-2">
         <button
           class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
           (click)="showAllItems()"
@@ -58,7 +54,7 @@
       <hr />
       <div
         *ngIf="usersService.isLogged()"
-        class="flex flex-col gap-1 flex-wrap border-l px-2"
+        class="owners flex flex-col gap-1 border-l px-2"
       >
         <p><b>Dueños</b></p>
         <button
@@ -71,7 +67,7 @@
       </div>
       <div
         *ngIf="usersService.isLogged()"
-        class="flex flex-col gap-1 flex-wrap border-l pl-2"
+        class="locations flex flex-col gap-1 border-l pl-2"
       >
         <p><b>Ubicaciones</b></p>
         <button

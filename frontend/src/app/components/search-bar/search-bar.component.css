@@ -1,5 +1,42 @@
-.drop-down{
+.drop-down {
   position: absolute;
   right: 14px;
   top: 35px;
+}
+
+.tags {
+  flex-direction: column;
+  overflow: auto;
+}
+
+@media (max-width: 630px) {
+  .categories {
+    width: 93vw;
+    justify-content: center;
+  }
+
+  .search-bar {
+    width: 93vw;
+  }
+
+  .section {
+    flex-direction: column;
+  }
+
+  .filter-input {
+    flex: 1;
+  }
+}
+
+@media (max-width: 540px) {
+  .categories {
+    flex-direction: column;
+    justify-content: initial;
+    overflow: auto;
+    max-height: 50vh;
+  }
+
+  .tags {
+    overflow: initial;
+  }
 }

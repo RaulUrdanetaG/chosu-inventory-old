@@ -2,3 +2,11 @@
 .owners {
   height: 76vh;
 }
+
+@media (max-width: 630px) {
+  .tags,
+  .owners {
+    flex-wrap: nowrap;
+    overflow: auto;
+  }
+}

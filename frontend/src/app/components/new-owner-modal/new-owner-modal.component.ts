@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { OwnersService } from 'src/app/services/owners.service';
 
@@ -10,7 +10,9 @@ import { OwnersService } from 'src/app/services/owners.service';
   imports: [CommonModule, ReactiveFormsModule],
   standalone: true,
 })
-export class NewOwnerModalComponent {
+export class NewOwnerModalComponent implements AfterViewInit {
+  @ViewChild('newOwnerInput') newOwnerInput: ElementRef | undefined;
+
   form: FormGroup;
   isValid: boolean = true;
   tagExists: boolean = false;
@@ -42,5 +44,9 @@ export class NewOwnerModalComponent {
       this.tagExists = false;
       this.isValid = false;
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.newOwnerInput?.nativeElement.focus();
   }
 }
