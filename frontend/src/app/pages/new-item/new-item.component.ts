@@ -87,7 +87,7 @@ export class NewItemComponent implements OnInit {
       const response = await this.itemsService.addItem(this.itemForm.value);
 
       if (response.error) {
-        this.isUploaded = false
+        this.isUploaded = false;
         return;
       }
       this.itemForm.reset();

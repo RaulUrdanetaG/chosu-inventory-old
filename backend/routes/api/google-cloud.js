@@ -5,10 +5,12 @@ const path = require("path");
 const { Storage } = require("@google-cloud/storage");
 
 const { checkToken } = require("../../middlewares/middleware");
+const { json } = require("express");
+
 require("dotenv").config();
 
 const gc = new Storage({
-  keyFilename: path.join(__dirname, "../../chosu-inventory-6be4f505c024.json"),
+  credentials: JSON.parse(process.env.GOOGLE_CLOUD_CREDENTIALS),
   projectId: "chosu-inventory",
 });
 
