@@ -21,7 +21,6 @@ router.post("/addTag", checkToken, async (req, res) => {
     req.body.tagname.charAt(0).toUpperCase() +
     req.body.tagname.slice(1).toLowerCase();
 
-  console.log(processedTag);
   const existingTag = await Tag.findOne({ tagname: processedTag });
 
   if (existingTag) {
