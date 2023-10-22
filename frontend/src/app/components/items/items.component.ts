@@ -25,10 +25,12 @@ export class ItemsComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.itemsService.isItemsLoading = true;
     this.itemsService.currentItems$.subscribe((items) => {
       this.itemsResponse = items;
     });
     await this.itemsService.getItems();
+    this.itemsService.isItemsLoading = false;
   }
 
   editItem(item: Item) {
@@ -37,6 +39,8 @@ export class ItemsComponent implements OnInit {
   }
 
   isLoading() {
-    return this.itemsResponse ? false : true;
+    return this.itemsResponse?.length === 0 && this.itemsService.isItemsLoading
+      ? true
+      : false;
   }
 }

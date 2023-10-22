@@ -9,6 +9,7 @@ import { Item } from '../interfaces/items';
 })
 export class ItemsService {
   isDeleteItemModal: boolean = false;
+  isItemsLoading: boolean = false;
 
   private _items = new BehaviorSubject<Item[]>([]);
   currentItems$ = this._items.asObservable();
@@ -28,37 +29,52 @@ export class ItemsService {
   constructor(private http: HttpClient) {}
 
   async getItems() {
+    this._items.next([]);
+    this.isItemsLoading = true;
     const itemsResponse = await firstValueFrom(
       this.http.get<Item[]>(AppConfig.baseUrl + '/items')
     );
+    this.isItemsLoading = false;
     return this._items.next(itemsResponse);
   }
 
   async getItemsWithTag(tagname: string) {
+    this._items.next([]);
+    this.isItemsLoading = true;
     const itemsResponse = await firstValueFrom(
       this.http.get<any>(AppConfig.baseUrl + `/items?tag=${tagname}`)
     );
+    this.isItemsLoading = false;
     return this._items.next(itemsResponse);
   }
 
   async getItemsWithOwner(owner: string) {
+    this._items.next([]);
+    this.isItemsLoading = true;
     const itemsResponse = await firstValueFrom(
       this.http.get<any>(AppConfig.baseUrl + `/items?owner=${owner}`)
     );
+    this.isItemsLoading = false;
     return this._items.next(itemsResponse);
   }
 
   async getItemsWithLocation(location: string) {
+    this._items.next([]);
+    this.isItemsLoading = true;
     const itemsResponse = await firstValueFrom(
       this.http.get<any>(AppConfig.baseUrl + `/items?location=${location}`)
     );
+    this.isItemsLoading = false;
     return this._items.next(itemsResponse);
   }
 
   async getItemsWithName(name: string) {
+    this._items.next([]);
+    this.isItemsLoading = true;
     const itemsResponse = await firstValueFrom(
       this.http.get<any>(AppConfig.baseUrl + `/items?name=${name}`)
     );
+    this.isItemsLoading = false;
     return this._items.next(itemsResponse);
   }
 
