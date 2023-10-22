@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Owner } from 'src/app/interfaces/owners';
 import { OwnersService } from 'src/app/services/owners.service';
@@ -8,7 +8,9 @@ import { OwnersService } from 'src/app/services/owners.service';
   templateUrl: './update-owner-modal.component.html',
   styleUrls: ['./update-owner-modal.component.css'],
 })
-export class UpdateOwnerModalComponent {
+export class UpdateOwnerModalComponent implements AfterViewInit {
+  @ViewChild('updateOwnerInput') updateOwnerInput: ElementRef | undefined;
+
   form: FormGroup;
   isValid: boolean = true;
   tagExists: boolean = false;
@@ -48,5 +50,9 @@ export class UpdateOwnerModalComponent {
     } else {
       this.isValid = false;
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.updateOwnerInput?.nativeElement.focus();
   }
 }

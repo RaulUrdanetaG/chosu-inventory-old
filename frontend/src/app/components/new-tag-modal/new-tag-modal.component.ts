@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TagsService } from 'src/app/services/tags.service';
 
@@ -10,7 +10,9 @@ import { TagsService } from 'src/app/services/tags.service';
   imports: [CommonModule, ReactiveFormsModule],
   standalone: true,
 })
-export class NewTagModalComponent {
+export class NewTagModalComponent implements AfterViewInit {
+  @ViewChild('newTagInput') newTagInput: ElementRef | undefined;
+
   form: FormGroup;
   isValid: boolean = true;
   tagExists: boolean = false;
@@ -42,5 +44,9 @@ export class NewTagModalComponent {
       this.tagExists = false;
       this.isValid = false;
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.newTagInput?.nativeElement.focus();
   }
 }

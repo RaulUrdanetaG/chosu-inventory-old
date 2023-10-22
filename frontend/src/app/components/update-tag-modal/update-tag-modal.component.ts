@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Tag } from 'src/app/interfaces/tags';
 import { TagsService } from 'src/app/services/tags.service';
@@ -8,7 +14,9 @@ import { TagsService } from 'src/app/services/tags.service';
   templateUrl: './update-tag-modal.component.html',
   styleUrls: ['./update-tag-modal.component.css'],
 })
-export class UpdateTagModalComponent implements OnInit {
+export class UpdateTagModalComponent implements OnInit, AfterViewInit {
+  @ViewChild('updateTagInput') updateTagInput: ElementRef | undefined;
+
   form: FormGroup;
   isValid: boolean = true;
   tagExists: boolean = false;
@@ -48,5 +56,9 @@ export class UpdateTagModalComponent implements OnInit {
     } else {
       this.isValid = false;
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.updateTagInput?.nativeElement.focus();
   }
 }
