@@ -61,7 +61,6 @@ router.put("/:itemId", checkToken, async (req, res) => {
 
 router.delete("/:itemId", checkToken, async (req, res) => {
   const { itemId } = req.params;
-  console.log(itemId);
 
   try {
     const deletedItem = await Item.findByIdAndDelete(itemId);

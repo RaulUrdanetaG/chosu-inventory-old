@@ -5,7 +5,6 @@ const path = require("path");
 const { Storage } = require("@google-cloud/storage");
 
 const { checkToken } = require("../../middlewares/middleware");
-const { json } = require("express");
 
 require("dotenv").config();
 
@@ -52,7 +51,6 @@ router.post(
       const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
       res.json({ url: publicUrl });
     } catch (error) {
-      console.log(error);
       res.json({ error: error });
     }
   }
