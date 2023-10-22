@@ -34,6 +34,8 @@ export class UpdateItemComponent {
   isUploading: boolean = false;
   isUploaded: boolean = true;
 
+  isLoading: boolean = false;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     public itemsService: ItemsService,
@@ -54,6 +56,7 @@ export class UpdateItemComponent {
   }
 
   async ngOnInit() {
+    this.isLoading = true;
     this.tagsService.setTags();
     this.ownersService.setOwners();
     // subscribes to any changes on the tags var in tags service
@@ -90,6 +93,7 @@ export class UpdateItemComponent {
         (tag) => !this.currentTags.includes(tag.tagname)
       );
     });
+    this.isLoading = false;
   }
 
   async onSubmit() {
