@@ -53,11 +53,9 @@ export class ConfirmDeleteModalComponent implements OnInit {
   }
 
   async deleteItem() {
-    console.log(this.currentItem._id);
     const deletedItem = await this.itemsService.deleteItem(
       this.currentItem._id
     );
-    console.log(deletedItem);
     this.itemsService.isDeleteItemModal = false;
     this.router.navigate(['/items/all']);
   }

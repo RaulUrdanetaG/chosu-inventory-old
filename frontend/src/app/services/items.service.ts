@@ -59,7 +59,6 @@ export class ItemsService {
     const itemsResponse = await firstValueFrom(
       this.http.get<any>(AppConfig.baseUrl + `/items?name=${name}`)
     );
-    console.log(itemsResponse);
     return this._items.next(itemsResponse);
   }
 
