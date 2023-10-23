@@ -1,6 +1,6 @@
 # Chosu inventory
 
-# Functionality
+## Functionality
 
 - Look through a list of items of a database that contains the inventory of a small bussiness in Colombia.
 - Filter the results by tags or if you are an admin, filter by item owner or location in the store.
@@ -11,15 +11,15 @@
 - Create new owners or update existing ones.
 - Log in with admin account to see additional info than normal users.
   
-(Future updates)
+#### (Future updates)
 - Register new users.
 - Create shopping cart.
 - Add whatsapp link to contact the bussiness owner.
 
-# My learnings
+## My learnings
 - Development of a full stack app.
   
-## Frontend
+### Frontend
 - Angular routing (default routing, route parameters to use an specific parameter of the route to use it in the app, and not found route).
 - Angular components and modules (property and event binding, interpolation).
 - Communication between components with Input/Output decorators and binding.
@@ -32,7 +32,7 @@
 - tailwind class styles.
 - Netlify deployment with client side routing.
 
-## Backend
+### Backend
 - MongoDB set up and connection using mongoose.
 - Creation of a REST API in backend using nodeJS and express.
 - CRUD manipulation of database.
