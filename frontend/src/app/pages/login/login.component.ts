@@ -11,6 +11,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class LoginComponent {
   form: FormGroup;
   isValid: boolean = true;
+  isLoading: boolean = false;
 
   constructor(private usersService: UsersService, private router: Router) {
     this.form = new FormGroup({
@@ -20,6 +21,7 @@ export class LoginComponent {
   }
 
   async onSubmit() {
+    this.isLoading = true;
     const res = await this.usersService.login(this.form.value);
     console.log(res);
 
@@ -32,5 +34,6 @@ export class LoginComponent {
       localStorage.setItem('token', res.token);
       this.router.navigate(['/items/all']);
     }
+    this.isLoading = false;
   }
 }

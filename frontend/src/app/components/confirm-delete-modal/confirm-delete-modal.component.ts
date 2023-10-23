@@ -16,6 +16,7 @@ export class ConfirmDeleteModalComponent implements OnInit {
   currentTag!: Tag;
   currentOwner!: Owner;
   currentItem!: Item;
+  isLoading: boolean = false;
 
   constructor(
     public tagsService: TagsService,
@@ -39,24 +40,30 @@ export class ConfirmDeleteModalComponent implements OnInit {
   }
 
   async deleteTag() {
+    this.isLoading = true;
     const deletedTag = await this.tagsService.deleteTag(this.currentTag);
     this.tagsService.setTags();
     this.tagsService.isDeleteTagModal = false;
+    this.isLoading = false;
   }
 
   async deleteOwner() {
+    this.isLoading = true;
     const deletedOwner = await this.ownersService.deleteOwner(
       this.currentOwner
     );
     this.ownersService.setOwners();
     this.ownersService.isDeleteOwnerModal = false;
+    this.isLoading = false;
   }
 
   async deleteItem() {
+    this.isLoading = true;
     const deletedItem = await this.itemsService.deleteItem(
       this.currentItem._id
     );
     this.itemsService.isDeleteItemModal = false;
     this.router.navigate(['/items/all']);
+    this.isLoading = false;
   }
 }

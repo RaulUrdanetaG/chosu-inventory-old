@@ -22,6 +22,8 @@ export class UpdateTagModalComponent implements OnInit, AfterViewInit {
   tagExists: boolean = false;
   currentTag: Tag = { _id: '', tagname: '' };
 
+  isLoading: boolean = false;
+
   constructor(public tagsService: TagsService) {
     this.form = new FormGroup({
       tagname: new FormControl(),
@@ -36,6 +38,7 @@ export class UpdateTagModalComponent implements OnInit, AfterViewInit {
   }
 
   async onSubmit() {
+    this.isLoading = true;
     if (this.form.valid) {
       this.isValid = true;
 
@@ -56,6 +59,7 @@ export class UpdateTagModalComponent implements OnInit, AfterViewInit {
     } else {
       this.isValid = false;
     }
+    this.isLoading = false;
   }
 
   ngAfterViewInit(): void {

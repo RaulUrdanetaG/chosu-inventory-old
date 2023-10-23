@@ -16,6 +16,8 @@ export class UpdateOwnerModalComponent implements AfterViewInit {
   tagExists: boolean = false;
   currentOwner: Owner = { _id: '', owner: '' };
 
+  isLoading: boolean = false;
+
   constructor(public ownersService: OwnersService) {
     this.form = new FormGroup({
       owner: new FormControl(),
@@ -30,6 +32,7 @@ export class UpdateOwnerModalComponent implements AfterViewInit {
   }
 
   async onSubmit() {
+    this.isLoading = true;
     if (this.form.valid) {
       this.isValid = true;
 
@@ -50,6 +53,7 @@ export class UpdateOwnerModalComponent implements AfterViewInit {
     } else {
       this.isValid = false;
     }
+    this.isLoading = false;
   }
 
   ngAfterViewInit(): void {

@@ -8,6 +8,7 @@ require("dotenv").config();
 // POST /users/register
 router.post("/register", async (req, res) => {
   try {
+    // encrypt password usyng bcrypt
     req.body.password = bcrypt.hashSync(req.body.password, 12);
 
     const user = await User.create(req.body);
