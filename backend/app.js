@@ -13,9 +13,6 @@ app.use(express.urlencoded({ extended: false }));
 
 // GETs and POSTs
 app.use("/api", require("./routes/api"));
-app.use("/", (req, res) => {
-  res.write("Server running");
-});
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
