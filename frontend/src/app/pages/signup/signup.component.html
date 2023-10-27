@@ -1,1 +1,89 @@
-<p>signup works!</p>
+<section class="bg-gray-50 min-h-full flex flex-col justify-center">
+  <div *ngIf="isLoading" class="absolute loading-svg">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="48"
+      viewBox="0 -960 960 960"
+      width="48"
+      class="animate-spin"
+    >
+      <path
+        class="fill-slate-500"
+        d="M480-80q-84 0-157-31t-127-85q-54-54-85-127T80-480q0-84 31-157t85-127q54-54 127-85t157-31q12 0 21 9t9 21q0 12-9 21t-21 9q-141 0-240.5 99.5T140-480q0 141 99.5 240.5T480-140q141 0 240.5-99.5T820-480q0-12 9-21t21-9q12 0 21 9t9 21q0 84-31 157t-85 127q-54 54-127 85T480-80Z"
+      />
+    </svg>
+  </div>
+  <div
+    class="flex flex-col items-center justify-center px-6 py-8 mx-auto min-w-full"
+    [ngClass]="{ loading: isLoading }"
+  >
+    <div
+      class="w-full bg-white rounded-lg shadow-lg md:mt-0 sm:max-w-md xl:p-0"
+    >
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1
+          class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl"
+        >
+          Crea tu cuenta
+        </h1>
+        <form
+          [formGroup]="form"
+          (ngSubmit)="onSubmit()"
+          class="space-y-4 md:space-y-6"
+        >
+          <div>
+            <label
+              for="username"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Usuario</label
+            >
+            <input
+              type="text"
+              name="username"
+              formControlName="username"
+              id="username"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="password"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Contraseña</label
+            >
+            <input
+              type="password"
+              name="password"
+              formControlName="password"
+              id="password"
+              placeholder="••••••••"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+              required
+            />
+          </div>
+          <div *ngIf="!isValid" class="text-red-700">
+            Falta usuario o contraseña
+          </div>
+          <div *ngIf="isExists" class="text-red-700">
+            El nombre de usuario ya existe
+          </div>
+          <button
+            type="submit"
+            class="login-button w-full bg-green-300 rounded-lg text-lg px-5 py-1 text-center hover:bg-opacity-80"
+          >
+            Registrate
+          </button>
+          <p class="text-sm font-light text-gray-500">
+            Ya tienes una cuenta?
+            <a
+              routerLink="/users/login"
+              class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+              >Ingresa</a
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

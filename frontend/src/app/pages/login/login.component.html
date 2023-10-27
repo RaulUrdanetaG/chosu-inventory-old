@@ -15,7 +15,7 @@
   </div>
   <div
     class="flex flex-col items-center justify-center px-6 py-8 mx-auto min-w-full"
-    [ngClass]="{ 'loading': isLoading }"
+    [ngClass]="{ loading: isLoading }"
   >
     <div
       class="w-full bg-white rounded-lg shadow-lg md:mt-0 sm:max-w-md xl:p-0"
@@ -65,12 +65,41 @@
           <div *ngIf="!isValid" class="text-red-700">
             Usuario o contraseña incorrectos
           </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-start">
+              <div class="flex items-center h-5">
+                <input
+                  id="remember"
+                  aria-describedby="remember"
+                  type="checkbox"
+                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                  required=""
+                />
+              </div>
+              <div class="ml-3 text-sm">
+                <label for="remember" class="text-gray-500">Recuerdame</label>
+              </div>
+            </div>
+            <a
+              href="#"
+              class="text-sm font-medium text-blue-400 hover:underline"
+              >Olvidaste tu contraseña?</a
+            >
+          </div>
           <button
             type="submit"
             class="login-button w-full bg-blue-300 rounded-lg text-lg px-5 py-1 text-center hover:bg-opacity-80"
           >
             Ingresar
           </button>
+          <p class="text-sm font-light text-gray-500">
+            No tienes una cuenta?
+            <a
+              routerLink="/users/register"
+              class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+              >Registrate</a
+            >
+          </p>
         </form>
       </div>
     </div>

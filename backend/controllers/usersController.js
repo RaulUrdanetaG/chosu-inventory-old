@@ -8,6 +8,12 @@ require("dotenv").config();
 
 exports.userRegister = asyncHandler(async (req, res) => {
   try {
+
+    const userCheck = await User.findOne({ username: req.body.username });
+    if (userCheck) {
+      return res.json({ error: "user already exists" });
+    }
+
     // encrypt password usyng bcrypt
     req.body.password = bcrypt.hashSync(req.body.password, 12);
 
@@ -32,7 +38,7 @@ exports.userLogin = asyncHandler(async (req, res) => {
     return res.json({ error: "Wrong username/password" });
   }
 
-  if ((user.role === "admin")) {
+  if (user.role === "admin") {
     res.json({
       succes: "Succesfull Login",
       token: createToken(user),

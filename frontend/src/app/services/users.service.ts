@@ -15,6 +15,12 @@ export class UsersService {
     );
   }
 
+  register(formValue: any) {
+    return firstValueFrom(
+      this.http.post<any>(AppConfig.baseUrl + '/users/register', formValue)
+    );
+  }
+
   isAdmin(): boolean {
     return localStorage.getItem('token') ? true : false;
   }
