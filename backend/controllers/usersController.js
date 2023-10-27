@@ -32,10 +32,18 @@ exports.userLogin = asyncHandler(async (req, res) => {
     return res.json({ error: "Wrong username/password" });
   }
 
-  res.json({
-    succes: "Succesfull Login",
-    token: createToken(user),
-  });
+  if ((User.role = "admin")) {
+    res.json({
+      succes: "Succesfull Login",
+      token: createToken(user),
+      user: false,
+    });
+  } else {
+    res.json({
+      succes: "Succesfull Login",
+      user: true,
+    });
+  }
 });
 
 function createToken(user) {

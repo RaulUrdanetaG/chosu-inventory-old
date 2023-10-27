@@ -11,3 +11,14 @@ export const loginGuard = () => {
     return false;
   }
 };
+
+export const adminGuard = () => {
+  const router = inject(Router);
+
+  if (localStorage.getItem('admin')) {
+    return true;
+  } else {
+    router.navigate(['/users/login']);
+    return false;
+  }
+};

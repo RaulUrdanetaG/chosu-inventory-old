@@ -15,7 +15,11 @@ export class UsersService {
     );
   }
 
-  isLogged(): boolean {
+  isAdmin(): boolean {
     return localStorage.getItem('token') ? true : false;
+  }
+
+  isUser(): boolean {
+    return localStorage.getItem('user') == 'true' ? true : false;
   }
 }

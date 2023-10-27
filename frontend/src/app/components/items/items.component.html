@@ -44,13 +44,13 @@
           {{ item.name }}
         </h3>
         <h3>Precio: $ {{ item.price | number : "1.0-0" }}</h3>
-        <h3 *ngIf="usersService.isLogged()">
+        <h3 *ngIf="usersService.isAdmin()">
           Comprado en: $ {{ item.boughtAt | number : "1.0-0" }}
         </h3>
-        <h3 *ngIf="usersService.isLogged()">Dueño: {{ item.owner }}</h3>
-        <h3 *ngIf="usersService.isLogged()">Ubicación: {{ item.location }}</h3>
+        <h3 *ngIf="usersService.isAdmin()">Dueño: {{ item.owner }}</h3>
+        <h3 *ngIf="usersService.isAdmin()">Ubicación: {{ item.location }}</h3>
         <button
-          *ngIf="usersService.isLogged()"
+          *ngIf="usersService.isAdmin()"
           class="bg-green-300 rounded-lg"
           (click)="editItem(item)"
         >

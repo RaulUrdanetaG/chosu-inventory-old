@@ -1,5 +1,5 @@
 <nav class="bg-slate-100 flex gap-1 justify-between items-center p-2 px-4">
-  <img src="" alt="chosu Logo" routerLink="/items/all"/>
+  <img src="" alt="chosu Logo" routerLink="/items/all" />
   <h1
     class="title flex items-center gap-3 text-3xl hover:cursor-pointer"
     routerLink="/items/all"
@@ -8,19 +8,24 @@
   </h1>
   <div class="nav-list right-8 nav-list flex gap-6">
     <ul class="flex items-center text-xl gap-4 text-center">
-      <li>
+      <li *ngIf="usersService.isAdmin()">
         <a routerLink="/tags/all" class="flex items-center"
           ><i class="fa-solid fa-pen-to-square"></i
         ></a>
       </li>
-      <li>|</li>
-      <li class="text-center">
+      <li *ngIf="usersService.isAdmin()">|</li>
+      <li *ngIf="usersService.isAdmin()" class="text-center">
         <a routerLink="/items/newItem" class="flex items-center"
           ><i class="fa-regular fa-square-plus text-2xl"></i
         ></a>
       </li>
-      <li>|</li>
-      <li *ngIf="usersService.isLogged()">
+      <li *ngIf="usersService.isUser()">
+        <a routerLink="/items/newItem" class="flex items-center">
+          <i class="fa-solid fa-cart-shopping text-2xl"></i
+        ></a>
+      </li>
+      <li *ngIf="usersService.isUser() || usersService.isAdmin()">|</li>
+      <li *ngIf="usersService.isUser() || usersService.isAdmin()">
         <button
           class="flex gap-1.5 items-center justify-center px-2 rounded-lg bg-blue-300 hover:bg-opacity-80"
           (click)="onClickLogOut()"
@@ -28,8 +33,13 @@
           Salir <i class="fa-solid fa-arrow-right-from-bracket"></i>
         </button>
       </li>
-      <li *ngIf="!usersService.isLogged()" routerLink="/users/login">
-        <button class="flex gap-1.5 items-center justify-center px-2 rounded-lg bg-blue-300 hover:bg-opacity-80">
+      <li
+        *ngIf="!usersService.isUser() && !usersService.isAdmin()"
+        routerLink="/users/login"
+      >
+        <button
+          class="flex gap-1.5 items-center justify-center px-2 rounded-lg bg-blue-300 hover:bg-opacity-80"
+        >
           Ingresar <i class="fa-solid fa-arrow-right-to-bracket"></i>
         </button>
       </li>

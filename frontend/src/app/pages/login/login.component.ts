@@ -31,7 +31,10 @@ export class LoginComponent {
 
     if (res.succes) {
       this.isValid = true;
-      localStorage.setItem('token', res.token);
+      localStorage.setItem('user', res.user);
+      if (res.token) {
+        localStorage.setItem('token', res.token);
+      }
       this.router.navigate(['/items/all']);
     }
     this.isLoading = false;

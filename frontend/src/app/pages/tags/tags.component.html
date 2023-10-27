@@ -16,7 +16,7 @@
           (click)="selectTag(tag)"
         >
           <p>{{ tag.tagname }}</p>
-          <div *ngIf="usersService.isLogged()" class="flex gap-1 hidden-link">
+          <div *ngIf="usersService.isAdmin()" class="flex gap-1 hidden-link">
             <a (click)="editTag(tag)"><i class="fa-solid fa-pencil"></i></a>
             <a (click)="deleteTagModal(tag)" class="text-red-600"
               ><i class="fa-solid fa-trash-can"></i
