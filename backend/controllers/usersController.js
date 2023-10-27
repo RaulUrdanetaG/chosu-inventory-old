@@ -32,7 +32,7 @@ exports.userLogin = asyncHandler(async (req, res) => {
     return res.json({ error: "Wrong username/password" });
   }
 
-  if ((User.role = "admin")) {
+  if ((user.role === "admin")) {
     res.json({
       succes: "Succesfull Login",
       token: createToken(user),
