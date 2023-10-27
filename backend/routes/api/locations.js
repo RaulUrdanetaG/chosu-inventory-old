@@ -1,17 +1,7 @@
 const router = require("express").Router();
 
-const Location = require("../../models/location.model");
-const { checkToken } = require("../../middlewares/middleware");
-require("dotenv").config();
+const locationsController = require("../../controllers/locationsController");
 
-router.get("/", async (req, res) => {
-  try {
-    const locations = await Location.find().sort({ location: 1 });
-
-    res.json(locations);
-  } catch (error) {
-    res.json({ error: error.message });
-  }
-});
+router.get("/", locationsController.getLocations);
 
 module.exports = router;
