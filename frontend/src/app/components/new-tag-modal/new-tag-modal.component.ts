@@ -37,6 +37,7 @@ export class NewTagModalComponent implements AfterViewInit {
       if (createRes.errorTag) {
         this.isValid = true;
         this.tagExists = true;
+        this.isLoading = false;
         return;
       }
       this.tagExists = false;

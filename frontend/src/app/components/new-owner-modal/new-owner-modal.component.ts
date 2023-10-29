@@ -36,6 +36,7 @@ export class NewOwnerModalComponent implements AfterViewInit {
       if (createRes.errorOwner) {
         this.isValid = true;
         this.tagExists = true;
+        this.isLoading = false;
         return;
       }
       this.tagExists = false;
