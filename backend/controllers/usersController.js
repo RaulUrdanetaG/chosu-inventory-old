@@ -8,7 +8,6 @@ require("dotenv").config();
 
 exports.userRegister = asyncHandler(async (req, res) => {
   try {
-
     const userCheck = await User.findOne({ username: req.body.username });
     if (userCheck) {
       return res.json({ error: "user already exists" });
@@ -43,11 +42,13 @@ exports.userLogin = asyncHandler(async (req, res) => {
       succes: "Succesfull Login",
       token: createToken(user),
       user: false,
+      id: user._id,
     });
   } else {
     res.json({
       succes: "Succesfull Login",
       user: true,
+      id: user._id,
     });
   }
 });

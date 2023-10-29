@@ -25,7 +25,7 @@
   </div>
   <div
     *ngIf="itemsResponse!.length > 0"
-    class="items-container flex py-2 pr-4 pl-2 gap-4 flex-wrap justify-center items-start min-h-full"
+    class="items-container flex py-2 pr-4 pl-2 gap-4 flex-wrap justify-center min-h-full"
   >
     <div
       class="item-card shadow-xl grid bg-white rounded-lg"
@@ -55,6 +55,19 @@
           (click)="editItem(item)"
         >
           Editar <i class="fa-solid fa-pencil"></i>
+        </button>
+        <button
+          *ngIf="usersService.isUser() && !cart.includes(item._id)"
+          class="bg-green-300 rounded-lg"
+          (click)="addToCart(item)"
+        >
+          Añadir al carrito <i class="fa-solid fa-cart-plus"></i>
+        </button>
+        <button
+          *ngIf="usersService.isUser() && cart.includes(item._id)"
+          class="bg-blue-300 rounded-lg"
+        >
+          En el carrito <i class="fa-solid fa-check"></i>
         </button>
       </div>
     </div>

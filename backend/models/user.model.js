@@ -7,6 +7,7 @@ const userSchema = new Schema({
     type: String,
     default: "regular",
   },
+  cart: [String],
 });
 
 module.exports = model("user", userSchema);

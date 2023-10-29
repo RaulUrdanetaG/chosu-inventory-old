@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { loginGuard } from 'src/guards/login.guard';
+import { adminGuard, loginGuard } from 'src/guards/login.guard';
 
 const routes: Routes = [
   {
@@ -27,7 +27,7 @@ const routes: Routes = [
     path: 'items/newItem',
     loadChildren: () =>
       import('./pages/new-item/new-item.module').then((m) => m.NewItemModule),
-    canActivate: [loginGuard],
+    canActivate: [adminGuard],
   },
   {
     path: 'items/all',
@@ -42,12 +42,18 @@ const routes: Routes = [
       import('./pages/update-item/update-item.module').then(
         (m) => m.UpdateItemModule
       ),
-    canActivate: [loginGuard],
+    canActivate: [adminGuard],
   },
   {
     path: 'tags/all',
     loadChildren: () =>
       import('./pages/tags/tags.module').then((m) => m.TagsModule),
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'users/cart',
+    loadChildren: () =>
+      import('./pages/cart/cart.module').then((m) => m.CartModule),
     canActivate: [loginGuard],
   },
   {

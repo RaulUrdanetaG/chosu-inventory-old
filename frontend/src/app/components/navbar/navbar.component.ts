@@ -13,6 +13,7 @@ export class NavbarComponent {
   onClickLogOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('id');
     this.router.navigate(['/items/all']);
   }
 }

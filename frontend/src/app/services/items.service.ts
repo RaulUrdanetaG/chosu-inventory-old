@@ -90,6 +90,12 @@ export class ItemsService {
     );
   }
 
+  getItem(itemId: string) {
+    return firstValueFrom(
+      this.http.get<any>(AppConfig.baseUrl + `/items/${itemId}`)
+    );
+  }
+
   updateItem(itemId: string, item: Item) {
     return firstValueFrom(
       this.http.put<any>(AppConfig.baseUrl + `/items/${itemId}`, item)

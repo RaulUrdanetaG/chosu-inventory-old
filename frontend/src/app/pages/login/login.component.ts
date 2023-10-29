@@ -32,6 +32,7 @@ export class LoginComponent {
     if (res.succes) {
       this.isValid = true;
       localStorage.setItem('user', res.user);
+      localStorage.setItem('id', res.id);
       if (res.token) {
         localStorage.setItem('token', res.token);
       }
