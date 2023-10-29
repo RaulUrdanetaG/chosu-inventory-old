@@ -2,7 +2,7 @@ import { Tag } from './tags';
 
 export interface Item {
   _id: string;
-  name: String;
+  name: string;
   imagelink: String;
   price: number;
   boughtAt: number;

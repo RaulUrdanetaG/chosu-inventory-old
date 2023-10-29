@@ -1,0 +1,11 @@
+.item-img {
+  width: 100px;
+  height: 150px;
+  border-radius: 8px;
+  
+}
+
+.cart-item{
+  width: 650px;
+  border: 1px solid;
+}

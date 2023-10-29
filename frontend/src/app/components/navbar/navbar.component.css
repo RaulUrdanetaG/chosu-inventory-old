@@ -1,3 +1,7 @@
+nav{
+  border-bottom: 1px solid;
+}
+
 @media (max-width: 465px) {
   .title {
     display: none;

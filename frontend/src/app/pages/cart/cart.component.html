@@ -1,1 +1,47 @@
-<p>cart works!</p>
+<div
+  *ngIf="isLoading(); else elseBlock"
+  class="flex items-center gap-3 align-middle justify-center mt-7 z-50"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="48"
+    viewBox="0 -960 960 960"
+    width="48"
+    class="animate-spin"
+  >
+    <path
+      class="fill-slate-300"
+      d="M480-80q-84 0-157-31t-127-85q-54-54-85-127T80-480q0-84 31-157t85-127q54-54 127-85t157-31q12 0 21 9t9 21q0 12-9 21t-21 9q-141 0-240.5 99.5T140-480q0 141 99.5 240.5T480-140q141 0 240.5-99.5T820-480q0-12 9-21t21-9q12 0 21 9t9 21q0 84-31 157t-85 127q-54 54-127 85T480-80Z"
+    />
+  </svg>
+</div>
+
+<ng-template #elseBlock>
+  <section class="flex justify-center pt-5 pb-3 gap-4">
+    <div class="flex flex-col gap-3">
+      <div
+        *ngFor="let item of items"
+        class="cart-item relative flex items-center justify-between px-1 py-1 gap-2 bg-white rounded-lg shadow-xl border-slate-200"
+      >
+        <div class="flex justify-center items-center gap-2">
+          <img
+            src="{{ item.imagelink }}"
+            alt="{{ item.name }} photo"
+            class="item-img"
+          />
+          <p>{{ item.name }}</p>
+        </div>
+        <div>
+          <p class="mr-2">${{ item.price | number : "1.0-0" }}</p>
+        </div>
+        <i
+          (click)="deleteItem(item)"
+          class="absolute top-2 right-2 fa-solid fa-square-minus text-red-600 hover:cursor-pointer text-xl"
+        ></i>
+      </div>
+    </div>
+    <div>
+      <p>checkout card</p>
+    </div>
+  </section>
+</ng-template>
