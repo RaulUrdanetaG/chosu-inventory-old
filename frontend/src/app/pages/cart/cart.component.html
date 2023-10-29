@@ -17,8 +17,8 @@
 </div>
 
 <ng-template #elseBlock>
-  <section class="flex justify-center pt-5 pb-3 gap-4">
-    <div class="flex flex-col gap-3">
+  <section class="relative flex justify-center pt-5 pb-3 gap-4 h-full">
+    <div class="cart-container flex flex-col gap-3 mx-2">
       <div
         *ngFor="let item of items"
         class="cart-item relative flex items-center justify-between px-1 py-1 gap-2 bg-white rounded-lg shadow-xl border-slate-200"
@@ -40,8 +40,20 @@
         ></i>
       </div>
     </div>
-    <div>
-      <p>checkout card</p>
+    <div
+      class="checkout-container sticky top-4 flex flex-col bg-white shadow-lg self-start p-2 rounded-md gap-2 mx-2"
+    >
+      <p class="border-b-2 border-gray-200">Resumen de compra</p>
+      <div class="flex gap-2 justify-between pt-2">
+        <p>Productos({{ items.length }})</p>
+        <p>${{ totalPrice | number : "1.0-0" }}</p>
+      </div>
+      <button
+        *ngIf="usersService.isUser()"
+        class="bg-green-300 rounded-lg"
+      >
+        Comprar
+      </button>
     </div>
   </section>
 </ng-template>

@@ -2,10 +2,25 @@
   width: 100px;
   height: 150px;
   border-radius: 8px;
-  
 }
 
-.cart-item{
-  width: 650px;
+.cart-item {
+  max-width: 650px;
   border: 1px solid;
+}
+
+.checkout-container {
+  border: 1px solid;
+  width: 250px;
+}
+
+@media (max-width: 590px) {
+  section {
+    flex-direction: column;
+  }
+
+  .checkout-container {
+    width: auto;
+    align-self: auto;
+  }
 }
