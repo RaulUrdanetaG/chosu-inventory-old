@@ -74,7 +74,9 @@ export class UpdateItemComponent {
       this.owners = owners;
     });
 
-    this.locations = await this.locationsService.getLocations();
+    this.locationsService.locations$.subscribe((locations) => {
+      this.locations = locations;
+    });
 
     this.activatedRoute.params.subscribe((params) => {
       this.currentId = params['itemId'];

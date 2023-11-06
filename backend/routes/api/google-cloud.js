@@ -10,9 +10,9 @@ const multerUpload = multer({ storage: multerStorage });
 
 router.post(
   "/upload",
-  multerUpload.single("image"),
+  multerUpload.array("image"),
   checkToken,
-  cloudController.uploadImage
+  cloudController.uploadImages
 );
 
 module.exports = router;

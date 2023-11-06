@@ -8,37 +8,57 @@ const gc = new Storage({
   projectId: "chosu-inventory",
 });
 
-exports.uploadImage = asyncHandler(async (req, res) => {
-  const bucketName = "chosu-images";
+exports.uploadImages = asyncHandler(async (req, res) => {
   try {
-    const file = req.file;
+    let uploadedUrls = [];
 
-    if (!file) {
-      return res.send("No image found.");
-    }
+    // makes all item requestes and store promises in a var
+    const promises = req.files.map((file) => uploadFile(file));
+    // resolve all promises in the same order
+    uploadedUrls = await Promise.all(promises);
 
-    // Generates a unique name
-    const fileName = `${Date.now()}-${file.originalname}`;
-
-    const chosuImagesBucket = gc.bucket(bucketName);
-    const fileUpload = chosuImagesBucket.file(fileName);
-    const stream = fileUpload.createWriteStream({
-      metadata: {
-        contentType: file.mimetype,
-      },
-    });
-
-    stream.end(file.buffer);
-
-    // Wait for upload to be done
-    await new Promise((resolve, reject) => {
-      stream.on("finish", resolve);
-      stream.on("error", reject);
-    });
-
-    const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
-    res.json({ url: publicUrl });
+    res.json({ urls: uploadedUrls });
   } catch (error) {
-    res.json({ error: error });
+    res.json({ error: error.message });
   }
 });
+
+function uploadFile(file) {
+  const bucketName = "chosu-images";
+  const chosuImagesBucket = gc.bucket(bucketName);
+  return new Promise(async (resolve, reject) => {
+    try {
+      // Check if it already exists in Google cloud
+      const existingFile = chosuImagesBucket.file(file.originalname);
+      const [exists] = await existingFile.exists();
+
+      if (!exists) {
+        // File does not exist, start uploading
+        const fileName = file.originalname;
+        const fileUpload = chosuImagesBucket.file(fileName);
+        const stream = fileUpload.createWriteStream({
+          metadata: {
+            contentType: file.mimetype,
+          },
+        });
+
+        stream.end(file.buffer);
+
+        // wait for process to end
+        await new Promise((resolve, reject) => {
+          stream.on("finish", resolve);
+          stream.on("error", reject);
+        });
+
+        const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
+        resolve(publicUrl);
+      } else {
+        // file already exists, add its url to the array
+        const publicUrl = `https://storage.googleapis.com/${bucketName}/${file.originalname}`;
+        resolve(publicUrl);
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
