@@ -1,8 +1,20 @@
-<div *ngIf="tagsService.isNewTagModal || ownersService.isNewOwnerModal">
+<div
+  *ngIf="
+    tagsService.isNewTagModal ||
+    ownersService.isNewOwnerModal ||
+    locationsService.isNewLocationModal
+  "
+>
   <app-new-modal></app-new-modal>
 </div>
 
-<div *ngIf="tagsService.isUpdateTagModal || ownersService.isUpdateOwnerModal">
+<div
+  *ngIf="
+    tagsService.isUpdateTagModal ||
+    ownersService.isUpdateOwnerModal ||
+    locationsService.isUpdateLocationModal
+  "
+>
   <app-update-modal></app-update-modal>>
 </div>
 
@@ -10,6 +22,7 @@
   *ngIf="
     tagsService.isDeleteTagModal ||
     ownersService.isDeleteOwnerModal ||
+    locationsService.isDeleteLocationModal ||
     itemsService.isDeleteItemModal
   "
 >
@@ -21,11 +34,14 @@
   [ngClass]="{
     'router-opacity':
       tagsService.isNewTagModal ||
-      tagsService.isUpdateTagModal ||
-      tagsService.isDeleteTagModal ||
       ownersService.isNewOwnerModal ||
+      locationsService.isNewLocationModal ||
+      tagsService.isUpdateTagModal ||
       ownersService.isUpdateOwnerModal ||
+      locationsService.isUpdateLocationModal ||
+      tagsService.isDeleteTagModal ||
       ownersService.isDeleteOwnerModal ||
+      locationsService.isDeleteLocationModal ||
       itemsService.isDeleteItemModal
   }"
 >

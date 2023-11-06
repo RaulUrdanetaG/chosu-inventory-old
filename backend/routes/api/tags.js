@@ -7,7 +7,7 @@ router.get("/", tagsController.getTags);
 
 router.post("/addTag", checkToken, tagsController.addTag);
 
-router.put("/:tagId", checkToken, tagsController.udpateTagById);
+router.put("/:tagId", checkToken, tagsController.updateTagById);
 
 router.delete("/:tagId", checkToken, tagsController.deleteTagById);
 

@@ -33,7 +33,7 @@ exports.addTag = asyncHandler(async (req, res) => {
   }
 });
 
-exports.udpateTagById = asyncHandler(async (req, res) => {
+exports.updateTagById = asyncHandler(async (req, res) => {
   const { tagId } = req.params;
   try {
     const newTag = await Tag.findByIdAndUpdate(tagId, req.body, { new: true });

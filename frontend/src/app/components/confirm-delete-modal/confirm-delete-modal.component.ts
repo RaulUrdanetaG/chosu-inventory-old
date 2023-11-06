@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Item } from 'src/app/interfaces/items';
+import { Location } from 'src/app/interfaces/locations';
 import { Owner } from 'src/app/interfaces/owners';
 import { Tag } from 'src/app/interfaces/tags';
 import { ItemsService } from 'src/app/services/items.service';
+import { LocationService } from 'src/app/services/location.service';
 import { OwnersService } from 'src/app/services/owners.service';
 import { TagsService } from 'src/app/services/tags.service';
 
@@ -16,12 +18,14 @@ export class ConfirmDeleteModalComponent implements OnInit {
   currentTag!: Tag;
   currentOwner!: Owner;
   currentItem!: Item;
+  currentLocation!: Location;
   isLoading: boolean = false;
 
   constructor(
     public tagsService: TagsService,
     public ownersService: OwnersService,
     public itemsService: ItemsService,
+    public locationsService: LocationService,
     private router: Router
   ) {}
 
@@ -36,6 +40,10 @@ export class ConfirmDeleteModalComponent implements OnInit {
 
     this.itemsService.selectedItem$.subscribe((item) => {
       this.currentItem = item;
+    });
+
+    this.locationsService.SelectedLocation$.subscribe((location) => {
+      this.currentLocation = location;
     });
   }
 
@@ -54,6 +62,16 @@ export class ConfirmDeleteModalComponent implements OnInit {
     );
     this.ownersService.setOwners();
     this.ownersService.isDeleteOwnerModal = false;
+    this.isLoading = false;
+  }
+
+  async deleteLocation() {
+    this.isLoading = true;
+    const deletedLocation = await this.locationsService.deleteLocation(
+      this.currentLocation
+    );
+    this.locationsService.setLocations();
+    this.locationsService.isDeleteLocationModal = false;
     this.isLoading = false;
   }
 

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { LocationService } from 'src/app/services/location.service';
 import { OwnersService } from 'src/app/services/owners.service';
 import { TagsService } from 'src/app/services/tags.service';
 
@@ -14,22 +15,28 @@ import { TagsService } from 'src/app/services/tags.service';
 export class NewModalComponent {
   @ViewChild('newOwnerInput') newOwnerInput: ElementRef | undefined;
   @ViewChild('newTagInput') newTagInput: ElementRef | undefined;
+  @ViewChild('newLocationInput') newLocationInput: ElementRef | undefined;
 
   tagForm: FormGroup;
   ownerForm: FormGroup;
+  locationForm: FormGroup;
   isValid: boolean = true;
   exists: boolean = false;
   isLoading: boolean = false;
 
   constructor(
     public ownersService: OwnersService,
-    public tagsService: TagsService
+    public tagsService: TagsService,
+    public locationsService: LocationService
   ) {
     this.ownerForm = new FormGroup({
       owner: new FormControl(),
     });
     this.tagForm = new FormGroup({
       tagname: new FormControl(),
+    });
+    this.locationForm = new FormGroup({
+      location: new FormControl(),
     });
   }
 
@@ -86,8 +93,34 @@ export class NewModalComponent {
     this.isLoading = false;
   }
 
+  async onSubmitLocation() {
+    this.isLoading = true;
+    if (this.locationForm.valid) {
+      this.isValid = true;
+
+      // adds the new tag to the db
+      const createRes = await this.locationsService.createLocation(this.locationForm.value);
+      // checks if the retrieved error is from existing tag
+      if (createRes.errorTag) {
+        this.isValid = true;
+        this.exists = true;
+        this.isLoading = false;
+        return;
+      }
+      this.exists = false;
+      // updates the observable
+      this.locationsService.setLocations();
+      this.locationsService.isNewLocationModal = false;
+    } else {
+      this.exists = false;
+      this.isValid = false;
+    }
+    this.isLoading = false;
+  }
+
   ngAfterViewInit(): void {
     this.newOwnerInput?.nativeElement.focus();
     this.newTagInput?.nativeElement.focus();
+    this.newLocationInput?.nativeElement.focus();
   }
 }

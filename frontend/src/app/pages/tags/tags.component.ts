@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { Location } from 'src/app/interfaces/locations';
 import { Owner } from 'src/app/interfaces/owners';
 import { Tag } from 'src/app/interfaces/tags';
 import { ItemsService } from 'src/app/services/items.service';
+import { LocationService } from 'src/app/services/location.service';
 import { OwnersService } from 'src/app/services/owners.service';
 import { TagsService } from 'src/app/services/tags.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -14,19 +16,22 @@ import { UsersService } from 'src/app/services/users.service';
 export class TagsComponent {
   tags: Tag[] | undefined;
   owners: Owner[] | undefined;
+  locations: Location[] | undefined;
   activeButton: string | undefined;
 
   constructor(
     public tagsService: TagsService,
     public usersService: UsersService,
     public itemsService: ItemsService,
-    public ownersService: OwnersService
+    public ownersService: OwnersService,
+    public locationsService: LocationService
   ) {}
 
   ngOnInit(): void {
     this.activeButton = '';
     this.tagsService.setTags();
     this.ownersService.setOwners();
+    this.locationsService.setLocations();
     // subscribes to any changes on the tags var in tags service
     this.tagsService.tags$.subscribe((tags) => {
       // sets initial list, and saves all retrieved tags in a provitional array
@@ -37,6 +42,10 @@ export class TagsComponent {
     this.ownersService.owners$.subscribe((owners) => {
       // sets initial list, and saves all retrieved tags in a provitional array
       this.owners = owners;
+    });
+
+    this.locationsService.locations$.subscribe((locations) => {
+      this.locations = locations;
     });
   }
 
@@ -68,6 +77,21 @@ export class TagsComponent {
   deleteOwnerModal(owner: Owner) {
     this.ownersService.setSelectedOwner(owner);
     this.ownersService.isDeleteOwnerModal = true;
+  }
+
+  async selectLocation(location: Location) {
+    this.activeButton = location.location;
+    this.locationsService.setSelectedLocation(location);
+  }
+
+  editLocation(location: Location) {
+    this.locationsService.setSelectedLocation(location);
+    this.locationsService.isUpdateLocationModal = true;
+  }
+
+  deleteLocationModal(location: Location) {
+    this.locationsService.setSelectedLocation(location);
+    this.locationsService.isDeleteLocationModal = true;
   }
 
   isLoading() {
