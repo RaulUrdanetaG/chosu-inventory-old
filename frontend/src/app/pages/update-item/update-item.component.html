@@ -157,21 +157,29 @@
         </button>
       </div>
 
-      <div class="flex justify-between gap-1">
-        <label for="location">Ubicación del articulo: </label>
-        <select
-          id="location"
-          class="bg-gray-100 rounded-md flex-1"
-          formControlName="location"
-          required
-        >
-          <option
-            *ngFor="let location of locations"
-            value="{{ location.location }}"
+      <div class="flex flex-col justify-between gap-2">
+        <div class="flex justify-between gap-1">
+          <label for="location">Ubicación del articulo: </label>
+          <select
+            id="location"
+            class="bg-gray-100 rounded-md flex-1"
+            formControlName="location"
+            required
           >
-            {{ location.location }}
-          </option>
-        </select>
+            <option
+              *ngFor="let location of locations"
+              value="{{ location.location }}"
+            >
+              {{ location.location }}
+            </option>
+          </select>
+        </div>
+        <button
+          class="flex px-2 bg-green-300 rounded-lg items-center justify-center hover:bg-opacity-80 self-end"
+          (click)="locationsService.isNewLocationModal = true"
+        >
+          Nueva ubicación
+        </button>
       </div>
       <div class="flex justify-between gap-1">
         <label for="desc">Descripción: </label>

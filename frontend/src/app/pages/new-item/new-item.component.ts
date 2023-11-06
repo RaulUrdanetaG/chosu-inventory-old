@@ -51,6 +51,7 @@ export class NewItemComponent implements OnInit {
   async ngOnInit() {
     this.tagsService.setTags();
     this.ownersService.setOwners();
+    this.locationsService.setLocations();
     // subscribes to any changes on the tags var in tags service
     this.tagsService.tags$.subscribe((tags) => {
       // sets initial list, and saves all retrieved tags in a provitional array
@@ -65,7 +66,9 @@ export class NewItemComponent implements OnInit {
       this.owners = owners;
     });
 
-    this.locations = await this.locationsService.getLocations();
+    this.locationsService.locations$.subscribe((locations) => {
+      this.locations = locations;
+    });
   }
 
   async onSubmit() {
