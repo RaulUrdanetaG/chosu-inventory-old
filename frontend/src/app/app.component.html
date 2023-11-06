@@ -1,5 +1,9 @@
-<div *ngIf="tagsService.isUpdateTagModal">
-  <app-update-tag-modal></app-update-tag-modal>
+<div *ngIf="tagsService.isNewTagModal || ownersService.isNewOwnerModal">
+  <app-new-modal></app-new-modal>
+</div>
+
+<div *ngIf="tagsService.isUpdateTagModal || ownersService.isUpdateOwnerModal">
+  <app-update-modal></app-update-modal>>
 </div>
 
 <div
@@ -10,14 +14,6 @@
   "
 >
   <app-confirm-delete-modal></app-confirm-delete-modal>
-</div>
-
-<div *ngIf="tagsService.isNewTagModal || ownersService.isNewOwnerModal">
-  <app-new-modal></app-new-modal>
-</div>
-
-<div *ngIf="ownersService.isUpdateOwnerModal">
-  <app-update-owner-modal></app-update-owner-modal>
 </div>
 
 <div
