@@ -20,7 +20,7 @@
   </button>
   <div
     class="new-item-card p-3 bg-white rounded-lg shadow-2xl flex flex-col gap-2"
-    [ngClass]="{ 'uploading': isUploading }"
+    [ngClass]="{ uploading: isUploading }"
   >
     <form class="flex flex-col justify-center gap-1 new-img-container">
       <div class="flex justify-center">
@@ -112,9 +112,7 @@
         <button
           class="flex px-2 bg-green-300 rounded-lg items-center justify-center hover:bg-opacity-80"
           (click)="tagsService.isNewTagModal = true"
-        >
-          Nueva etiqueta
-        </button>
+        ></button>
       </div>
       <div *ngIf="currentTags.length > 0" class="flex gap-1 mb-3 flex-wrap">
         <div *ngFor="let tag of currentTags">
@@ -166,6 +164,15 @@
             {{ location.location }}
           </option>
         </select>
+      </div>
+      <div class="flex justify-between gap-1">
+        <label for="desc">Descripción: </label>
+        <textarea
+          type="text"
+          class="bg-gray-100 rounded-md px-1 flex-1 h-16 resize-none"
+          formControlName="description"
+          id="desc"
+        ></textarea>
       </div>
       <p *ngIf="!isValid" class="text-red-600">
         Por favor rellene todos los campos

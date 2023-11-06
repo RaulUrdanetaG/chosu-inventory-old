@@ -52,6 +52,7 @@ export class UpdateItemComponent {
       location: new FormControl(),
       tags: new FormControl(),
       owner: new FormControl(),
+      description: new FormControl(),
     });
   }
 
@@ -87,6 +88,7 @@ export class UpdateItemComponent {
       delete this.currentItem.__v;
       // takes the current item values and puts it in the form
       this.itemForm.setValue(this.currentItem);
+      this.imageSrc = this.currentItem.imagelink[0];
       this.currentTags = item.tags;
       // filters the tags that were already added for them to not appear in the select input
       this.tags = this.provTags.filter(

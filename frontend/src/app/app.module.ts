@@ -8,11 +8,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { NewTagModalComponent } from './components/new-tag-modal/new-tag-modal.component';
 import { UpdateTagModalComponent } from './components/update-tag-modal/update-tag-modal.component';
 import { ConfirmDeleteModalComponent } from './components/confirm-delete-modal/confirm-delete-modal.component';
-import { NewOwnerModalComponent } from './components/new-owner-modal/new-owner-modal.component';
 import { UpdateOwnerModalComponent } from './components/update-owner-modal/update-owner-modal.component';
+import { NewModalComponent } from './components/new-modal/new-modal.component';
+import { UpdateModalComponent } from './components/update-modal/update-modal.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +28,8 @@ import { UpdateOwnerModalComponent } from './components/update-owner-modal/updat
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NewTagModalComponent,
-    NewOwnerModalComponent,
+    NewModalComponent,
+    UpdateModalComponent,
   ],
   providers: [
     {

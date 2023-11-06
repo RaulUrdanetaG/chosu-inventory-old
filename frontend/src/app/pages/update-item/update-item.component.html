@@ -19,7 +19,7 @@
     <i class="fa-solid fa-arrow-left"></i> Volver
   </button>
   <div
-    class="new-item-card p-3 bg-white rounded-lg shadow-2xl flex flex-col gap-2"
+    class="new-item-card p-3 mb-2 bg-white rounded-lg shadow-2xl flex flex-col gap-2"
     [ngClass]="{ uploading: isUploading || isLoading }"
   >
     <button
@@ -31,7 +31,7 @@
     <form class="flex flex-col justify-center gap-1 new-img-container">
       <div class="flex justify-center">
         <img
-          [src]="imageSrc"
+          [src]="currentItem.imagelink"
           alt="Imagen Cargada"
           *ngIf="imageSrc"
           class="new-img rounded-lg"
@@ -172,6 +172,15 @@
             {{ location.location }}
           </option>
         </select>
+      </div>
+      <div class="flex justify-between gap-1">
+        <label for="desc">Descripción: </label>
+        <textarea
+          type="text"
+          class="bg-gray-100 rounded-md px-1 flex-1 h-16 resize-none"
+          formControlName="description"
+          id="desc"
+        ></textarea>
       </div>
       <p *ngIf="!isValid" class="text-red-600">
         Por favor rellene todos los campos

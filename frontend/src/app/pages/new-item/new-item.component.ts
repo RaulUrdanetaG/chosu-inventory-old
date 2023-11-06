@@ -44,6 +44,7 @@ export class NewItemComponent implements OnInit {
       location: new FormControl(),
       tags: new FormControl(),
       owner: new FormControl(),
+      description: new FormControl(),
     });
   }
 

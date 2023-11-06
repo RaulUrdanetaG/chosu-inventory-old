@@ -1,30 +1,25 @@
-<div *ngIf="tagsService.isNewTagModal">
-  <app-new-tag-modal></app-new-tag-modal>
-</div>
-
 <div *ngIf="tagsService.isUpdateTagModal">
   <app-update-tag-modal></app-update-tag-modal>
 </div>
 
-<div *ngIf="tagsService.isDeleteTagModal">
+<div
+  *ngIf="
+    tagsService.isDeleteTagModal ||
+    ownersService.isDeleteOwnerModal ||
+    itemsService.isDeleteItemModal
+  "
+>
   <app-confirm-delete-modal></app-confirm-delete-modal>
 </div>
 
-<div *ngIf="ownersService.isNewOwnerModal">
-  <app-new-owner-modal></app-new-owner-modal>
+<div *ngIf="tagsService.isNewTagModal || ownersService.isNewOwnerModal">
+  <app-new-modal></app-new-modal>
 </div>
 
 <div *ngIf="ownersService.isUpdateOwnerModal">
   <app-update-owner-modal></app-update-owner-modal>
 </div>
 
-<div *ngIf="ownersService.isDeleteOwnerModal">
-  <app-confirm-delete-modal></app-confirm-delete-modal>
-</div>
-
-<div *ngIf="itemsService.isDeleteItemModal">
-  <app-confirm-delete-modal></app-confirm-delete-modal>
-</div>
 <div
   class="app min-h-screen"
   [ngClass]="{
