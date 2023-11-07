@@ -119,7 +119,6 @@ export class UpdateItemComponent {
         );
         this.itemForm.get('imagelink')?.setValue(this.imageSrcs);
       } else {
-        console.log('no file uploaded', this.imageSrcs);
         this.itemForm.get('imagelink')?.setValue(this.imageSrcs);
       }
       // updates item
@@ -167,12 +166,10 @@ export class UpdateItemComponent {
         reader.readAsDataURL(file);
       }
     }
-    console.log(this.imageSrcs);
   }
 
   removeImage(index: number) {
     this.selectedFiles.splice(index, 1);
     this.imageSrcs.splice(index, 1);
-    console.log(this.imageSrcs);
   }
 }
