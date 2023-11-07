@@ -98,6 +98,7 @@ export class NewItemComponent implements OnInit {
       this.itemForm.reset();
       this.imageSrcs = [];
       this.currentTags = [];
+      this.selectedFiles = [];
       this.tags = this.provTags;
       this.isUploading = false;
     } else {

@@ -30,6 +30,7 @@ export class ItemsComponent implements OnInit {
     this.itemsService.isItemsLoading = true;
     this.itemsService.currentItems$.subscribe((items) => {
       this.itemsResponse = items;
+      console.log(items);
     });
     await this.itemsService.getItems();
     this.cartService.currentCart$.subscribe((currentCart) => {
