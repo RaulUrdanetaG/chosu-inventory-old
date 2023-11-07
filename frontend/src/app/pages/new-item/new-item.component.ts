@@ -142,4 +142,25 @@ export class NewItemComponent implements OnInit {
     this.selectedFiles.splice(index, 1);
     this.imageSrcs.splice(index, 1);
   }
+
+  // Método para manejar el evento dragstart
+  onDragStart(event: any, index: number) {
+    event.dataTransfer.setData('text', index.toString());
+  }
+
+  // Método para manejar el evento dragover
+  onDragOver(event: any) {
+    event.preventDefault();
+  }
+
+  // Método para manejar el evento drop
+  onDrop(event: any, targetIndex: number) {
+    event.preventDefault();
+    const sourceIndex = parseInt(event.dataTransfer.getData('text'), 10);
+
+    // Intercambiar las imágenes en el array imageSrcs
+    const temp = this.imageSrcs[sourceIndex];
+    this.imageSrcs[sourceIndex] = this.imageSrcs[targetIndex];
+    this.imageSrcs[targetIndex] = temp;
+  }
 }

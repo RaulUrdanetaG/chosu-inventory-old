@@ -1,5 +1,3 @@
-import { Tag } from './tags';
-
 export interface Item {
   _id: string;
   name: string;
@@ -8,5 +6,6 @@ export interface Item {
   boughtAt: number;
   location: String;
   owner: string;
+  description: string;
   tags: string[];
 }

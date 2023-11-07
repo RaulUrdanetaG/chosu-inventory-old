@@ -23,13 +23,16 @@
         *ngFor="let item of items"
         class="cart-item relative flex items-center justify-between px-1 py-1 gap-2 bg-white rounded-lg shadow-xl border-slate-200"
       >
-        <div class="flex justify-center items-center gap-2">
+        <div class="flex flex-1 justify-start items-center gap-2">
           <img
-            src="{{ item.imagelink }}"
+            src="{{ item.imagelink[0] }}"
             alt="{{ item.name }} photo"
             class="item-img"
           />
-          <p>{{ item.name }}</p>
+          <div class="flex flex-col gap-1 self-start w-full">
+            <p class="border-b"><b>{{ item.name }}</b></p>
+            <p>{{ item.description }}</p>
+          </div>
         </div>
         <div>
           <p class="mr-2">${{ item.price | number : "1.0-0" }}</p>
@@ -48,10 +51,7 @@
         <p>Productos({{ items.length }})</p>
         <p>${{ totalPrice | number : "1.0-0" }}</p>
       </div>
-      <button
-        *ngIf="usersService.isUser()"
-        class="bg-green-300 rounded-lg"
-      >
+      <button *ngIf="usersService.isUser()" class="bg-green-300 rounded-lg">
         Comprar
       </button>
     </div>

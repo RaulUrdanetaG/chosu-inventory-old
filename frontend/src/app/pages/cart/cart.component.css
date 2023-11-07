@@ -5,7 +5,7 @@
 }
 
 .cart-item {
-  max-width: 650px;
+  max-width: 420px;
   border: 1px solid;
 }
 
@@ -22,5 +22,9 @@
   .checkout-container {
     width: auto;
     align-self: auto;
+  }
+
+  .cart-item{
+    max-width: 100vw;
   }
 }

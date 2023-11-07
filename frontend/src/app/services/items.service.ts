@@ -22,6 +22,7 @@ export class ItemsService {
     boughtAt: 0,
     location: '',
     owner: '',
+    description: '',
     tags: [],
   });
   selectedItem$ = this._selectedItem.asObservable();

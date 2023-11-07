@@ -113,10 +113,19 @@ export class UpdateItemComponent {
 
         // uploads image to google cloud
         const imageRes = await this.itemsService.addItemImage(imgData);
-        this.imageSrcs = this.imageSrcs.slice(0, -imageRes.urls.length);
-        imageRes.urls.forEach((imageURL: string) =>
-          this.imageSrcs.push(imageURL)
-        );
+        console.log('before', this.imageSrcs);
+        // checks indexes where theres data info instead of a link
+        let dataIndexes: number[] = [];
+        this.imageSrcs.forEach((element, index) => {
+          if (element.startsWith('data')) {
+            dataIndexes.push(index);
+          }
+        });
+        // changes info in those indexes to the generated links
+        dataIndexes.forEach((index, i) => {
+          this.imageSrcs[index] = imageRes.urls[i];
+        });
+        console.log('after', this.imageSrcs);
         this.itemForm.get('imagelink')?.setValue(this.imageSrcs);
       } else {
         this.itemForm.get('imagelink')?.setValue(this.imageSrcs);
@@ -171,5 +180,28 @@ export class UpdateItemComponent {
   removeImage(index: number) {
     this.selectedFiles.splice(index, 1);
     this.imageSrcs.splice(index, 1);
+  }
+
+  // Método para manejar el evento dragstart
+  onDragStart(event: any, index: number) {
+    event.dataTransfer.setData('text', index.toString());
+  }
+
+  // Método para manejar el evento dragover
+  onDragOver(event: any) {
+    event.preventDefault();
+  }
+
+  // Método para manejar el evento drop
+  onDrop(event: any, targetIndex: number) {
+    event.preventDefault();
+    const sourceIndex = parseInt(event.dataTransfer.getData('text'), 10);
+
+    // Intercambiar las imágenes en el array imageSrcs
+    const temp = this.imageSrcs[sourceIndex];
+    this.imageSrcs[sourceIndex] = this.imageSrcs[targetIndex];
+    this.imageSrcs[targetIndex] = temp;
+
+    console.log(this.imageSrcs);
   }
 }

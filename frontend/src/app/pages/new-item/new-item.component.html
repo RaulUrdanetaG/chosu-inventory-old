@@ -24,7 +24,14 @@
   >
     <form class="flex flex-col justify-center gap-1 new-img-container">
       <div class="flex flex-col gap-1 justify-center items-center">
-        <div class="relative" *ngIf="imageSrcs.length !== 0">
+        <div
+          class="relative"
+          *ngIf="imageSrcs.length !== 0"
+          draggable="true"
+          (dragstart)="onDragStart($event, 0)"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop($event, 0)"
+        >
           <i
             class="fa-solid fa-circle-xmark absolute text-red-600 -right-2 -top-2 cursor-pointer z-30"
             (click)="removeImage(0)"
@@ -43,6 +50,10 @@
           <div
             *ngFor="let image of imageSrcs | slice : 1; let i = index"
             class="relative"
+            draggable="true"
+            (dragstart)="onDragStart($event, i + 1)"
+            (dragover)="onDragOver($event)"
+            (drop)="onDrop($event, i + 1)"
           >
             <i
               class="fa-solid fa-circle-xmark absolute text-red-600 -right-2 -top-2 cursor-pointer z-30"
