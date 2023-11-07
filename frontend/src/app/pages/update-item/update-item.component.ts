@@ -15,7 +15,6 @@ import { TagsService } from 'src/app/services/tags.service';
 })
 export class UpdateItemComponent {
   itemForm: FormGroup;
-  selectedFile: File | null = null;
 
   currentTags: string[] = [];
   tags: Tag[] = [];
@@ -28,7 +27,8 @@ export class UpdateItemComponent {
   currentItem: any;
   currentId: string = '';
 
-  imageSrc: string | ArrayBuffer | null = null;
+  imageSrcs: string[] = [];
+  selectedFiles: File[] = [];
 
   isValid: boolean = true;
   isUploading: boolean = false;
@@ -90,7 +90,7 @@ export class UpdateItemComponent {
       delete this.currentItem.__v;
       // takes the current item values and puts it in the form
       this.itemForm.setValue(this.currentItem);
-      this.imageSrc = this.currentItem.imagelink[0];
+      this.imageSrcs = this.currentItem.imagelink;
       this.currentTags = item.tags;
       // filters the tags that were already added for them to not appear in the select input
       this.tags = this.provTags.filter(
@@ -107,16 +107,20 @@ export class UpdateItemComponent {
       this.itemForm.get('tags')?.setValue(this.currentTags);
 
       // check if a file was submited
-      if (this.selectedFile !== null) {
+      if (this.selectedFiles.length !== 0) {
         const imgData = new FormData();
-        imgData.append('image', this.selectedFile!);
+        this.selectedFiles.forEach((file) => imgData.append('image', file));
+
         // uploads image to google cloud
         const imageRes = await this.itemsService.addItemImage(imgData);
-        // sets google cloud link to the form
-        this.itemForm.get('imagelink')?.setValue(imageRes.url);
+        this.imageSrcs = this.imageSrcs.slice(0, -imageRes.urls.length);
+        imageRes.urls.forEach((imageURL: string) =>
+          this.imageSrcs.push(imageURL)
+        );
+        this.itemForm.get('imagelink')?.setValue(this.imageSrcs);
       } else {
-        // if theres not a new image fill the form with the current image link
-        this.itemForm.get('imagelink')?.setValue(this.currentItem.imagelink);
+        console.log('no file uploaded', this.imageSrcs);
+        this.itemForm.get('imagelink')?.setValue(this.imageSrcs);
       }
       // updates item
       const response = await this.itemsService.updateItem(
@@ -148,17 +152,27 @@ export class UpdateItemComponent {
   }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0];
-    this.selectedFile = file;
+    const files: FileList = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const file = files.item(i)!;
+      this.selectedFiles.push(file);
 
-    if (file) {
-      const reader = new FileReader();
+      if (file) {
+        const reader = new FileReader();
 
-      reader.onload = (e: any) => {
-        this.imageSrc = e.target.result;
-      };
+        reader.onload = (e: any) => {
+          this.imageSrcs.push(e.target.result);
+        };
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      }
     }
+    console.log(this.imageSrcs);
+  }
+
+  removeImage(index: number) {
+    this.selectedFiles.splice(index, 1);
+    this.imageSrcs.splice(index, 1);
+    console.log(this.imageSrcs);
   }
 }

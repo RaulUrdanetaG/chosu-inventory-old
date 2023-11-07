@@ -12,6 +12,16 @@
   display: none;
 }
 
+.aux-img {
+  min-width: 85px;
+  height: 127px;
+}
+
+.aux-img-container {
+  width: 370px;
+  overflow: auto;
+}
+
 .loading-svg {
   top: 50%;
   left: 50%;

@@ -29,27 +29,44 @@
       <i class="fa-solid fa-trash-can"></i>
     </button>
     <form class="flex flex-col justify-center gap-1 new-img-container">
-      <div class="flex justify-center">
-        <img
-          [src]="currentItem.imagelink"
-          alt="Imagen Cargada"
-          *ngIf="imageSrc"
-          class="new-img rounded-lg"
-        />
+      <div class="flex flex-col gap-1 justify-center items-center">
+        <div class="relative" *ngIf="imageSrcs.length !== 0">
+          <i
+            class="fa-solid fa-circle-xmark absolute text-red-600 -right-2 -top-2 cursor-pointer z-30"
+            (click)="removeImage(0)"
+          ></i>
+          <img
+            [src]="imageSrcs[0]"
+            alt="Imagen Cargada"
+            class="new-img rounded-lg"
+          />
+        </div>
+
+        <div
+          *ngIf="imageSrcs.length > 1"
+          class="flex gap-1 aux-img-container pt-3"
+        >
+          <div
+            *ngFor="let image of imageSrcs | slice : 1; let i = index"
+            class="relative"
+          >
+            <i
+              class="fa-solid fa-circle-xmark absolute text-red-600 -right-2 -top-2 cursor-pointer z-30"
+              (click)="removeImage(i + 1)"
+            ></i>
+            <img
+              [src]="image"
+              alt="Imagen Cargada"
+              class="aux-img rounded-lg"
+            />
+          </div>
+        </div>
       </div>
       <label
-        *ngIf="!imageSrc"
         for="img-input"
         class="bg-burnt-siena rounded-lg px-2 self-center hover:cursor-pointer hover:bg-opacity-80"
       >
-        Actualizar imagen <i class="fa-regular fa-image"></i>
-      </label>
-      <label
-        *ngIf="imageSrc"
-        for="img-input"
-        class="bg-burnt-siena rounded-lg px-2 self-center hover:cursor-pointer hover:bg-opacity-80"
-      >
-        Cambiar imagen <i class="fa-regular fa-image"></i>
+        Subir imagenes <i class="fa-regular fa-image"></i>
       </label>
       <input
         type="file"
