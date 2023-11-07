@@ -14,7 +14,6 @@ import { TagsService } from 'src/app/services/tags.service';
 })
 export class NewItemComponent implements OnInit {
   itemForm: FormGroup;
-  selectedFile: File | null = null;
 
   currentTags: string[] = [];
   tags: Tag[] = [];
@@ -24,7 +23,8 @@ export class NewItemComponent implements OnInit {
 
   locations: any[] = [];
 
-  imageSrc: string | ArrayBuffer | null = null;
+  selectedFiles: File[] = [];
+  imageSrcs: string[] = [];
 
   isValid: boolean = true;
   isUploading: boolean = false;
@@ -78,12 +78,13 @@ export class NewItemComponent implements OnInit {
       this.itemForm.get('tags')?.setValue(this.currentTags);
 
       // check if a file was submited
-      if (this.selectedFile !== null) {
+      if (this.selectedFiles !== null) {
         const imgData = new FormData();
-        imgData.append('image', this.selectedFile!);
+        this.selectedFiles.forEach((file) => imgData.append('image', file));
+
         // uploads image to google cloud
         const imageRes = await this.itemsService.addItemImage(imgData);
-        this.itemForm.get('imagelink')?.setValue(imageRes.url);
+        this.itemForm.get('imagelink')?.setValue(imageRes.urls);
       } else {
         this.itemForm.get('imagelink')?.setValue('');
       }
@@ -95,7 +96,7 @@ export class NewItemComponent implements OnInit {
         return;
       }
       this.itemForm.reset();
-      this.imageSrc = null;
+      this.imageSrcs = [];
       this.currentTags = [];
       this.tags = this.provTags;
       this.isUploading = false;
@@ -119,17 +120,21 @@ export class NewItemComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0];
-    this.selectedFile = file;
+    const files: FileList = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const file = files.item(i)!;
+      this.selectedFiles.push(file);
 
-    if (file) {
-      const reader = new FileReader();
+      if (file) {
+        const reader = new FileReader();
 
-      reader.onload = (e: any) => {
-        this.imageSrc = e.target.result;
-      };
+        reader.onload = (e: any) => {
+          this.imageSrcs.push(e.target.result);
+        };
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      }
     }
+    console.log(this.selectedFiles);
   }
 }

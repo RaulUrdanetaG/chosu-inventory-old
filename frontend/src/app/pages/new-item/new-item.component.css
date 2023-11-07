@@ -8,6 +8,16 @@
   height: 300px;
 }
 
+.aux-img {
+  min-width: 85px;
+  height: 127px;
+}
+
+.aux-img-container {
+  width: 370px;
+  overflow: auto;
+}
+
 .img-input {
   display: none;
 }
@@ -18,6 +28,6 @@
   transform: translate(-50%, -50%);
 }
 
-.uploading{
+.uploading {
   opacity: 0.1;
 }
