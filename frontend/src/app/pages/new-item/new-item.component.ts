@@ -135,7 +135,17 @@ export class NewItemComponent implements OnInit {
 
         reader.readAsDataURL(file);
       }
+      console.log(this.imageSrcs);
+      console.log(this.selectedFiles);
     }
+  }
+
+  removeImage(index: number) {
+    this.selectedFiles.splice(index, 1);
+    this.imageSrcs.splice(index, 1);
+    console.log(this.imageSrcs);
     console.log(this.selectedFiles);
   }
+
+  renderImages() {}
 }

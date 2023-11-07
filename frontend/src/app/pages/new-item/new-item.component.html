@@ -24,15 +24,30 @@
   >
     <form class="flex flex-col justify-center gap-1 new-img-container">
       <div class="flex flex-col gap-1 justify-center items-center">
-        <img
-          [src]="imageSrcs[0]"
-          alt="Imagen Cargada"
-          *ngIf="imageSrcs.length !== 0"
-          class="new-img rounded-lg"
-        />
+        <div class="relative" *ngIf="imageSrcs.length !== 0">
+          <i
+            class="fa-solid fa-circle-xmark absolute text-red-600 -right-2 -top-2 cursor-pointer"
+            (click)="removeImage(0)"
+          ></i>
+          <img
+            [src]="imageSrcs[0]"
+            alt="Imagen Cargada"
+            class="new-img rounded-lg"
+          />
+        </div>
 
-        <div *ngIf="imageSrcs.length > 1" class="flex gap-1 aux-img-container">
-          <div *ngFor="let image of imageSrcs | slice : 1">
+        <div
+          *ngIf="imageSrcs.length > 1"
+          class="flex gap-1 aux-img-container pt-3"
+        >
+          <div
+            *ngFor="let image of imageSrcs | slice : 1; let i = index"
+            class="relative"
+          >
+            <i
+              class="fa-solid fa-circle-xmark absolute text-red-600 -right-2 -top-2 cursor-pointer"
+              (click)="removeImage(i + 1)"
+            ></i>
             <img
               [src]="image"
               alt="Imagen Cargada"
