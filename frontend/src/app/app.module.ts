@@ -11,6 +11,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ConfirmDeleteModalComponent } from './components/confirm-delete-modal/confirm-delete-modal.component';
 import { NewModalComponent } from './components/new-modal/new-modal.component';
 import { UpdateModalComponent } from './components/update-modal/update-modal.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { UpdateModalComponent } from './components/update-modal/update-modal.com
     HttpClientModule,
     NewModalComponent,
     UpdateModalComponent,
+    DragDropModule,
   ],
   providers: [
     {

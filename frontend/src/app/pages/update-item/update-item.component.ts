@@ -7,6 +7,11 @@ import { ItemsService } from 'src/app/services/items.service';
 import { LocationService } from 'src/app/services/location.service';
 import { OwnersService } from 'src/app/services/owners.service';
 import { TagsService } from 'src/app/services/tags.service';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-update-item',
@@ -29,6 +34,8 @@ export class UpdateItemComponent {
 
   imageSrcs: string[] = [];
   selectedFiles: File[] = [];
+
+  touchStartIndex: number = 0;
 
   isValid: boolean = true;
   isUploading: boolean = false;
@@ -105,7 +112,7 @@ export class UpdateItemComponent {
       this.isValid = true;
       this.isUploading = true;
       this.itemForm.get('tags')?.setValue(this.currentTags);
-
+      console.log(this.imageSrcs);
       // check if a file was submited
       if (this.selectedFiles.length !== 0) {
         const imgData = new FormData();
@@ -135,6 +142,7 @@ export class UpdateItemComponent {
         this.currentId,
         this.itemForm.value
       );
+      console.log(response);
       if (response.error) {
         this.isUploaded = false;
         return;
@@ -182,26 +190,13 @@ export class UpdateItemComponent {
     this.imageSrcs.splice(index, 1);
   }
 
-  // Método para manejar el evento dragstart
-  onDragStart(event: any, index: number) {
-    event.dataTransfer.setData('text', index.toString());
+  shiftRight() {
+    const firstElement = this.imageSrcs.shift();
+    this.imageSrcs.push(firstElement!);
   }
 
-  // Método para manejar el evento dragover
-  onDragOver(event: any) {
-    event.preventDefault();
-  }
-
-  // Método para manejar el evento drop
-  onDrop(event: any, targetIndex: number) {
-    event.preventDefault();
-    const sourceIndex = parseInt(event.dataTransfer.getData('text'), 10);
-
-    // Intercambiar las imágenes en el array imageSrcs
-    const temp = this.imageSrcs[sourceIndex];
-    this.imageSrcs[sourceIndex] = this.imageSrcs[targetIndex];
-    this.imageSrcs[targetIndex] = temp;
-
-    console.log(this.imageSrcs);
+  shiftLeft() {
+    const lastElement = this.imageSrcs.pop();
+    this.imageSrcs.unshift(lastElement!);
   }
 }
