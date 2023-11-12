@@ -1,12 +1,28 @@
 .tags,
-.owners {
+.owners,
+.locations {
   height: 76vh;
 }
 
-@media (max-width: 630px) {
+@media (max-width: 780px) {
   .tags,
-  .owners {
+  .owners,
+  .locations {
     flex-wrap: nowrap;
     overflow: auto;
+    grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 615px) {
+  .options-container{
+    flex-direction: column;
+  }
+
+  .tags,
+  .owners,
+  .locations {
+    height: 20vh;
+  }
+
 }
