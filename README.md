@@ -9,11 +9,10 @@
 - Update or delete the existing items.
 - Create new tags or update existing ones.
 - Create new owners or update existing ones.
+- Shopping cart system for non admin users.
 - Log in with admin account to see additional info than normal users.
   
 #### (Future updates)
-- Register new users.
-- Create shopping cart.
 - Add whatsapp link to contact the bussiness owner.
 
 ## My learnings
@@ -37,10 +36,10 @@
 - Creation of a REST API in backend using nodeJS and express.
 - CRUD manipulation of database.
 - Middleware set up to validate CRUD actions are being requested by admin user.
-- Google cloud connection to buckets to store item images, and return a public link to the image to display it on the item.
+- Google cloud connection to buckets to store item images, and return a public link for the image to display it on the item.
 - JSON WEB TOKEN creation for user validation.
-- Password encryption using bcrypt to store securely registered users in the database.
+- Password encryption using bcrypt to securely store new users in the database.
 - Bcrypt compare to validate the password from login interface.
 - Used .env to store sensible info about the app like google cloud JSON, mongoDB URI or JWT secret token.
-- Set up cors to make the API available for every one with the link.
+- Set up cors to make the API available for everyone using api endpoint link.
 - Deployment of backend app in render.com with env variables.
