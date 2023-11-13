@@ -49,6 +49,8 @@
         </h3>
         <h3 *ngIf="usersService.isAdmin()">Dueño: {{ item.owner }}</h3>
         <h3 *ngIf="usersService.isAdmin()">Ubicación: {{ item.location }}</h3>
+        <hr>
+        <p *ngIf="usersService.isUser()">{{ item.description }}</p>
         <button
           *ngIf="usersService.isAdmin()"
           class="bg-green-300 rounded-lg"
