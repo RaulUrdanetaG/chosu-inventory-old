@@ -67,7 +67,6 @@ exports.deleteItemById = asyncHandler(async (req, res) => {
 exports.getItemsFiltered = asyncHandler(async (req, res) => {
   let query = {};
 
-  // Agregar condiciones solo si el array tiene elementos
   if (req.body.length > 0) {
     query = { tags: { $all: req.body } };
   }
