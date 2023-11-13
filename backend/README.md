@@ -4,11 +4,13 @@ endpoints
 
 # /items
 - ## GET
-"/" gets all items from db
+"/" gets all items from db.
+<br>
 "/:itemID" gets a single item with the selected ID.
 
 - ## POST
 "/" requires an array for the desired tags to filter the items.
+<br>
 "/addItem" requires a body with name, an array of image links, price, bought at price, an array of tags, owner, location and a description.
 
 - ## DELETE
@@ -21,7 +23,7 @@ endpoints
 # /users
 - ## POST
 "/register" requires a body with username, password and role, if you want to be an admin request the admin token.
-
+<br>
 "/login" requires a body with username and password
 
 # /users/cart
