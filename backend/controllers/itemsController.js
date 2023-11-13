@@ -5,11 +5,7 @@ const Item = require("../models/item.model");
 exports.getItems = asyncHandler(async (req, res) => {
   try {
     var items = {};
-    if (req.query.tag) {
-      items = await Item.find({ tags: { $in: req.query.tag } }).sort({
-        name: 1,
-      });
-    } else if (req.query.owner) {
+    if (req.query.owner) {
       items = await Item.find({ owner: { $in: req.query.owner } }).sort({
         name: 1,
       });
@@ -28,6 +24,7 @@ exports.getItems = asyncHandler(async (req, res) => {
         name: 1,
       });
     }
+
     res.json(items);
   } catch (error) {
     res.json({ error: error.message });
@@ -62,6 +59,21 @@ exports.deleteItemById = asyncHandler(async (req, res) => {
   try {
     const deletedItem = await Item.findByIdAndDelete(itemId);
     res.json(deletedItem);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
+
+exports.getItemsFiltered = asyncHandler(async (req, res) => {
+  let query = {};
+
+  // Agregar condiciones solo si el array tiene elementos
+  if (req.body.length > 0) {
+    query = { tags: { $all: req.body } };
+  }
+  try {
+    const items = await Item.find(query).sort({ name: 1 });
+    res.json(items);
   } catch (error) {
     res.json({ error: error.message });
   }

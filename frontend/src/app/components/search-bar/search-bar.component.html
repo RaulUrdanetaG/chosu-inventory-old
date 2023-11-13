@@ -20,7 +20,7 @@
     *ngIf="isDroppedDown"
     class="drop-down flex flex-col gap-1 p-2 rounded-lg bg-slate-100 h-90 shadow-lg"
   >
-    <form class="flex relative gap-1 self-end items-center mb-2">
+    <div class="flex relative gap-1 self-end items-center mb-2">
       <label for="filter-search" class="absolute ml-1.5"
         ><i class="fa-solid fa-magnifying-glass text-slate-500"></i>
       </label>
@@ -29,55 +29,63 @@
         #input
         id="filter-search"
         class="search-bar rounded-lg py-1 pl-7 bg-slate-200 border border-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-blue-300"
-        (keyup)="onType(input.value)"
+        (keydown)="onType(input.value)"
         (keydown.enter)="searchByName(searchName)"
         autocomplete="off"
         required
       />
-    </form>
-    <div class="categories flex h-80">
-      <div class="tags flex flex-col gap-1 px-2">
-        <button
-          class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
-          (click)="showAllItems()"
-        >
-          Todos los items
-        </button>
-        <button
-          *ngFor="let tag of tags"
-          class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
-          (click)="selectTag(tag)"
-        >
-          <p>{{ tag.tagname }}</p>
-        </button>
-      </div>
-      <hr />
-      <div
-        *ngIf="usersService.isAdmin()"
-        class="owners flex flex-col gap-1 border-l px-2"
-      >
-        <p><b>Dueños</b></p>
-        <button
-          *ngFor="let owner of owners"
-          class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
-          (click)="selectOwner(owner)"
-        >
-          <p>{{ owner.owner }}</p>
-        </button>
-      </div>
-      <div
-        *ngIf="usersService.isAdmin()"
-        class="locations flex flex-col gap-1 border-l pl-2"
-      >
-        <p><b>Ubicaciones</b></p>
-        <button
-          *ngFor="let location of locations"
-          class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
-          (click)="selectLocation(location.location)"
-        >
-          <p>{{ location.location }}</p>
-        </button>
-      </div>
     </div>
+    <form action="">
+      <div class="categories flex h-80">
+        <div class="tags flex flex-col gap-1 px-2">
+          <button
+            class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+            (click)="showAllItems()"
+          >
+            Todos los items
+          </button>
+
+          <div
+            *ngFor="let tag of tags"
+            class="flex gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+          >
+            <input
+              type="checkbox"
+              id="{{ tag.tagname }}"
+              (change)="toggleTag(tag.tagname)"
+              [checked]="tagsArray.includes(tag.tagname)"
+            />
+            <label for="{{ tag.tagname }}">{{ tag.tagname }}</label>
+          </div>
+        </div>
+        <hr />
+        <div
+          *ngIf="usersService.isAdmin()"
+          class="owners flex flex-col gap-1 border-l px-2"
+        >
+          <p><b>Dueños</b></p>
+          <button
+            *ngFor="let owner of owners"
+            class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+            (click)="selectOwner(owner)"
+          >
+            <p>{{ owner.owner }}</p>
+          </button>
+        </div>
+        <div
+          *ngIf="usersService.isAdmin()"
+          class="locations flex flex-col gap-1 border-l pl-2"
+        >
+          <p><b>Ubicaciones</b></p>
+          <button
+            *ngFor="let location of locations"
+            class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
+            (click)="selectLocation(location.location)"
+          >
+            <p>{{ location.location }}</p>
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
 </section>

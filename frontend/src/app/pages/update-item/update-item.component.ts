@@ -7,11 +7,6 @@ import { ItemsService } from 'src/app/services/items.service';
 import { LocationService } from 'src/app/services/location.service';
 import { OwnersService } from 'src/app/services/owners.service';
 import { TagsService } from 'src/app/services/tags.service';
-import {
-  CdkDragDrop,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-update-item',
@@ -67,6 +62,7 @@ export class UpdateItemComponent {
     this.isLoading = true;
     this.tagsService.setTags();
     this.ownersService.setOwners();
+    this.locationsService.setLocations();
     // subscribes to any changes on the tags var in tags service
     this.tagsService.tags$.subscribe((tags) => {
       // sets initial list, and saves all retrieved tags in a provitional array
@@ -104,6 +100,7 @@ export class UpdateItemComponent {
         (tag) => !this.currentTags.includes(tag.tagname)
       );
     });
+    console.log(this.locations);
     this.isLoading = false;
   }
 
@@ -112,7 +109,6 @@ export class UpdateItemComponent {
       this.isValid = true;
       this.isUploading = true;
       this.itemForm.get('tags')?.setValue(this.currentTags);
-      console.log(this.imageSrcs);
       // check if a file was submited
       if (this.selectedFiles.length !== 0) {
         const imgData = new FormData();
@@ -120,7 +116,6 @@ export class UpdateItemComponent {
 
         // uploads image to google cloud
         const imageRes = await this.itemsService.addItemImage(imgData);
-        console.log('before', this.imageSrcs);
         // checks indexes where theres data info instead of a link
         let dataIndexes: number[] = [];
         this.imageSrcs.forEach((element, index) => {
@@ -132,7 +127,6 @@ export class UpdateItemComponent {
         dataIndexes.forEach((index, i) => {
           this.imageSrcs[index] = imageRes.urls[i];
         });
-        console.log('after', this.imageSrcs);
         this.itemForm.get('imagelink')?.setValue(this.imageSrcs);
       } else {
         this.itemForm.get('imagelink')?.setValue(this.imageSrcs);
@@ -142,7 +136,6 @@ export class UpdateItemComponent {
         this.currentId,
         this.itemForm.value
       );
-      console.log(response);
       if (response.error) {
         this.isUploaded = false;
         return;

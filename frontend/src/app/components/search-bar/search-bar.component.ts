@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Owner } from 'src/app/interfaces/owners';
 import { Tag } from 'src/app/interfaces/tags';
 import { ItemsService } from 'src/app/services/items.service';
@@ -16,6 +17,8 @@ import { UsersService } from 'src/app/services/users.service';
   standalone: true,
 })
 export class SearchBarComponent {
+  tagsArray: string[] = [];
+
   tags: Tag[] | undefined;
   owners: Owner[] | undefined;
   locations: any[] | undefined;
@@ -53,14 +56,8 @@ export class SearchBarComponent {
   }
 
   async showAllItems() {
-    this.itemsService.getItems();
+    await this.itemsService.getItems();
     this.currentFilter = '';
-    this.isDroppedDown = false;
-  }
-
-  async selectTag(tag: Tag) {
-    this.itemsService.getItemsWithTag(tag.tagname);
-    this.currentFilter = tag.tagname;
     this.isDroppedDown = false;
   }
 
@@ -88,6 +85,21 @@ export class SearchBarComponent {
 
   isLoading() {
     return this.tags?.length === 0 ? true : false;
+  }
+
+  toggleTag(tag: string) {
+    if (this.tagsArray.includes(tag)) {
+      // remove from array if it exists
+      this.tagsArray = this.tagsArray.filter((tagname) => tagname !== tag);
+    } else {
+      // Marcar el checkbox si no está seleccionado
+      this.tagsArray.push(tag);
+    }
+    this.setForm();
+  }
+
+  async setForm() {
+    await this.itemsService.getItemsWithFilter(this.tagsArray);
   }
 
   @HostListener('document:click', ['$event'])

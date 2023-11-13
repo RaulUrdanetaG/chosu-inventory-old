@@ -39,16 +39,6 @@ export class ItemsService {
     return this._items.next(itemsResponse);
   }
 
-  async getItemsWithTag(tagname: string) {
-    this._items.next([]);
-    this.isItemsLoading = true;
-    const itemsResponse = await firstValueFrom(
-      this.http.get<any>(AppConfig.baseUrl + `/items?tag=${tagname}`)
-    );
-    this.isItemsLoading = false;
-    return this._items.next(itemsResponse);
-  }
-
   async getItemsWithOwner(owner: string) {
     this._items.next([]);
     this.isItemsLoading = true;
@@ -74,6 +64,16 @@ export class ItemsService {
     this.isItemsLoading = true;
     const itemsResponse = await firstValueFrom(
       this.http.get<any>(AppConfig.baseUrl + `/items?name=${name}`)
+    );
+    this.isItemsLoading = false;
+    return this._items.next(itemsResponse);
+  }
+
+  async getItemsWithFilter(filterForm: any) {
+    this._items.next([]);
+    this.isItemsLoading = true;
+    const itemsResponse = await firstValueFrom(
+      this.http.post<any>(AppConfig.baseUrl + `/items`, filterForm)
     );
     this.isItemsLoading = false;
     return this._items.next(itemsResponse);
