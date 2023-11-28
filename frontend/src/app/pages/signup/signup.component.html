@@ -33,9 +33,24 @@
         >
           <div>
             <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Correo</label
+            >
+            <input
+              type="email"
+              name="email"
+              formControlName="email"
+              id="email"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+              required
+            />
+          </div>
+          <div>
+            <label
               for="username"
               class="block mb-2 text-sm font-medium text-gray-900"
-              >Usuario</label
+              >Nombre de usuario</label
             >
             <input
               type="text"
@@ -62,11 +77,44 @@
               required
             />
           </div>
+          <div>
+            <label
+              for="password2"
+              class="block mb-2 text-sm font-medium text-gray-900"
+              >Repetir contraseña</label
+            >
+            <input
+              type="password"
+              name="password2"
+              formControlName="password2"
+              id="password2"
+              placeholder="••••••••"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+              required
+            />
+          </div>
+          <div>
+            <label
+              for="phone"
+              class="flex gap-1 mb-2 items-center text-sm font-medium text-gray-900"
+              >Numero de teléfono <p class="text-xs text-gray-400">(opcional)</p></label
+            >
+            <input
+              type="number"
+              name="phone"
+              formControlName="phone"
+              id="phone"
+              class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+            />
+          </div>
           <div *ngIf="!isValid" class="text-red-700">
-            Falta usuario o contraseña
+            Por favor complete todos los campos
           </div>
           <div *ngIf="isExists" class="text-red-700">
             El nombre de usuario ya existe
+          </div>
+          <div *ngIf="!isPassword" class="text-red-700">
+            Las contraseñas no coinciden
           </div>
           <button
             type="submit"

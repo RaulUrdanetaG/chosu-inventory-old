@@ -13,11 +13,15 @@ export class SignupComponent {
   isValid: boolean = true;
   isExists: boolean = false;
   isLoading: boolean = false;
+  isPassword: boolean = true;
 
   constructor(private usersService: UsersService, private router: Router) {
     this.form = new FormGroup({
+      email: new FormControl(),
       username: new FormControl(),
       password: new FormControl(),
+      password2: new FormControl(),
+      phone: new FormControl(),
     });
   }
 
@@ -26,16 +30,29 @@ export class SignupComponent {
     if (!this.form.valid) {
       this.isValid = false;
       this.isExists = false;
+      this.isPassword = true;
+      this.isLoading = false;
+      return;
+    }
+
+    this.isValid = true;
+
+    if (
+      this.form.get('password')!.value !== this.form.get('password2')?.value
+    ) {
+      this.isExists = false;
+      this.isPassword = false;
       this.isLoading = false;
       return;
     }
     const res = await this.usersService.register(this.form.value);
-    console.log(res);
 
     if (res.error === 'user already exists') {
       this.isExists = true;
       this.isValid = true;
+      this.isPassword = false;
       this.isLoading = false;
+      this.isPassword = true;
       return;
     }
 

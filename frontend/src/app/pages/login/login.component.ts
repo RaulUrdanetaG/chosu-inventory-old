@@ -23,7 +23,6 @@ export class LoginComponent {
   async onSubmit() {
     this.isLoading = true;
     const res = await this.usersService.login(this.form.value);
-    console.log(res);
 
     if (res.error) {
       this.isValid = false;
