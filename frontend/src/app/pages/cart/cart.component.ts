@@ -3,6 +3,7 @@ import { Item } from 'src/app/interfaces/items';
 import { CartService } from 'src/app/services/cart.service';
 import { ItemsService } from 'src/app/services/items.service';
 import { UsersService } from 'src/app/services/users.service';
+import { AppConfig } from 'src/app/config';
 
 @Component({
   selector: 'app-cart',
@@ -12,6 +13,8 @@ import { UsersService } from 'src/app/services/users.service';
 export class CartComponent implements OnInit {
   cart: string[] = [];
   items: Item[] = [];
+
+  whatsappCartLink: string = `${AppConfig.whatsappBase}?text=Hola!, estoy buscando comprar:`;
 
   totalPrice: any;
 
@@ -48,6 +51,17 @@ export class CartComponent implements OnInit {
     this.cart = this.cart.filter((itemFilter) => itemFilter !== item._id);
     await this.cartService.updateCart(this.cart);
     this.cartService.getCart();
+  }
+
+  buyCart() {
+    this.cartService.getCart();
+    this.items.forEach((item, index) => {
+      this.whatsappCartLink += `%0A${index + 1}. ${item.name} ${
+        item.imagelink[0]
+      }`;
+    });
+    console.log(this.items);
+    // window.open(`${this.whatsappCartLink}`, '_blank');
   }
 
   isLoading() {

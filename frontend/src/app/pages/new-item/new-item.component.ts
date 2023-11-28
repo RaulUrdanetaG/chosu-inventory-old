@@ -45,6 +45,7 @@ export class NewItemComponent implements OnInit {
       tags: new FormControl(),
       owner: new FormControl(),
       description: new FormControl(),
+      date: new FormControl(),
     });
   }
 
@@ -88,6 +89,8 @@ export class NewItemComponent implements OnInit {
       } else {
         this.itemForm.get('imagelink')?.setValue('');
       }
+
+      this.itemForm.get('date')?.setValue(Date());
 
       const response = await this.itemsService.addItem(this.itemForm.value);
 

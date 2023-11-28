@@ -4,7 +4,9 @@
   top: 35px;
 }
 
-.tags {
+.tags,
+.locations,
+.owners {
   flex-direction: column;
   overflow: auto;
 }

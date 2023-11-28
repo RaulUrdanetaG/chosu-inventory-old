@@ -10,15 +10,21 @@
         (click)="isDroppedDown = true"
       >
         <p></p>
-        <button>
-          <i class="fa-solid fa-chevron-down"></i>
+        <button *ngIf="isDroppedDown == false">
+          <i
+            class="fa-solid fa-chevron-down"
+            (click)="isDroppedDown = true"
+          ></i>
+        </button>
+        <button *ngIf="isDroppedDown == true" (click)="isDroppedDown = false">
+          <i class="fa-solid fa-chevron-up"></i>
         </button>
       </div>
     </div>
   </div>
   <div
     *ngIf="isDroppedDown"
-    class="drop-down flex flex-col gap-1 p-2 rounded-lg bg-slate-100 h-90 shadow-lg z-50"
+    class="drop-down flex flex-col gap-1 p-2 rounded-lg bg-slate-100 shadow-lg z-50"
   >
     <div class="flex relative gap-1 self-end items-center mb-2">
       <label for="filter-search" class="absolute ml-1.5"
@@ -36,8 +42,8 @@
       />
     </div>
     <form action="">
-      <div class="categories flex h-80">
-        <div class="tags flex flex-col gap-1 px-2">
+      <div class="categories flex h-96">
+        <div class="tags flex flex-col gap-1 px-2 w-full">
           <button
             class="flex justify-between gap-1 px-2 rounded-lg text-start hover:bg-blue-300"
             (click)="showAllItems()"
@@ -74,7 +80,7 @@
         </div>
         <div
           *ngIf="usersService.isAdmin()"
-          class="locations flex flex-col gap-1 border-l pl-2"
+          class="locations flex flex-col gap-1 border-l pl-2 w-full"
         >
           <p><b>Ubicaciones</b></p>
           <button

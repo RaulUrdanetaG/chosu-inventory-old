@@ -6,6 +6,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ItemsService } from 'src/app/services/items.service';
 import { TagsService } from 'src/app/services/tags.service';
 import { UsersService } from 'src/app/services/users.service';
+import { loginGuard } from 'src/guards/login.guard';
 
 @Component({
   selector: 'app-items',
@@ -46,6 +47,9 @@ export class ItemsComponent implements OnInit {
   }
 
   async addToCart(item: Item) {
+    if (!this.usersService.isUser()) {
+      this.router.navigate(["users/login"]);
+    }
     this.cart.push(item._id);
     await this.cartService.updateCart(this.cart);
   }

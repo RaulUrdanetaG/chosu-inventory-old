@@ -50,7 +50,7 @@
         <h3 *ngIf="usersService.isAdmin()">Dueño: {{ item.owner }}</h3>
         <h3 *ngIf="usersService.isAdmin()">Ubicación: {{ item.location }}</h3>
         <hr>
-        <p *ngIf="usersService.isUser()">{{ item.description }}</p>
+        <p>{{ item.description }}</p>
         <button
           *ngIf="usersService.isAdmin()"
           class="bg-green-300 rounded-lg"
@@ -59,7 +59,7 @@
           Editar <i class="fa-solid fa-pencil"></i>
         </button>
         <button
-          *ngIf="usersService.isUser() && !cart.includes(item._id)"
+          *ngIf="!usersService.isAdmin() && !cart.includes(item._id)"
           class="bg-green-300 rounded-lg"
           (click)="addToCart(item)"
         >
