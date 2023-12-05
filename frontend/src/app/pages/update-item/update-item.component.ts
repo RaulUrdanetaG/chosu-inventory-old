@@ -55,6 +55,8 @@ export class UpdateItemComponent {
       tags: new FormControl(),
       owner: new FormControl(),
       description: new FormControl(),
+      date: new FormControl(),
+      sold: new FormControl(),
     });
   }
 
