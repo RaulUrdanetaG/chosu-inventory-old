@@ -46,6 +46,7 @@ export class NewItemComponent implements OnInit {
       owner: new FormControl(),
       description: new FormControl(),
       date: new FormControl(),
+      sold: new FormControl(),
     });
   }
 
@@ -91,6 +92,7 @@ export class NewItemComponent implements OnInit {
       }
 
       this.itemForm.get('date')?.setValue(Date());
+      this.itemForm.get('sold')?.setValue(false);
 
       const response = await this.itemsService.addItem(this.itemForm.value);
 

@@ -10,6 +10,7 @@ const userSchema = new Schema({
   description: String,
   owner: String,
   date: Date,
+  sold: Boolean,
 });
 
 module.exports = model("item", userSchema);
