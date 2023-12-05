@@ -16,7 +16,7 @@ export class CartComponent implements OnInit {
 
   whatsappCartLink: string = `${AppConfig.whatsappBase}?text=Hola!, estoy buscando comprar:`;
 
-  totalPrice: any;
+  totalPrice: number = 0;
 
   isLoadingItems: boolean = true;
 

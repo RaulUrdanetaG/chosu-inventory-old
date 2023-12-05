@@ -31,7 +31,8 @@
       class="item-card flex flex-col justify-between shadow-xl bg-white rounded-lg"
       *ngFor="let item of itemsResponse"
       [ngClass]="{
-        sold: item.sold
+        sold: item.sold && !usersService.isAdmin(),
+        soldAdmin: item.sold && usersService.isAdmin()
       }"
     >
       <div>
@@ -62,9 +63,6 @@
               (click)="toggleSold(item)"
             ></i>
             Sin vender
-          </p>
-          <p *ngIf="!usersService.isAdmin() && item.sold" class="px-2">
-            Sin stock
           </p>
         </div>
 

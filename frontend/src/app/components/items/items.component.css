@@ -25,4 +25,9 @@
 
 .sold {
   opacity: 0.4;
+  display: none;
+}
+
+.soldAdmin {
+  opacity: 0.4;
 }
