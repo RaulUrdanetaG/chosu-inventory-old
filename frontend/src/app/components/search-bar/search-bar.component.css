@@ -1,28 +1,26 @@
 .drop-down {
   position: absolute;
   right: 14px;
-  top: 35px;
+  top: 30px;
 }
 
 .tags,
 .locations,
 .owners {
-  flex-direction: column;
   overflow: auto;
 }
 
 @media (max-width: 630px) {
+  .drop-down {
+    right: 0;
+  }
   .categories {
-    width: 93vw;
+    width: 97vw;
     justify-content: center;
   }
 
   .search-bar {
     width: 93vw;
-  }
-
-  .section {
-    flex-direction: column;
   }
 
   .filter-input {
@@ -36,9 +34,12 @@
     justify-content: initial;
     overflow: auto;
     max-height: 50vh;
+    border-radius: 0;
   }
 
-  .tags {
+  .tags,
+  .locations,
+  .owners {
     overflow: initial;
   }
 }

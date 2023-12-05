@@ -98,6 +98,12 @@ export class SearchBarComponent {
     this.setForm();
   }
 
+  toggleDropdown() {
+    this.isDroppedDown = !this.isDroppedDown;
+    console.log('alo');
+    console.log(this.isDroppedDown);
+  }
+
   async setForm() {
     await this.itemsService.getItemsWithFilter(this.tagsArray);
   }

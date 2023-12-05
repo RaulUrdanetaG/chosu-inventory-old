@@ -3,21 +3,17 @@
     <p class="text-3xl">
       <b>{{ currentFilter }}</b>
     </p>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2" (click)="toggleDropdown()">
       <p>Filtros:</p>
       <div
         class="filter-input flex justify-between gap-2 w-56 px-2 bg-slate-100 rounded-lg hover:cursor-pointer"
-        (click)="isDroppedDown = true"
       >
         <p></p>
-        <button *ngIf="isDroppedDown == false">
-          <i
-            class="fa-solid fa-chevron-down"
-            (click)="isDroppedDown = true"
-          ></i>
-        </button>
-        <button *ngIf="isDroppedDown == true" (click)="isDroppedDown = false">
+        <button *ngIf="isDroppedDown == true">
           <i class="fa-solid fa-chevron-up"></i>
+        </button>
+        <button *ngIf="isDroppedDown == false">
+          <i class="fa-solid fa-chevron-down"></i>
         </button>
       </div>
     </div>
@@ -26,15 +22,15 @@
     *ngIf="isDroppedDown"
     class="drop-down flex flex-col gap-1 p-2 rounded-lg bg-slate-100 shadow-lg z-50"
   >
-    <div class="flex relative gap-1 self-end items-center mb-2">
-      <label for="filter-search" class="absolute ml-1.5"
+    <div class="flex flex-1 relative gap-1 items-center mb-2">
+      <label for="filter-search" class="absolute ml-4"
         ><i class="fa-solid fa-magnifying-glass text-slate-500"></i>
       </label>
       <input
         type="text"
         #input
         id="filter-search"
-        class="search-bar rounded-lg py-1 pl-7 bg-slate-200 border border-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-blue-300"
+        class="search-bar flex flex-1 rounded-lg py-1 mx-2 pl-7 bg-slate-200 border border-slate-500 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-blue-300"
         (keydown)="onType(input.value)"
         (keydown.enter)="searchByName(searchName)"
         autocomplete="off"
@@ -67,7 +63,7 @@
         <hr />
         <div
           *ngIf="usersService.isAdmin()"
-          class="owners flex flex-col gap-1 border-l px-2"
+          class="owners flex flex-col gap-1 border-l px-2 w-full"
         >
           <p><b>Dueños</b></p>
           <button
