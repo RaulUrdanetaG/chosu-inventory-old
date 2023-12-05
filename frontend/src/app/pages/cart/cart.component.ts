@@ -4,6 +4,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ItemsService } from 'src/app/services/items.service';
 import { UsersService } from 'src/app/services/users.service';
 import { AppConfig } from 'src/app/config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -23,7 +24,8 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private itemsService: ItemsService,
-    public usersService: UsersService
+    public usersService: UsersService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -53,15 +55,16 @@ export class CartComponent implements OnInit {
     this.cartService.getCart();
   }
 
-  buyCart() {
+  async buyCart() {
     this.cartService.getCart();
     this.items.forEach((item, index) => {
-      this.whatsappCartLink += `%0A${index + 1}. ${item.name} ${
-        item.imagelink[0]
-      }`;
+      this.whatsappCartLink += `%0A${index + 1}. ${item.name} - $${item.price}`;
     });
-    console.log(this.items);
-    // window.open(`${this.whatsappCartLink}`, '_blank');
+
+    this.cart = [];
+    await this.cartService.updateCart(this.cart);
+    this.router.navigate(['items/all']);
+    window.open(`${this.whatsappCartLink}`, '_blank');
   }
 
   isLoading() {

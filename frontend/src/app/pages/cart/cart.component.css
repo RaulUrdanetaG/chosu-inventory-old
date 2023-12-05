@@ -14,6 +14,11 @@
   width: 250px;
 }
 
+.disabledButton[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 @media (max-width: 590px) {
   section {
     flex-direction: column;
@@ -24,7 +29,7 @@
     align-self: auto;
   }
 
-  .cart-item{
+  .cart-item {
     max-width: 100vw;
   }
 }

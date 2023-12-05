@@ -53,6 +53,7 @@
     </div>
     <button
       *ngIf="usersService.isUser()"
+      [disabled]="items.length === 0"
       class="bg-green-300 rounded-lg"
       (click)="buyCart()"
     >
