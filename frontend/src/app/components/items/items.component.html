@@ -28,50 +28,80 @@
     class="items-container flex py-2 pr-4 pl-2 gap-4 flex-wrap justify-center min-h-full"
   >
     <div
-      class="item-card shadow-xl grid bg-white rounded-lg"
+      class="item-card flex flex-col justify-between shadow-xl bg-white rounded-lg"
       *ngFor="let item of itemsResponse"
+      [ngClass]="{
+        sold: item.sold
+      }"
     >
-      <div class="item-img flex justify-center">
-        <img
-          class="rounded-t-lg"
-          src="{{ item.imagelink[0] }}"
-          alt="{{ item.name }}-thumbnail"
-        />
-      </div>
+      <div>
+        <div class="flex-col justify-start">
+          <div class="item-img flex justify-center">
+            <img
+              class="rounded-t-lg"
+              src="{{ item.imagelink[0] }}"
+              alt="{{ item.name }}-thumbnail"
+            />
+          </div>
+          <p
+            *ngIf="item.sold && usersService.isAdmin()"
+            class="px-2 cursor-pointer"
+          >
+            <i
+              class="fa-solid fa-square-check text-green-300"
+              (click)="toggleSold(item)"
+            ></i>
+            Vendido
+          </p>
+          <p
+            *ngIf="!item.sold && usersService.isAdmin()"
+            class="px-2 cursor-pointer"
+          >
+            <i
+              class="fa-regular fa-square text-blue-300"
+              (click)="toggleSold(item)"
+            ></i>
+            Sin vender
+          </p>
+          <p *ngIf="!usersService.isAdmin() && item.sold" class="px-2">
+            Sin stock
+          </p>
+        </div>
 
-      <div class="flex flex-col justify-between px-2 pb-2 pt-1 gap-1">
-        <h3 class="text-2xl font-semibold">
-          {{ item.name }}
-        </h3>
-        <h3>Precio: $ {{ item.price | number : "1.0-0" }}</h3>
-        <h3 *ngIf="usersService.isAdmin()">
-          Comprado en: $ {{ item.boughtAt | number : "1.0-0" }}
-        </h3>
-        <h3 *ngIf="usersService.isAdmin()">Dueño: {{ item.owner }}</h3>
-        <h3 *ngIf="usersService.isAdmin()">Ubicación: {{ item.location }}</h3>
-        <hr>
-        <p>{{ item.description }}</p>
-        <button
-          *ngIf="usersService.isAdmin()"
-          class="bg-green-300 rounded-lg"
-          (click)="editItem(item)"
-        >
-          Editar <i class="fa-solid fa-pencil"></i>
-        </button>
-        <button
-          *ngIf="!usersService.isAdmin() && !cart.includes(item._id)"
-          class="bg-green-300 rounded-lg"
-          (click)="addToCart(item)"
-        >
-          Añadir al carrito <i class="fa-solid fa-cart-plus"></i>
-        </button>
-        <button
-          *ngIf="usersService.isUser() && cart.includes(item._id)"
-          class="bg-blue-300 rounded-lg"
-        >
-          En el carrito <i class="fa-solid fa-check"></i>
-        </button>
+        <div class="flex flex-col justify-between px-2 pb-2 pt-1 gap-1">
+          <h3 class="text-2xl font-semibold">
+            {{ item.name }}
+          </h3>
+          <h3>Precio: $ {{ item.price | number : "1.0-0" }}</h3>
+          <h3 *ngIf="usersService.isAdmin()">
+            Comprado en: $ {{ item.boughtAt | number : "1.0-0" }}
+          </h3>
+          <h3 *ngIf="usersService.isAdmin()">Dueño: {{ item.owner }}</h3>
+          <h3 *ngIf="usersService.isAdmin()">Ubicación: {{ item.location }}</h3>
+          <hr />
+          <p>{{ item.description }}</p>
+        </div>
       </div>
+      <button
+        *ngIf="usersService.isAdmin()"
+        class="bg-green-300 rounded-lg m-2"
+        (click)="editItem(item)"
+      >
+        Editar <i class="fa-solid fa-pencil"></i>
+      </button>
+      <button
+        *ngIf="!usersService.isAdmin() && !cart.includes(item._id)"
+        class="bg-green-300 rounded-lg m-2"
+        (click)="addToCart(item)"
+      >
+        Añadir al carrito <i class="fa-solid fa-cart-plus"></i>
+      </button>
+      <button
+        *ngIf="usersService.isUser() && cart.includes(item._id)"
+        class="bg-blue-300 rounded-lg m-2"
+      >
+        En el carrito <i class="fa-solid fa-check"></i>
+      </button>
     </div>
   </div>
 </ng-template>

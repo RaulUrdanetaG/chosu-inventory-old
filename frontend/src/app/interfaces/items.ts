@@ -8,4 +8,5 @@ export interface Item {
   owner: string;
   description: string;
   tags: string[];
+  sold: boolean;
 }

@@ -1,16 +1,15 @@
 .items-container {
   max-height: 81vh;
   overflow: auto;
-  
 }
 
-.items-container::-webkit-scrollbar{
-  background-color: #F7F9FB;
+.items-container::-webkit-scrollbar {
+  background-color: #f7f9fb;
   width: 10px;
 }
 
-.items-container::-webkit-scrollbar-thumb{
-  background-color: #93C5FD;
+.items-container::-webkit-scrollbar-thumb {
+  background-color: #93c5fd;
   border-radius: 10px;
 }
 
@@ -22,4 +21,8 @@
 .item-img {
   width: 100%;
   height: 300px;
+}
+
+.sold {
+  opacity: 0.4;
 }

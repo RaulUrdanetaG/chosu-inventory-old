@@ -24,6 +24,7 @@ export class ItemsService {
     owner: '',
     description: '',
     tags: [],
+    sold: false,
   });
   selectedItem$ = this._selectedItem.asObservable();
 
@@ -97,7 +98,7 @@ export class ItemsService {
     );
   }
 
-  updateItem(itemId: string, item: Item) {
+  updateItem(itemId: string, item: any) {
     return firstValueFrom(
       this.http.put<any>(AppConfig.baseUrl + `/items/${itemId}`, item)
     );
