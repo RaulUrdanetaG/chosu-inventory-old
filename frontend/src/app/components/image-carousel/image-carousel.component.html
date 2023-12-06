@@ -1,0 +1,41 @@
+<div class="carousel flex flex-col p-4 pt-0 z-50 bg-white rounded-lg">
+  <i
+    class="fa-solid fa-circle-xmark py-2 text-right cursor-pointer text-red-600"
+    (click)="close()"
+  ></i>
+  <div *ngIf="images && images.length > 0" class="carousel-container">
+    <img
+      *ngFor="let image of images; let i = index"
+      [src]="image"
+      [ngClass]="{ 'image-active': selectedIndex === i }"
+      class="slide"
+    />
+
+    <div *ngIf="indicators" class="carousel-dot-container">
+      <span
+        *ngFor="let dot of images; let i = index"
+        class="dot"
+        [ngClass]="{ active: selectedIndex === i }"
+        (click)="selectImage(i)"
+      ></span>
+    </div>
+
+    <div
+      *ngIf="controls"
+      class="bg-gradient-to-r from-black to-transparent btn-carousel btn-prev"
+    >
+      <i
+        class="prev fa-solid fa-circle-chevron-left icon-carousel icon-prev text-3xl"
+        (click)="onPrevClick()"
+      >
+      </i>
+    </div>
+    <div *ngIf="controls" class="btn-carousel btn-next">
+      <i
+        class="next fa-solid fa-circle-chevron-right icon-carousel icon-next text-3xl"
+        (click)="onNextClick()"
+      >
+      </i>
+    </div>
+  </div>
+</div>

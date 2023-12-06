@@ -39,9 +39,10 @@
         <div class="flex-col justify-start">
           <div class="item-img flex justify-center">
             <img
-              class="rounded-t-lg"
+              class="rounded-t-lg cursor-pointer"
               src="{{ item.imagelink[0] }}"
               alt="{{ item.name }}-thumbnail"
+              (click)="showCarousel(item)"
             />
           </div>
           <p

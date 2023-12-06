@@ -1,10 +1,10 @@
 export interface Item {
   _id: string;
   name: string;
-  imagelink: String;
+  imagelink: string[];
   price: number;
   boughtAt: number;
-  location: String;
+  location: string;
   owner: string;
   description: string;
   tags: string[];

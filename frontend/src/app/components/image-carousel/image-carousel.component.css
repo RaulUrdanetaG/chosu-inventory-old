@@ -1,0 +1,144 @@
+.carousel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+}
+
+.carousel-container {
+  position: relative;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 6px 12px #979999;
+  overflow: hidden;
+}
+
+.carousel-container img {
+  display: none;
+  width: 100%;
+  max-height: 600px;
+  border-radius: 5px;
+}
+
+.carousel-container img.image-active {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-height: 600px;
+}
+
+.carousel-dot-container {
+  z-index: 100;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.dot {
+  cursor: pointer;
+  height: 1vw;
+  width: 1vw;
+  margin: 0 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  transition: opacity 0.6s ease;
+  opacity: 0.5;
+}
+
+.active,
+.dot:hover {
+  opacity: 1;
+}
+
+.next,
+.prev {
+  font-size: 2vw;
+}
+
+.btn-carousel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  width: 15%;
+  padding: 0;
+  background: 0 0;
+  border: 0;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-prev {
+  left: 0;
+  justify-content: flex-start;
+  padding-left: 10px;
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0)
+  );
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.btn-next {
+  right: 0;
+  justify-content: flex-end;
+  padding-right: 10px;
+  background-image: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0)
+  );
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.icon-carousel {
+  opacity: 0.5;
+  transition: all 0.15s ease;
+}
+
+.icon-carousel:hover {
+  opacity: 0.9;
+}
+
+.icon-carousel:active {
+  opacity: 0.5;
+}
+
+@media (max-width: 530px) {
+  .carousel {
+    width: 100vw;
+  }
+  .carousel-container img {
+    height: 100%;
+    width: 100vh;
+  }
+
+  .carousel-container img.image-active {
+    height: 100%;
+    width: 100vh;
+  }
+
+  .dot {
+    height: 2vw;
+    width: 2vw;
+  }
+
+  .next,
+  .prev {
+    font-size: 4vw;
+  }
+}

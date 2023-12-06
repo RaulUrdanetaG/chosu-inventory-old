@@ -8,6 +8,7 @@ import { Item } from '../interfaces/items';
   providedIn: 'root',
 })
 export class ItemsService {
+  isImageCarousel: boolean = false;
   isDeleteItemModal: boolean = false;
   isItemsLoading: boolean = false;
 
@@ -17,7 +18,7 @@ export class ItemsService {
   private _selectedItem = new BehaviorSubject<Item>({
     _id: '',
     name: '',
-    imagelink: '',
+    imagelink: [],
     price: 0,
     boughtAt: 0,
     location: '',

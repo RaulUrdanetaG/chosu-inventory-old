@@ -29,6 +29,10 @@
   <app-confirm-delete-modal></app-confirm-delete-modal>
 </div>
 
+<div *ngIf="itemsService.isImageCarousel">
+  <app-image-carousel></app-image-carousel>
+</div>
+
 <div
   class="app min-h-screen"
   [ngClass]="{
@@ -42,7 +46,8 @@
       tagsService.isDeleteTagModal ||
       ownersService.isDeleteOwnerModal ||
       locationsService.isDeleteLocationModal ||
-      itemsService.isDeleteItemModal
+      itemsService.isDeleteItemModal ||
+      itemsService.isImageCarousel
   }"
 >
   <app-navbar></app-navbar>

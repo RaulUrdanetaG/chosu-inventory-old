@@ -12,6 +12,7 @@ import { ConfirmDeleteModalComponent } from './components/confirm-delete-modal/c
 import { NewModalComponent } from './components/new-modal/new-modal.component';
 import { UpdateModalComponent } from './components/update-modal/update-modal.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ImageCarouselComponent } from './components/image-carousel/image-carousel.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     HttpClientModule,
     NewModalComponent,
     UpdateModalComponent,
-    DragDropModule,
+    ImageCarouselComponent,
   ],
   providers: [
     {

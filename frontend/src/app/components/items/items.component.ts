@@ -19,7 +19,7 @@ export class ItemsComponent implements OnInit {
   cart: string[] = [];
 
   constructor(
-    private itemsService: ItemsService,
+    public itemsService: ItemsService,
     public tagsService: TagsService,
     public usersService: UsersService,
     private cartService: CartService,
@@ -62,6 +62,10 @@ export class ItemsComponent implements OnInit {
     this.itemsService.getItems();
   }
 
+  showCarousel(item: Item) {
+    this.itemsService.setSelectedItem(item);
+    this.itemsService.isImageCarousel = true;
+  }
   isLoading() {
     return this.itemsResponse?.length === 0 && this.itemsService.isItemsLoading
       ? true
