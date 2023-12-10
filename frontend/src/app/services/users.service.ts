@@ -21,6 +21,12 @@ export class UsersService {
     );
   }
 
+  verifyEmail(token: string, id: string) {
+    return firstValueFrom(
+      this.http.get<any>(AppConfig.baseUrl + `/users/verify/${token}/${id}`)
+    );
+  }
+
   isAdmin(): boolean {
     return localStorage.getItem('token') ? true : false;
   }

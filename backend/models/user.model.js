@@ -10,6 +10,7 @@ const userSchema = new Schema({
     default: "regular",
   },
   cart: [String],
+  verified: Boolean,
 });
 
 module.exports = model("user", userSchema);

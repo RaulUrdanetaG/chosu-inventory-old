@@ -57,6 +57,13 @@ const routes: Routes = [
     canActivate: [loginGuard],
   },
   {
+    path: 'users/verify/:token/:UID',
+    loadChildren: () =>
+      import('./pages/verify-email/verify-email.module').then(
+        (m) => m.VerifyEmailModule
+      ),
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./pages/not-found/not-found.module').then(

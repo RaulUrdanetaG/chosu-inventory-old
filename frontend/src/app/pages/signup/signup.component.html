@@ -97,7 +97,8 @@
             <label
               for="phone"
               class="flex gap-1 mb-2 items-center text-sm font-medium text-gray-900"
-              >Numero de teléfono <p class="text-xs text-gray-400">(opcional)</p></label
+              >Numero de teléfono
+              <p class="text-xs text-gray-400">(opcional)</p></label
             >
             <input
               type="number"
@@ -111,10 +112,13 @@
             Por favor complete todos los campos
           </div>
           <div *ngIf="isExists" class="text-red-700">
-            El nombre de usuario ya existe
+            El nombre de usuario ya esta existe
           </div>
           <div *ngIf="!isPassword" class="text-red-700">
             Las contraseñas no coinciden
+          </div>
+          <div *ngIf="isExistsEmail" class="text-red-700">
+            El correo ya esta registrado, intenta ingresar a tu cuenta
           </div>
           <button
             type="submit"

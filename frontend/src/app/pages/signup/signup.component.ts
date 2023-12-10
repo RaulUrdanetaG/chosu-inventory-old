@@ -12,6 +12,7 @@ export class SignupComponent {
   form: FormGroup;
   isValid: boolean = true;
   isExists: boolean = false;
+  isExistsEmail: boolean = false;
   isLoading: boolean = false;
   isPassword: boolean = true;
 
@@ -22,6 +23,7 @@ export class SignupComponent {
       password: new FormControl(),
       password2: new FormControl(),
       phone: new FormControl(),
+      verified: new FormControl(),
     });
   }
 
@@ -30,6 +32,7 @@ export class SignupComponent {
     if (!this.form.valid) {
       this.isValid = false;
       this.isExists = false;
+      this.isExistsEmail = false;
       this.isPassword = true;
       this.isLoading = false;
       return;
@@ -41,14 +44,27 @@ export class SignupComponent {
       this.form.get('password')!.value !== this.form.get('password2')?.value
     ) {
       this.isExists = false;
+      this.isExistsEmail = false;
       this.isPassword = false;
       this.isLoading = false;
       return;
     }
+    this.form.get('verified')?.setValue(false);
     const res = await this.usersService.register(this.form.value);
 
     if (res.error === 'user already exists') {
       this.isExists = true;
+      this.isExistsEmail = false;
+      this.isValid = true;
+      this.isPassword = false;
+      this.isLoading = false;
+      this.isPassword = true;
+      return;
+    }
+
+    if (res.error === 'email already exists') {
+      this.isExists = false;
+      this.isExistsEmail = true;
       this.isValid = true;
       this.isPassword = false;
       this.isLoading = false;
