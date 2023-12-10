@@ -1,4 +1,4 @@
-<section>
+<section class="h-full flex justify-center items-center">
   <div
     *ngIf="isLoading"
     class="flex items-center gap-3 align-middle justify-center mt-7"
@@ -16,11 +16,23 @@
       />
     </svg>
   </div>
-  <div *ngIf="!isLoading && isValid">
-    <p>Correo verificado correctamente!</p>
-    <button (click)="navigateToLogin()">Ir a inicio de sesion</button>
+  <div
+    *ngIf="!isLoading && isValid"
+    class="flex flex-col rounded-lg items-center justify-center p-2 border-black border"
+  >
+    <p class="text-3xl mb-2">Correo verificado correctamente!</p>
+    <button
+      (click)="navigateToLogin()"
+      class="rounded-md bg-green-300 border-black p-1 border text-xl"
+    >
+      Ir a inicio de sesion
+    </button>
   </div>
-  <div *ngIf="!isLoading && !isValid">
-    <p>Ocurrio un error :( Intenta nuevamente. </p>
+  <div
+    *ngIf="!isLoading && !isValid"
+    class="flex flex-col rounded-lg items-center justify-center p-2 border-black border"
+  >
+    <p class="text-3xl mb-2">Ocurrio un error :(</p>
+    <p class="text-3xl mb-2">Intenta nuevamente.</p>
   </div>
 </section>
