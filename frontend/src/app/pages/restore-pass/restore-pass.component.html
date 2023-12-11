@@ -1,0 +1,70 @@
+<section class="flex items-center justify-center h-full">
+  <form
+    class="relative flex flex-col p-2 border border-black rounded-lg mx-2"
+    [formGroup]="form"
+    [ngClass]="{ loading: isLoading }"
+  >
+    <div *ngIf="isLoading" class="absolute loading-svg">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="48"
+        viewBox="0 -960 960 960"
+        width="48"
+        class="animate-spin"
+      >
+        <path
+          class="fill-slate-500"
+          d="M480-80q-84 0-157-31t-127-85q-54-54-85-127T80-480q0-84 31-157t85-127q54-54 127-85t157-31q12 0 21 9t9 21q0 12-9 21t-21 9q-141 0-240.5 99.5T140-480q0 141 99.5 240.5T480-140q141 0 240.5-99.5T820-480q0-12 9-21t21-9q12 0 21 9t9 21q0 84-31 157t-85 127q-54 54-127 85T480-80Z"
+        />
+      </svg>
+    </div>
+    <label for="pass" class="text-lg text-center"
+      >Ingresa la nueva contraseña</label
+    >
+    <input
+      type="password"
+      id="pass"
+      name="pass"
+      formControlName="pass"
+      required
+      class="border border-black my-2 rounded-md p-2"
+    />
+    <label for="pass2" class="text-lg text-center"
+      >Repite la nueva contraseña</label
+    >
+    <input
+      type="password"
+      id="pass2"
+      name="pass2"
+      formControlName="pass2"
+      required
+      class="border border-black my-2 rounded-md p-2"
+    />
+    <p *ngIf="!isValid" class="text-red-600 p-1">
+      Por favor rellene todas las casillas
+    </p>
+    <p *ngIf="isError" class="text-red-600 p-1">
+      Ocurrio un error, intenta mas tarde
+    </p>
+    <p *ngIf="!isPassEqual" class="text-red-600 p-1">
+      Las contraseñas no coinciden
+    </p>
+    <p *ngIf="isSent" class="text-blue-400 p-1 underline underline-offset-2">
+      Contraseña cambiada con exito.
+    </p>
+    <div class="flex justify-around">
+      <button
+        (click)="back()"
+        class="rounded-md border-black p-1 border text-xl"
+      >
+        Volver
+      </button>
+      <button
+        (click)="restorePass()"
+        class="rounded-md bg-green-300 border-black p-1 border text-xl"
+      >
+        Enviar
+      </button>
+    </div>
+  </form>
+</section>

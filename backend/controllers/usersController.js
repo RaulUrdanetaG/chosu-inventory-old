@@ -7,6 +7,14 @@ const nodeMailer = require("nodemailer");
 const User = require("../models/user.model");
 require("dotenv").config();
 
+const transporter = nodeMailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
+
 exports.userRegister = asyncHandler(async (req, res) => {
   try {
     const userCheck = await User.findOne({ username: req.body.username });
@@ -24,7 +32,7 @@ exports.userRegister = asyncHandler(async (req, res) => {
 
     const user = await User.create(req.body);
 
-    verifyEmail(user);
+    sendVerifyEmail(user);
     res.json(user);
   } catch (error) {
     res.json({ error: error });
@@ -63,6 +71,60 @@ exports.userLogin = asyncHandler(async (req, res) => {
   }
 });
 
+exports.sendChangePassEmail = asyncHandler(async (req, res) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user) {
+    res.json({ error: "Email does not extist in db" });
+  }
+
+  const mailConfigurations = {
+    // It should be a string of sender/server email
+    from: process.env.EMAIL_USERNAME,
+
+    to: `${req.body.email}`,
+
+    // Subject of Email
+    subject: "Cambio de contraseña de cuenta chosu",
+
+    // This would be the text of email body
+    html: `<p>Hola!, recibimos tu solicitud de cambio de contraseña.</p>
+    <p>Para realizar el cambio pulsa el botón de abajo, si no solicitaste este cambio ignora este correo.</p>
+    <a href="https://chosu.netlify.app/password/restorePass/${req.body.email}" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; font-size: 16px; cursor: pointer; border-radius: 5px;">Reestablecer contraseña</a>`,
+  };
+
+  transporter.sendMail(mailConfigurations, function (error, info) {
+    if (error) {
+      res.json({ error: error.message });
+    } else {
+      res.json(info);
+    }
+  });
+});
+
+exports.restorePass = asyncHandler(async (req, res) => {
+  const { email } = req.params;
+
+  const user = await User.findOne({ email: email });
+
+  if (!user) {
+    res.json({ error: "Email does not extist in db" });
+  }
+
+  // encrypt password usyng bcrypt
+  req.body.password = bcrypt.hashSync(req.body.password, 12);
+  try {
+    const user = await User.findOneAndUpdate(
+      { email: email },
+      { password: req.body.password },
+      { new: true }
+    );
+    res.json(user);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+});
+
 exports.verifyToken = asyncHandler(async (req, res) => {
   const { token, UID } = req.params;
 
@@ -83,15 +145,7 @@ exports.verifyToken = asyncHandler(async (req, res) => {
   });
 });
 
-function verifyEmail(user) {
-  const transporter = nodeMailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-  });
-
+function sendVerifyEmail(user) {
   const token = jwt.sign(
     {
       data: "Token Data",

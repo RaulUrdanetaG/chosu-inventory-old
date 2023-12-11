@@ -27,6 +27,22 @@ export class UsersService {
     );
   }
 
+  sendRestorePassEmail(email: any) {
+    return firstValueFrom(
+      this.http.post<any>(AppConfig.baseUrl + '/users/password/restore', {
+        email: email,
+      })
+    );
+  }
+
+  restorePass(email: string, password: string) {
+    return firstValueFrom(
+      this.http.post<any>(
+        AppConfig.baseUrl + `/users/password/restore/${email}`,
+        { password: password }
+      )
+    );
+  }
   isAdmin(): boolean {
     return localStorage.getItem('token') ? true : false;
   }

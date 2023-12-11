@@ -39,4 +39,8 @@ export class LoginComponent {
     }
     this.isLoading = false;
   }
+
+  forgotPassword() {
+    this.router.navigate(['/password/enterEmail']);
+  }
 }

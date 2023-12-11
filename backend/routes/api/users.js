@@ -11,6 +11,9 @@ router.post("/login", userController.userLogin);
 // GET /verify/:JWT
 router.get("/verify/:token/:UID", userController.verifyToken);
 
+router.post("/password/restore", userController.sendChangePassEmail);
+router.post("/password/restore/:email", userController.restorePass);
+
 router.use("/cart", require("./cart"));
 
 module.exports = router;

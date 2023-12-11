@@ -64,6 +64,20 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'password/restorePass/:email',
+    loadChildren: () =>
+      import('./pages/restore-pass/restore-pass.module').then(
+        (m) => m.RestorePassModule
+      ),
+  },
+  {
+    path: 'password/enterEmail',
+    loadChildren: () =>
+      import('./pages/enter-email/enter-email.module').then(
+        (m) => m.EnterEmailModule
+      ),
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./pages/not-found/not-found.module').then(
