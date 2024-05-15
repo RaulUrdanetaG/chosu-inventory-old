@@ -14,7 +14,7 @@ endpoints
 "/addItem" requires a body with name, an array of image links, price, bought at price, an array of tags, owner, location and a description.
 
 - ## DELETE
-"/:itemdId" deletes the item with itemID from db.
+"/:itemID" deletes the item with itemID from db.
 
 # /images
 - ## POST
