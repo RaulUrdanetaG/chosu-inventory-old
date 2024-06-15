@@ -43,3 +43,5 @@
 - Used .env to store sensible info about the app like google cloud JSON, mongoDB URI or JWT secret token.
 - Set up cors to make the API available for everyone using api endpoint link.
 - Deployment of backend app in render.com with env variables.
+
+This repository will be Deprecated.
